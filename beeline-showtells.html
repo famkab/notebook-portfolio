@@ -60,7 +60,8 @@ h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.2vw,26px);mar
 /* ===== 2 curve ===== */
 .curve-wrap{display:grid;gap:14px}
 .curve-controls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center}
-.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pencil);align-items:center}
+#curve{width:100%;height:auto;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--pencil);align-items:center;margin-top:10px}
 .legend svg{vertical-align:middle;margin-right:6px}
 .chart{overflow-x:auto}
 .chart svg{display:block;width:100%;min-width:760px;height:auto}
@@ -212,9 +213,9 @@ h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.2vw,26px);mar
         <button type="button" data-v="mvp" aria-pressed="true">What happened · MVP, July 2026</button>
         <button type="button" data-v="tobe" aria-pressed="false">What we designed for · Phase 3</button>
       </span>
-      <div class="legend" id="legend"></div>
     </div>
     <div class="panel chart"><svg id="curve" viewBox="0 0 1000 360" role="img" aria-labelledby="curveTitle"><title id="curveTitle">Experience curve across five phases of a Beeline Discovery session</title></svg></div>
+    <div class="legend" id="legend"></div>
     <div class="note panel" id="note" aria-live="polite"></div>
   </div>
 

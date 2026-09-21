@@ -10,7 +10,8 @@ const PAGES=[
   {g:"Before · learning products", href:"learning-meter.html", n:"p. 11–16", t:"AI-powered Learning Meter"},
   {g:"",       href:"jump-math.html",      n:"p. 17–22", t:"JUMP Math Lab"},
   {g:"Sample", href:"co-lab.html",      n:"p. 23",    t:"CO/LAB"},
-  {g:"How I work", href:"how-i-work.html", n:"p. 24",    t:"How I work"}
+  {g:"Also", href:"mbacc-summit.html", n:"p. 24",    t:"MBacc Summit"},
+  {g:"How I work", href:"how-i-work.html", n:"p. 25",    t:"How I work"}
 ];
 const here=(location.pathname.split("/").pop()||"index.html");
 const group=h=>h.startsWith("beeline")?"beeline":h;
@@ -22,9 +23,9 @@ const store={
 };
 function applySettings(){
   const r=document.documentElement;
-  r.dataset.paper=store.get("paper","dots");
+  r.dataset.paper=store.get("paper","blank");
   r.dataset.ink=store.get("ink","colour");
-  const th=store.get("theme","auto");
+  const th=store.get("theme","light");
   if(th==="auto") r.removeAttribute("data-theme"); else r.dataset.theme=th;
   r.dataset.rail=store.get("rail","open");
 }
@@ -44,7 +45,7 @@ function pageList(withTitle){
   return out;
 }
 function settingsPop(){
-  const paper=store.get("paper","dots"), ink=store.get("ink","colour"), th=store.get("theme","auto");
+  const paper=store.get("paper","blank"), ink=store.get("ink","colour"), th=store.get("theme","light");
   const opt=(group,val,cur,label)=>`<button type="button" data-set="${group}" data-val="${val}" aria-pressed="${cur===val}">${label}</button>`;
   return `<div class="pop" id="setPop" role="dialog" aria-label="Reading settings">
     <div><h4>Paper</h4><div class="opts">
@@ -170,6 +171,25 @@ const GLOSSARY={
  "design assurance":"Collecting feedback from partners and young people in one log, so each point leads to a fix, a research question or a decision.",
  "Show & Tell":"A working session where work in progress is shown with its evidence, and decisions and trade-offs are agreed in the open.",
  "Programme Board":"The group that governs the MBacc programme. It receives a quarterly report.",
+ "DfE":"The Department for Education, the UK government department responsible for schools, colleges and skills in England.",
+ "DWP":"The Department for Work and Pensions, the UK government department responsible for welfare, jobcentres and employment support.",
+ "National Careers Service":"The government-funded careers advice service for adults and young people aged 13 and over in England.",
+ "NEET":"Not in education, employment or training. The UK term for a young person who has left school and has none of the three.",
+ "EHCP":"An Education, Health and Care Plan: a legal document setting out the support a child or young person with special educational needs must receive.",
+ "key stage":"The blocks England divides schooling into. Key Stage 3 is roughly ages 11–14, Key Stage 4 is 14–16 and leads to GCSEs, and Key Stage 5 is 16–18.",
+ "T Level":"A two-year technical qualification in England for 16 to 19 year olds, equivalent to three A Levels, with an industry placement built in.",
+ "EBacc":"The English Baccalaureate, a set of GCSE subjects the government encourages schools to enter pupils for. It is a measure of the school, not a qualification.",
+ "UCAS":"The Universities and Colleges Admissions Service, the single system through which people apply to UK universities.",
+ "PRU":"A Pupil Referral Unit: a school for children who cannot attend a mainstream school, often after exclusion or for health reasons.",
+ "alternative provision":"Education arranged for pupils who cannot attend a mainstream school, including pupil referral units and specialist providers.",
+ "Connexions":"The careers and support service for young people run by many local authorities, and the name still used for it in parts of Greater Manchester.",
+ "Skills Builder":"A framework that breaks eight essential skills, such as listening and problem solving, into numbered steps so progress can be described.",
+ "statutory":"Required by law. A statutory duty is one a school or authority must carry out, rather than one it chooses to.",
+ "destination":"Where a young person goes after finishing a key stage: a course, an apprenticeship, a job, or none of them. Schools report it.",
+ "apprenticeship":"A paid job with training built in, leading to a recognised qualification. An alternative to full-time study after 16 or 18.",
+ "careers lead":"The person in a school or college responsible for the careers programme. Every English secondary school must have one.",
+ "Local Skills Improvement Plan":"An employer-led plan setting out the skills a local area needs, which colleges and training providers are expected to respond to.",
+ "GM Skills Plan":"Greater Manchester\u2019s strategy for skills and employment across the ten boroughs.",
  "Lundy model":"A model for children and young people’s participation, built on four parts: space, voice, audience and influence.",
  "GMYCA":"The Greater Manchester Youth Combined Authority, the region’s elected youth assembly. Its members are the Beeline co-design group for 2026-27.",
  "micro-action":"A short activity a co-design member runs with their own youth group between sessions, bringing the answers back to the next one.",
@@ -200,6 +220,35 @@ function showTerm(btn){
   const below=r.bottom+window.scrollY+8, h=termPop.offsetHeight;
   termPop.style.top=(r.bottom+h+16>window.innerHeight ? r.top+window.scrollY-h-8 : below)+"px";
   btn.setAttribute("aria-expanded","true"); termBtn=btn;
+}
+
+/* ---------- auto-link jargon: first plain occurrence of each glossary term ---------- */
+function autoTerms(){
+  const seen=new Set();
+  document.querySelectorAll(".term[data-term]").forEach(b=>seen.add(b.dataset.term.toLowerCase()));
+  const keys=Object.keys(GLOSSARY).sort((a,b)=>b.length-a.length);
+  const main=document.querySelector("main"); if(!main) return;
+  const hosts=[...main.querySelectorAll("p,li,dd")].filter(el=>
+    !el.closest(".term,.termpop,figcaption,.mono,h1,h2,h3,h4,a,button"));
+  keys.forEach(k=>{
+    if(seen.has(k.toLowerCase())) return;
+    const esc=k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+    const re=new RegExp("(?<![\\w-])("+esc+")(?![\\w-])", k===k.toLowerCase()?"i":"");
+    for(const el of hosts){
+      if(seen.has(k.toLowerCase())) break;
+      for(const node of [...el.childNodes]){
+        if(node.nodeType!==3) continue;
+        const m=node.nodeValue.match(re); if(!m) continue;
+        const i=node.nodeValue.indexOf(m[1]);
+        const after=node.splitText(i); after.nodeValue=after.nodeValue.slice(m[1].length);
+        const btn=document.createElement("button");
+        btn.className="term"; btn.type="button"; btn.dataset.term=k; btn.textContent=m[1];
+        after.parentNode.insertBefore(btn,after);
+        seen.add(k.toLowerCase()); break;
+      }
+    }
+  });
+  initTerms();
 }
 function initTerms(root){
   (root||document).querySelectorAll(".term").forEach(b=>{
@@ -250,7 +299,7 @@ const LIFE={
  beeline:{foot:"All six stages, from mapping the system to the metrics the board reads.",items:[
   ["Landscape map of GM careers education","Problem model"],
   ["Unplugged offline toolkit","Discovery quiz and game"],
-  ["Six regional events","Launch &amp; Learn across ten boroughs"],
+  ["Testing in schools, colleges and youth settings","Launch &amp; Learn across ten boroughs"],
   ["Design assurance rounds with young people","Show &amp; Tells"],
   ["Roadmap and feature map","Developer and supplier handoff"],
   ["Learning Moments and next-step rate","A metrics framework that checks itself"]]},
@@ -307,7 +356,8 @@ function initFigs(){
 }
 
 /* ---------- go ---------- */
-function ready(){ initTerms(); initTabs(); initLife(); initFigs(); initTerms(); }
+function ready(){ initTerms(); initTabs(); initLife(); initFigs(); initTerms();
+  setTimeout(autoTerms,0); }
 if(document.readyState!=="loading") ready(); else document.addEventListener("DOMContentLoaded",ready);
-window.FA={initTerms,GLOSSARY};
+window.FA={initTerms,autoTerms,GLOSSARY};
 })();

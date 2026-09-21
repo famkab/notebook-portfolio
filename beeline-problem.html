@@ -60,44 +60,46 @@ section{display:grid;gap:18px}
 .rules p{margin:0;font-size:14.5px;color:var(--pencil)}
 
 /* 2. follow one fear */
-.picker{display:flex;flex-wrap:wrap;gap:8px}
-.fear{border:1px solid var(--rule-strong);background:var(--paper);border-radius:999px;padding:7px 14px;cursor:pointer;font-family:var(--serif);font-size:16px}
-.fear small{font-family:var(--mono);font-size:10.5px;color:var(--pencil);margin-right:6px}
-.fear:hover{border-color:var(--red)}
-.fear[aria-pressed="true"]{background:var(--red-w);border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
-.trace{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px;align-items:start}
-.card{background:var(--paper);border:1px solid var(--rule-strong);border-top:4px solid var(--k);border-radius:4px;padding:14px 16px 16px;display:grid;gap:10px;align-content:start;position:relative}
-.card .mono{color:var(--k)}
-.card+.card::before{content:"→";position:absolute;left:-22px;top:18px;font-family:var(--hand);font-size:28px;color:var(--pencil);line-height:1}
-.quote{font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.2;margin:0}
-.who{display:grid;gap:6px}
-.who div{background:var(--paper-2);border-radius:4px;padding:8px 10px}
-.who b{font-family:var(--serif);font-size:18px;font-weight:600;display:block}
-.who span{font-size:13.5px;color:var(--pencil)}
-.hmw{font-family:var(--serif);font-size:17px;line-height:1.35;margin:0;padding-left:10px;border-left:2px solid var(--green)}
-.hmw small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--pencil);margin-bottom:2px}
-.ican{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:14.5px}
-.ican li{display:grid;grid-template-columns:30px 1fr;gap:6px}
-.ican span{font-family:var(--mono);font-size:11.5px;color:var(--hi-ink);padding-top:2px}
-.story{font-family:var(--serif);font-size:18px;line-height:1.55;margin:0;max-width:78ch;background:var(--paper);border-left:3px solid var(--hi-solid);padding:10px 16px}
+.flay{display:grid;gap:0;border:1px solid var(--rule-strong);border-radius:6px;background:var(--paper);overflow:hidden}
+.flay-band{display:grid;grid-template-columns:168px minmax(0,1fr);gap:20px;padding:18px 20px;align-items:start;
+  border-left:5px solid var(--k,var(--rule-strong))}
+.lay+.flay-band{border-top:1px dashed var(--rule-strong)}
+.flay-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--k);padding-top:5px}
+.flay-k small{display:block;font-family:var(--body);font-size:11.5px;letter-spacing:0;text-transform:none;color:var(--pencil);margin-top:3px;line-height:1.35}
+.flay-row{display:flex;flex-wrap:wrap;gap:8px}
+.it{border:1px solid var(--rule-strong);background:var(--paper);border-radius:4px;padding:8px 12px;font-size:14px;
+  line-height:1.35;transition:opacity .18s,border-color .18s,background .18s}
+.it.dim{opacity:.26}
+.it.on{border-color:var(--k);background:var(--w)}
+button.it{cursor:pointer;font-family:var(--serif);font-size:16px;border-radius:999px;padding:7px 14px}
+button.it:hover{border-color:var(--k)}
+.it .id{font-family:var(--mono);font-size:10.5px;color:var(--pencil);margin-right:6px}
+.it b{font-family:var(--serif);font-size:16px;font-weight:600;display:block}
+.it .sub{font-size:12.5px;color:var(--pencil)}
+.outs24{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:8px}
+.outs24 .it{display:grid;grid-template-columns:26px minmax(0,1fr);gap:6px;align-items:start;font-size:13px;padding:9px 11px}
+.outs24 .id{margin:0;padding-top:1px}
+.story{font-family:var(--serif);font-size:18px;line-height:1.55;margin:0;max-width:78ch;background:var(--paper);border-left:3px solid var(--hi-solid);padding:12px 18px}
+@media (max-width:760px){ .flay-band{grid-template-columns:1fr;gap:10px} .flay-k{padding-top:0} }
 
 /* 3. matrix */
 .matrix-wrap{overflow-x:auto;background:var(--paper);border:1px solid var(--rule-strong);border-radius:6px}
-table.mx{border-collapse:collapse;width:100%;min-width:880px;font-size:13px}
+table.mx{border-collapse:collapse;width:100%;min-width:980px;font-size:13px}
 .mx th,.mx td{padding:0;text-align:center;border-bottom:1px solid var(--rule)}
-.mx thead th{font-family:var(--mono);font-size:10.5px;color:var(--pencil);font-weight:400;padding:10px 0 8px;border-bottom:1px solid var(--rule-strong)}
-.mx thead th.grp{font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding-bottom:0;border-bottom:0}
+.mx tbody td,.mx tbody th{height:52px}
+.mx thead th{font-family:var(--mono);font-size:10.5px;color:var(--pencil);font-weight:400;padding:12px 4px 10px;border-bottom:1px solid var(--rule-strong)}
+.mx thead th.grp{font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:10px 4px 2px;border-bottom:0}
 .mx th.row{text-align:left;padding:0}
-.mx th.row button{all:unset;cursor:pointer;display:block;padding:10px 12px;font-family:var(--serif);font-size:15.5px;font-weight:400;white-space:nowrap;width:100%;box-sizing:border-box}
+.mx th.row button{all:unset;cursor:pointer;display:block;padding:12px 16px;font-family:var(--serif);font-size:15.5px;font-weight:400;white-space:nowrap;width:100%;box-sizing:border-box}
 .mx th.row button small{font-family:var(--mono);font-size:10.5px;color:var(--pencil);margin-right:6px}
 .mx th.row button.mx tr.on th.row button{background:var(--red-w);box-shadow:inset 3px 0 0 var(--red)}
-.mx td.p,.mx td.c{font-family:var(--mono);font-size:11px;white-space:nowrap;padding:0 8px;color:var(--pencil);text-align:left}
+.mx td.p,.mx td.c{font-family:var(--mono);font-size:11px;white-space:nowrap;padding:0 14px;color:var(--pencil);text-align:left;line-height:1.5}
 .mx td.c{color:var(--green)}
-.mx td.o{width:26px;position:relative}
+.mx td.o{width:30px;position:relative;padding:0 2px}
 .dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--hi-solid);border:1.5px solid var(--hi-ink)}
 .mx td.gapcol{background:repeating-linear-gradient(135deg,transparent 0 5px,var(--red-w) 5px 8px)}
 .mx thead th.gaph{color:var(--red);font-weight:500}
-.mx tfoot td{font-family:var(--mono);font-size:10.5px;color:var(--pencil);padding:8px 0;border-bottom:0}
+.mx tfoot td{font-family:var(--mono);font-size:10.5px;color:var(--pencil);padding:12px 2px;border-bottom:0}
 .mx .sep{border-left:1px solid var(--rule-strong)}
 .readout{min-height:1.6em;font-size:14.5px}
 .readout b{font-family:var(--mono);color:var(--hi-ink);font-weight:500;margin-right:6px}
@@ -160,10 +162,14 @@ table.mx{border-collapse:collapse;width:100%;min-width:880px;font-size:13px}
 
   <!-- 2. follow one fear -->
   <section aria-labelledby="follow-h">
-    <div class="sec-h"><h2 id="follow-h">Follow one fear</h2><span class="hand">pick one, read it left to right</span></div>
-    <div class="picker" id="picker" role="group" aria-label="Choose a barrier"></div>
-    <div class="trace" id="trace" aria-live="polite"></div>
-    <p class="story" id="story"></p>
+    <div class="sec-h"><h2 id="follow-h">Follow one fear</h2><span class="hand">tap a fear — the layers below dim to what it reaches</span></div>
+    <div class="flay">
+      <div class="flay-band k-bar"><span class="flay-k">The fear<small>in their words</small></span><div class="flay-row" id="Lbar" role="group" aria-label="Choose a barrier"></div></div>
+      <div class="flay-band k-per"><span class="flay-k">Carried by<small>who it lands on</small></span><div class="flay-row" id="Lper"></div></div>
+      <div class="flay-band k-chl"><span class="flay-k">How might we<small>the challenge it opens</small></span><div class="flay-row" id="Lchl"></div></div>
+      <div class="flay-band k-out"><span class="flay-k">Resolved when<small>what they can say</small></span><div class="flay-row outs24" id="Lout"></div></div>
+    </div>
+    <p class="story" id="story" aria-live="polite"></p>
   </section>
 
   <!-- 3. whole system -->
@@ -200,19 +206,21 @@ let sel=2;
 const cap=s=>s[0].toUpperCase()+s.slice(1);
 const list=a=>a.length<2?a[0]:a.slice(0,-1).join(", ")+" and "+a[a.length-1];
 
-function renderPicker(){
-  $("picker").innerHTML=BARRIERS.map(b=>`<button type="button" class="fear" aria-pressed="${b.id===sel}" data-id="${b.id}"><small>B${b.id}</small>“${b.q}”</button>`).join("");
-  $("picker").querySelectorAll(".fear").forEach(x=>x.onclick=()=>{sel=+x.dataset.id;render()});
-}
-function renderTrace(){
-  const b=BARRIERS.find(x=>x.id===sel), outs=[...b.o].sort((a,c)=>a-c);
-  $("trace").innerHTML=`
-   <div class="card k-bar"><span class="mono">The fear · B${b.id}</span><p class="quote">“${b.q}”</p></div>
-   <div class="card k-per"><span class="mono">Carried by</span><div class="who">${b.p.map(k=>`<div><b>${P[k][0]}</b><span>${P[k][1]}</span></div>`).join("")}</div></div>
-   <div class="card k-chl"><span class="mono">How might we</span>${b.c.map(n=>`<p class="hmw"><small>C${n}</small>${C[n]}?</p>`).join("")}</div>
-   <div class="card k-out"><span class="mono">Resolved when · ${outs.length} outcomes</span><ul class="ican">${outs.slice(0,4).map(n=>`<li><span>#${n}</span>${O[n]}</li>`).join("")}</ul>${outs.length>4?`<p class="more">and ${outs.length-4} more “I can…” outcomes behind this one fear.</p>`:""}</div>`;
-  const lead=b.lead||outs[0], names=b.p.map(k=>P[k][0]);
-  $("story").innerHTML=`Because a young person tells us “${b.q}”, and ${list(names)} carr${names.length>1?"y":"ies"} that fear, we ask how might we ${C[b.c[0]]}${b.c.length>1?` (and ${b.c.length-1} more)`:""}? It’s resolved when they can say “${O[lead]}”`;
+function layers(){
+  const b=sel?BARRIERS.find(x=>x.id===sel):null;
+  const dim=cond=>b&&!cond?" dim":"";
+  $("Lbar").innerHTML=BARRIERS.map(x=>
+    `<button type="button" class="it${x.id===sel?" on":""}" aria-pressed="${x.id===sel}" data-id="${x.id}"><span class="id">B${x.id}</span>\u201c${x.q}\u201d</button>`).join("");
+  $("Lbar").querySelectorAll("button").forEach(x=>x.onclick=()=>{sel=(sel===+x.dataset.id)?null:+x.dataset.id;render()});
+  $("Lper").innerHTML=Object.keys(P).map(k=>
+    `<div class="it${dim(b&&b.p.includes(k))}"><b>${P[k][0]}</b><span class="sub">${P[k][1]}</span></div>`).join("");
+  $("Lchl").innerHTML=Object.keys(C).map(n=>
+    `<div class="it${dim(b&&b.c.includes(+n))}"><span class="id">C${n}</span>${C[n]}?</div>`).join("");
+  $("Lout").innerHTML=Object.keys(O).map(n=>
+    `<div class="it${dim(b&&b.o.includes(+n))}"><span class="id">#${n}</span><span>${O[n]}</span></div>`).join("");
+  if(!b){ $("story").innerHTML="Six fears, five people who carry them, ten challenges and twenty-four outcomes. Tap a fear to see which parts of the model it reaches."; return; }
+  const lead=b.lead||[...b.o].sort((a,c)=>a-c)[0], names=b.p.map(k=>P[k][0]);
+  $("story").innerHTML=`Because a young person tells us \u201c${b.q}\u201d, and ${list(names)} carr${names.length>1?"y":"ies"} that fear, we ask how might we ${C[b.c[0]]}${b.c.length>1?` (and ${b.c.length-1} more)`:""}? It is resolved when they can say \u201c${O[lead]}\u201d`;
 }
 function renderMatrix(){
   const linked=n=>BARRIERS.some(b=>b.o.includes(n));
@@ -230,7 +238,7 @@ function renderMatrix(){
   const show=e=>{const d=e.target.closest(".dot");if(!d)return;const n=+d.dataset.o,shared=BARRIERS.filter(b=>b.o.includes(n)).map(b=>"B"+b.id);$("readout").innerHTML=`<b>#${n}</b>${O[n]} <span class="muted">· shared by ${shared.join(", ")}</span>`};
   $("mx").onmouseover=show;$("mx").onfocusin=show;
 }
-function render(){renderPicker();renderTrace();renderMatrix()}
+function render(){layers();renderMatrix()}
 render();
 $("readout").innerHTML=`<b>#6</b>${O[6]} <span class="muted">· no fear points here yet</span>`;
 </script>

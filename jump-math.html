@@ -42,7 +42,6 @@ h1,h2,h3,h4{font-family:var(--serif)!important;font-weight:600}
 }
 .wrap{max-width:1200px;margin-inline:auto;display:grid;gap:26px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;align-items:center}
-.hex{width:14px;height:16px;background:var(--honey);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);flex:none}
 h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.2vw,50px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
 h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,28px);letter-spacing:-.015em;margin:0;text-wrap:balance}
 .lede{max-width:70ch;color:var(--muted);margin:0;font-size:16px}
@@ -52,7 +51,10 @@ h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,28px);l
 .ctx{display:flex;flex-wrap:wrap;gap:6px}
 .ctx span{font-size:12.5px;border-radius:999px;padding:3px 10px;background:var(--sunk)}
 .ctx i{font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:6px}
-.note{display:flex;gap:10px;align-items:flex-start;background:var(--honey-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;max-width:82ch}
+.disclaimer{border-left:0;padding:16px 0 0;margin-top:34px;border-top:1px solid var(--rule);
+  font-size:13px;line-height:1.6;color:var(--pencil);max-width:78ch}
+.disclaimer b{font-weight:400;color:var(--ink)}
+.note{display:flex;gap:10px;align-items:flex-start;background:var(--paper-2);border-radius:10px;padding:12px 14px;font-size:13.5px;max-width:82ch}
 .note b{color:var(--honey-ink)}
 section{display:grid;gap:14px}
 
@@ -167,18 +169,19 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
 <div class="pagehead">
   <div class="mono">JUMP Math · p. 17–22</div>
   <h1>JUMP Math Lab</h1>
-  <p class="lede">Maths modules and a teacher dashboard built on xAPI data. I took the dashboard through three rounds, from counts of activity to something a teacher can act on before the next lesson.</p>
+  <p class="lede">JUMP Math Lab gave teachers a lot of data and very little to act on. I redesigned what the Lab
+    measures and how the teacher dashboard shows it, so a teacher can see who needs help, with what, before the next
+    lesson.</p>
+  <div class="rolestrip">
+    <span><b>My role</b>Wrote the proposal, designed the dashboards in Figma across three rounds, and specified the tracking data for developers</span>
+    <span><b>Team</b>Content leads and developers across Canada and Spain</span>
+    <span><b>When</b>2024–2025</span>
+    <span><b>Outcome</b>Shipped. Teacher feedback was widely positive and fed the next iteration</span>
+  </div>
   <div class="kicker"><span class="stamp-ctx stamp-sector"><i>Sector</i>Non-profit</span><span class="stamp-ctx stamp-scale"><i>Scale</i>International</span><span class="stamp-ctx stamp-audience"><i>Audience</i>K–8 teachers and their students</span><span class="stamp-ctx stamp-product"><i>Product</i>Teacher learning platform</span></div>
 </div>
 
 <div class="wrap">
-  <header>
-    
-    
-    <p class="lede">JUMP Math Lab gave teachers a lot of data and very little to act on. I redesigned what the Lab measures and how the teacher dashboard shows it, so a teacher can see who needs help, with what, before the next lesson.</p>
-  </header>
-  <div class="role"><span><b>My role:</b> wrote the proposal, designed the dashboards in Figma, and specified the tracking data for developers</span><span><b>When:</b> 2024–2025</span><span><b>Outcome:</b> shipped; teacher feedback was widely positive and fed the next iteration</span></div>
-  <div class="ctx" aria-label="Context"><span><i>Sector</i>Non-profit</span><span><i>Scale</i>International</span><span><i>Audience</i>K–8 teachers and their students</span><span><i>Product</i>Teacher learning platform</span></div>
 
   <div class="tabs" role="tablist" aria-label="Case study views">
     <button class="tab" role="tab" id="tab-60" aria-controls="v-60" aria-selected="true">60-second read</button>
@@ -197,7 +200,6 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
   </section>
 
   <section id="v-ex" role="tabpanel" aria-labelledby="tab-ex" hidden>
-    <p class="note" role="note"><span class="hex" aria-hidden="true" style="margin-top:3px"></span><span><b>About these screens.</b> They’re simplified recreations of my Figma mockups. Student names are invented and every figure is sample data, not real classroom results.</span></p>
 
     <section aria-labelledby="evo-h">
       <div><div class="label">Design iterations</div><h2 id="evo-h">How the teacher dashboard changed</h2></div>
@@ -260,9 +262,9 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
         <div><b>A reusable Storyline template system</b><p>Standardised UI patterns, accessibility features and xAPI tracking across courses, so modules could be compared cleanly. Deployed across Europe and Latin America.</p></div>
       </div>
     </section>
+  <p class="disclaimer"><b>About these screens.</b> They are simplified recreations of my Figma mockups, rebuilt here in
+    the browser. Student names are invented and every figure is sample data, not real classroom results.</p>
   </section>
-
-  <p class="disclaimer">Recreated from my JUMP Math Lab proposal and Figma mockups. Student names and figures are sample data.</p>
 
 </div>
 <section style="margin-top:40px;display:grid;gap:14px">

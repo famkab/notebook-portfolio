@@ -30,6 +30,15 @@
 .stack>section{display:grid;gap:14px}
 .stack h2{font-size:clamp(22px,2.4vw,28px)}
 .sec-lede{margin:0;max-width:74ch;color:var(--pencil);font-size:15.5px}
+.build{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:40px;counter-reset:b}
+.build>li{display:grid;gap:12px;counter-increment:b;position:relative;padding-left:52px}
+.build>li::before{content:counter(b,decimal-leading-zero);position:absolute;left:0;top:2px;
+  font-family:var(--mono);font-size:12px;color:var(--pencil);border:1px solid var(--rule-strong);
+  border-radius:999px;width:34px;height:34px;display:grid;place-items:center}
+.build h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:0;line-height:1.25}
+.build p{margin:0;max-width:74ch;font-size:15.5px}
+.build figure.fig{margin-top:4px}
+@media (max-width:640px){ .build>li{padding-left:0} .build>li::before{position:static;margin-bottom:2px} }
 @media (max-width:820px){ .sixty-grid,.spreads{grid-template-columns:1fr} }
 </style>
 
@@ -38,7 +47,12 @@
 <div class="pagehead">
   <div class="mono">Greater Manchester Combined Authority · p. 2</div>
   <h1>Beeline</h1>
-  <p class="lede">A careers service for young people up to 25 across Greater Manchester, online and offline. I lead the product and service design: the system map, the experiences, the evidence loop and the metrics.</p>
+  <p class="lede">A careers service for young people up to 25 across Greater Manchester, online and offline. It began as a set of careers pages, and the work has been turning that into a service with a problem model, an evidence loop and a measurement plan underneath it.</p>
+  <div class="rolestrip">
+    <span><b>My role</b>Product and service design lead: the system map, the problem model, the experiences, the design assurance loop, the metrics framework and the roadmap</span>
+    <span><b>Team</b>A programme team and a digital team, a user researcher, a creative agency, and GMCA governance</span>
+    <span><b>When</b>2026 – present</span>
+  </div>
   <div class="kicker"><span class="stamp-ctx stamp-sector"><i>Sector</i>Public</span><span class="stamp-ctx stamp-scale"><i>Scale</i>Regional · 10 boroughs</span><span class="stamp-ctx stamp-audience"><i>Audience</i>Young people up to 25</span><span class="stamp-ctx stamp-product"><i>Product</i>Public service, online and offline</span></div>
 </div>
 <nav class="subnav" aria-label="Beeline spreads">
@@ -52,38 +66,109 @@
 <div class="stack">
 <section>
   <h2>The short version</h2>
-  <p class="sec-lede">Four things, before the detail: what was wrong, what I do about it, where it runs and how we know whether it works.</p>
+  <p class="sec-lede">Four things, before the detail: what was wrong, what changed around it, where it runs and how we know whether it works.</p>
   <div class="sixty-grid">
   <div><span class="lbl">The problem</span>
     <p>Greater Manchester rebuilt its careers offer around the <button class="term" data-term="MBacc">MBacc</button>
     and its seven <button class="term" data-term="gateways">gateways</button>. Young people were being asked to navigate
     that system with no clear line between what they enjoy, the subjects they pick, the pathways open to them and a real
     next step. The people who need it most are the least likely to be reached by a website alone.</p></div>
-  <div><span class="lbl">What I do</span>
-    <p>I lead the product and service design. I mapped the whole careers landscape into a problem model, designed the
-    Discovery quiz online and <button class="term" data-term="Beeline Unplugged">Beeline Unplugged</button> offline,
-    took both through co-design and testing with young people, and run the evidence loop that decides what gets built:
-    <button class="term" data-term="design assurance">design assurance</button> with partners, user research with our
-    researcher, <button class="term" data-term="Show &amp; Tell">Show &amp; Tells</button> for the trade-offs, then the
-    roadmap and developer handoff.</p></div>
+  <div><span class="lbl">The ground moving under it</span>
+    <p>When I started, the MBacc was a Greater Manchester framework and nothing more, so winning buy-in was part of the
+    job: every decision had to be argued for rather than assumed. In July it became national policy. The question
+    changed from whether this approach was worth backing to how a region that has already built it leads on it.</p></div>
   <div><span class="lbl">Where it runs</span>
-    <p>Ten boroughs, six regional events, schools, colleges, youth organisations and community settings, plus a printed
-    toolkit for groups with low digital access or additional needs. The audience is young people up to 25, and the
-    adults around them.</p></div>
+    <p>Ten boroughs: schools, colleges, youth organisations and community settings, plus a printed toolkit for groups
+    with low digital access or additional needs. The audience is young people up to 25, and the adults around them.</p></div>
   <div><span class="lbl">How we know</span>
     <p>A metrics framework that measures progress rather than page views: five
     <button class="term" data-term="Learning Moments">Learning Moments</button> and a
     <button class="term" data-term="Meaningful Next Step Rate">meaningful next step rate</button>. Every feature names
-    the metric it should move, and the gaps become asks with an owner. It reports quarterly to the
+    the metric it should move, and the gaps become asks with an owner. It reports to the
     <button class="term" data-term="Programme Board">Programme Board</button>.</p></div>
   </div>
-<figure class="fig"><button type="button" aria-label="Enlarge: Service landscape of careers education in Greater Manchester: the diagnostic map of actors, provision and the ten localities."><img src="./service-landscape.png" alt="A diagnostic service map showing the actors, careers provision and ten localities across Greater Manchester." loading="lazy"></button><figcaption>Service landscape of careers education in Greater Manchester: the diagnostic map of actors, provision and the ten localities.</figcaption></figure>
 </section>
 
 <section>
-  <h2>What I made, and what changed</h2>
-  <p class="sec-lede">The maps below are the working artefacts, not tidy-ups made afterwards. Click any of them to read it full size.</p>
-<figure class="fig"><button type="button" aria-label="Enlarge: MVP experience map for Beeline Discovery, drawn from sessions with young people."><img src="./mvp-experience-map.png" alt="An experience map of the Beeline Discovery minimum viable product, showing the young person’s journey and service touchpoints." loading="lazy"></button><figcaption>MVP experience map for Beeline Discovery, drawn from sessions with young people.</figcaption></figure><figure class="fig"><button type="button" aria-label="Enlarge: The “to-be” experience map for Phase 3: what the same journey should feel like once the decisions land."><img src="./experience-map-to-be.png" alt="A future-state experience map for Beeline Phase 3, showing the intended journey and supporting service interactions." loading="lazy"></button><figcaption>The “to-be” experience map for Phase 3: what the same journey should feel like once the decisions land.</figcaption></figure><figure class="fig"><button type="button" aria-label="Enlarge: Five-phase roadmap, 2026–2030, aligned to MBacc years with separate Learn and Build windows."><img src="./roadmap.png" alt="A five-phase delivery roadmap from 2026 to 2030, aligned to MBacc years and marking separate Learn and Build windows." loading="lazy"></button><figcaption>Five-phase roadmap, 2026–2030, aligned to MBacc years with separate Learn and Build windows.</figcaption></figure><figure class="fig"><button type="button" aria-label="Enlarge: How the metrics fit together: five Learning Moments and the meaningful next step rate."><img src="./metrics-model.png" alt="A model connecting Beeline’s five Learning Moments with the Meaningful Next Step Rate used for evaluation." loading="lazy"></button><figcaption>How the metrics fit together: five Learning Moments and the meaningful next step rate.</figcaption></figure>
+  <h2>Building it from the foundations up</h2>
+  <p class="sec-lede">Beeline existed before I arrived, as a set of careers pages: an information repository, PDFs by
+    another name. Turning it into a service meant starting underneath it. This is the order the work went in, and the
+    artefacts each stage produced. Click any of them to read it full size.</p>
+
+  <ol class="build">
+    <li>
+      <h3>Understanding the system before designing inside it</h3>
+      <p>Careers education in Greater Manchester is delivered by many actors with different duties, budgets and reach,
+        and it varies by borough. I mapped the whole landscape first: who provides what, at which key stage, and where
+        the gaps sit. It is the map the rest of the work argues against, and it is what makes a design decision
+        defensible in a room of people who each see one part of the system.</p>
+      <figure class="fig"><button type="button" aria-label="Enlarge: Service landscape of careers education in Greater Manchester: the actors, the provision and the ten localities."><img src="./service-landscape.png" alt="A diagnostic service map showing the actors, careers provision and ten localities across Greater Manchester." loading="lazy"></button><figcaption>Service landscape of careers education in Greater Manchester: the actors, the provision and the ten localities.</figcaption></figure>
+    </li>
+
+    <li>
+      <h3>A problem model in four layers</h3>
+      <p>Rather than a feature list, the work is held against a model with four deliberate layers: the barrier or fear
+        in a young person’s own voice, a persona who carries it, a challenge statement that opens it up, and an
+        “I can…” statement that describes it resolved. Every phase has to name which barrier it moves, and every
+        proposal has to trace to a challenge statement and be described as resolved through an “I can…” statement.
+        It is what stops a good idea entering the roadmap without a need underneath it.</p>
+      <p class="sec-lede">The six barriers, the personas who carry them and what resolved sounds like are on the
+        <a href="beeline-problem.html">Problem Model</a> spread.</p>
+    </li>
+
+    <li>
+      <h3>Working to a fixed political date</h3>
+      <p>The programme had a public reveal in July and an environment that moved faster than a delivery plan usually
+        allows. Working to that meant deciding early what had to be right for the reveal and what could be learned
+        afterwards, and holding the line on the difference. It also meant challenging some conventional thinking about
+        what a careers service is for, because the honest answer to what young people needed was not always the thing
+        that was easiest to show.</p>
+    </li>
+
+    <li>
+      <h3>A design assurance loop, before anything was built</h3>
+      <p>Partner feedback, user research and youth voice all land in one log, and each item becomes a fix, a research
+        question or a decision with a trade-off recorded against it. Decisions are argued in the open at
+        <button class="term" data-term="Show &amp; Tell">Show &amp; Tells</button> rather than settled privately, so the
+        reasoning survives the people who made it.</p>
+      <p class="sec-lede">Four trails from a fear to a shipped decision are on
+        <a href="beeline-evidence.html">Decisions &amp; Metrics</a>.</p>
+    </li>
+
+    <li>
+      <h3>A measurement model that can say whether it worked</h3>
+      <p>Programme metrics answer whether the service is reaching people. Product metrics answer whether it is working
+        once they arrive. Five Learning Moments carry the change story between them, and each metric holds a maturity
+        position: named, defined, baselined, trended. A metric that is only named is shown as only named, so the board
+        reads a measurement plan rather than a scorecard that flatters itself.</p>
+      <figure class="fig"><button type="button" aria-label="Enlarge: How the Beeline metrics sit together: programme reach, the product headline, and the five Learning Moments that roll up into it."><img src="./metrics-model-v2.png" alt="A model showing programme metrics, product headline metrics and five Learning Moments, each with a four-step maturity indicator." loading="lazy"></button><figcaption>How the Beeline metrics sit together: programme reach, the product headline, and the five Learning Moments that roll up into it.</figcaption></figure>
+    </li>
+
+    <li>
+      <h3>A roadmap with Learn windows as well as Build windows</h3>
+      <p>Five phases to 2030, aligned to the MBacc years, with learning windows written into the plan rather than
+        squeezed between releases. A phase that only builds cannot tell you whether the last thing worked, and a
+        service for young people that never checks becomes an information repository again.</p>
+      <figure class="fig"><button type="button" aria-label="Enlarge: Five-phase roadmap, 2026–2030, aligned to MBacc years, with separate Learn and Build windows."><img src="./roadmap.png" alt="A five-phase delivery roadmap from 2026 to 2030, aligned to MBacc years and marking separate Learn and Build windows." loading="lazy"></button><figcaption>Five-phase roadmap, 2026–2030, aligned to MBacc years, with separate Learn and Build windows.</figcaption></figure>
+    </li>
+
+    <li>
+      <h3>First versions, in testing</h3>
+      <p>The Discovery quiz online and <button class="term" data-term="Beeline Unplugged">Beeline Unplugged</button>
+        offline are v1s in use and under test, not finished products. The blueprint below is how they hold together:
+        what a young person does, which touchpoint carries it, what it is supposed to feel like, who supports them, and
+        which Learning Moment each phase is meant to move.</p>
+      
+    </li>
+
+    <li>
+      <h3>As-is and to-be, so it can be argued about</h3>
+      <p>The same journey drawn twice: how it runs now, and how it should run once the decisions land. Two maps side by
+        side make a trade-off discussable by people who were not in the research, which is most of the people who decide
+        whether it gets built.</p>
+      <figure class="fig"><button type="button" aria-label="Enlarge: As-is: the MVP experience map for Beeline Discovery, drawn from sessions with young people."><img src="./mvp-experience-map.png" alt="An experience map of the Beeline Discovery minimum viable product, showing the young person’s journey and service touchpoints." loading="lazy"></button><figcaption>As-is: the MVP experience map for Beeline Discovery, drawn from sessions with young people.</figcaption></figure><figure class="fig"><button type="button" aria-label="Enlarge: To-be: the same journey in Phase 3, once the decisions land."><img src="./experience-map-to-be.png" alt="A future-state experience map for Beeline Phase 3, showing the intended journey and supporting service interactions." loading="lazy"></button><figcaption>To-be: the same journey in Phase 3, once the decisions land.</figcaption></figure>
+    </li>
+  </ol>
 </section>
 
 <section>
@@ -97,7 +182,7 @@
   </div>
 </section>
 
-<section>
+<section style="margin-top:6px">
   <h2>Where I worked across the lifecycle</h2>
   <p class="sec-lede">Not a hand-off at the end of discovery: I stayed with this from mapping the system through to the metrics the board reads.</p>
   <div data-life="beeline" class="life-wrap"></div>

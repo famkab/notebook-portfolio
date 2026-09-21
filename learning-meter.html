@@ -45,13 +45,10 @@ h1,h2,h3,h4{font-family:var(--serif)!important;font-weight:600}
 }
 .wrap{max-width:1200px;margin-inline:auto;display:grid;gap:28px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;align-items:center}
-.hex{width:14px;height:16px;background:var(--honey);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);flex:none}
 h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.2vw,50px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
 h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,28px);letter-spacing:-.015em;margin:0;text-wrap:balance}
 .lede{max-width:68ch;color:var(--muted);margin:0;font-size:16px}
 .label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.note{display:flex;gap:10px;align-items:flex-start;background:var(--honey-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;max-width:82ch}
-.note b{color:var(--honey-ink)}
 .approx{border-bottom:1.5px dotted currentColor;cursor:help;white-space:nowrap}
 .role{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--muted)}
 .role b{color:var(--ink)}
@@ -116,10 +113,10 @@ h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,28px);l
 .stat .v{font-family:var(--mono);font-size:12.5px;text-align:right}
 .stat p{margin:0;font-size:13px;color:var(--muted)}
 .good i{background:var(--b100)} .bad i{background:var(--b0)} .old i{background:var(--muted)}
-.ops{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.ops{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
 .op{border-radius:12px;background:var(--sunk);padding:12px 14px;display:grid;gap:2px}
 .op b{font-family:var(--display);font-size:22px;font-weight:800;letter-spacing:-.01em}
-.op span{font-size:13px;color:var(--muted)}
+.op>span{font-size:13px;color:var(--muted)}
 .trade{border-left:4px solid var(--b60);background:var(--surface);border-radius:0 12px 12px 0;padding:12px 16px;font-size:14.5px;max-width:84ch}
 
 .decisions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
@@ -127,6 +124,9 @@ h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,28px);l
 .dec b{font-family:var(--display);font-size:17px;line-height:1.25}
 .dec p{margin:0;font-size:14px;color:var(--muted)}
 .shows{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.disclaimer{border-left:0;padding:16px 0 0;margin-top:34px;border-top:1px solid var(--rule);
+  font-size:13px;line-height:1.6;color:var(--pencil);max-width:78ch}
+.disclaimer b{font-weight:400;color:var(--ink)}
 .chip{display:inline-flex;border-radius:999px;padding:3px 10px;font-size:13px;background:var(--honey-soft)}
 footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;border-top:1.5px solid var(--line);padding-top:16px}
 section{display:grid;gap:14px}
@@ -139,6 +139,12 @@ section{display:grid;gap:14px}
 @media (max-width:520px){ .bands,.ops{grid-template-columns:1fr} .act-top{grid-template-columns:1fr} }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 .sec-lede{margin:0;max-width:74ch;color:var(--pencil);font-size:15.5px}
+.wrap{gap:44px}
+.wrap>section{display:grid;gap:18px}
+.wrap>section>div:first-child{display:grid;gap:8px}
+.wrap>section>div:first-child .lede{margin-top:2px}
+.ops{margin-top:4px}
+.demo{margin-top:2px}
 </style>
 
 <div class="layout">
@@ -146,22 +152,22 @@ section{display:grid;gap:14px}
 <div class="pagehead">
   <div class="mono">Kids&amp;Us · p. 11–16</div>
   <h1>AI-powered Learning Meter</h1>
-  <p class="lede">Speaking and writing activities for children learning English, marked by AI against a teacher’s rubric. I owned it end to end: the rubric, the prompts, the evaluation set and the accuracy bar it had to clear.</p>
+  <p class="lede">Speaking and writing activities for children learning English, marked by AI against a teacher’s rubric. A wrong “well done” teaches the wrong thing, so the work was mostly about trust: rubrics, anchor answers, a test set, and an evaluation loop run before anything went live.</p>
+  <div class="rolestrip">
+    <span><b>My role</b>Owned it end to end: rubric, anchor answers, prompt structure, feedback tone, test set and evaluation loop</span>
+    <span><b>Team</b>Matrix-managed the engineers and an external AI partner</span>
+    <span><b>When</b>2023–2024</span>
+  </div>
   <div class="kicker"><span class="stamp-ctx stamp-sector"><i>Sector</i>Private</span><span class="stamp-ctx stamp-scale"><i>Scale</i>International · 700 schools, 13 countries</span><span class="stamp-ctx stamp-audience"><i>Audience</i>Children around 8 learning English</span><span class="stamp-ctx stamp-product"><i>Product</i>Consumer learning app</span></div>
 </div>
 
 <div class="wrap">
-  <header>
-    
-    
-    <p class="lede">The Learning Meter scored open-ended spoken and written English from 8-year-olds and answered with ten words of feedback they could act on. A wrong “well done” teaches the wrong thing, so the work was mostly about trust: rubrics, anchor answers, a test set, and an evaluation loop run before anything went live.</p>
-  </header>
-  <div class="role"><span><b>My role:</b> owned it end to end: rubric, anchor answers, prompt structure, feedback tone, test set and evaluation loop</span><span><b>Team:</b> matrix-managed the engineers and an external AI partner</span><span><b>When:</b> 2023–2024</span></div>
-
-    <p class="note" role="note"><span class="hex" aria-hidden="true" style="margin-top:3px"></span><span><b>This demo is scripted, on purpose.</b> The real Learning Meter ran on Kids&amp;Us systems and was built around children’s voice and writing data. Running a live model on a public page would mean sending visitors’ text to an AI service, adding cost, and showing behaviour I can’t stand behind. So every answer below is pre-scored from the real rubric and test results. Figures marked <span class="approx" title="Rounded from internal test runs">≈</span> are rounded.</span></p>
 
   <section aria-labelledby="demo-h">
-    <div><div class="label">Try it</div><h2 id="demo-h">Follow one answer through the Learning Meter</h2></div>
+    <div><div class="label">Try it</div><h2 id="demo-h">Follow one answer through the Learning Meter</h2>
+      <p class="lede">This work lived in Jupyter notebooks, rubric spreadsheets and model runs, and what a child saw at
+        the end of it was ten words of feedback. The walkthrough below rebuilds the pipeline so the stages in between
+        are visible: the same rubric, the same anchor answers, the same scores.</p></div>
     <div class="demo">
       <div class="card act">
         <div class="act-top">
@@ -206,8 +212,6 @@ section{display:grid;gap:14px}
     <div class="ops">
       <div class="op"><b>100%</b><span>of responses came back as a valid score + feedback</span></div>
       <div class="op"><b><span class="approx" title="Typical range">≈1–2 s</span></b><span>typical response, with rare peaks near 10 s</span></div>
-      <div class="op"><b><span class="approx" title="Rounded">≈$0.01</span></b><span>or less per graded answer</span></div>
-      <div class="op"><b>0 calls</b><span>for answers already seen: they reuse a stored score</span></div>
     </div>
   </section>
 
@@ -225,13 +229,16 @@ section{display:grid;gap:14px}
 
   <div class="shows"><span class="label" style="margin-right:4px">What this shows</span><span class="chip">Designing AI-enabled experiences</span><span class="chip">Evaluation before launch</span><span class="chip">Designing for trust</span><span class="chip">Leading engineers</span><span class="chip">Responsible AI</span></div>
 
-  <p class="disclaimer">Built from my Learning Meter rubric, prompt databases and test results at Kids&amp;Us. No child data is shown, and all figures are rounded.</p>
 </div>
 <section style="margin-top:40px;display:grid;gap:14px">
   <h2>Where I worked across the lifecycle</h2>
   <p class="sec-lede">From writing the rubric to the accuracy numbers that decided what shipped, and the handoff that kept it running.</p>
   <div data-life="lm" class="life-wrap"></div>
 </section>
+<p class="disclaimer"><b>This demo is scripted, on purpose.</b> The real Learning Meter ran on Kids&amp;Us systems, on
+    children’s voice and writing data. I have since left the organisation, so the live model isn’t mine to run. Every
+    answer here is pre-scored from my own rubric, prompt databases and test results. No child data is shown, and all
+    figures are rounded.</p>
 <div class="nextcase"><a href="jump-math.html"><span><small>Next</small>JUMP Math Lab</span><span class="open" aria-hidden="true">open →</span></a></div>
 <footer class="pagefoot">
   <span>AI-powered Learning Meter · Kids&amp;Us</span>

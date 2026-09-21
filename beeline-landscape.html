@@ -8,6 +8,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="journal.css">
 <style>
+.intro{display:grid;gap:14px}
+.intro .lede{margin:0}
+.intro p{margin:0}
 .subnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 26px}
 .subnav a{text-decoration:none;font-size:14px;color:var(--pencil);border:1px solid var(--rule-strong);
   border-radius:999px;padding:6px 13px;background:var(--paper)}
@@ -23,38 +26,43 @@
   --serif:"Newsreader",Georgia,serif; --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
   --hand:"Caveat","Segoe Print",cursive; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
 }
-.sheet{max-width:1180px;margin:0 auto;background:var(--paper);border-radius:18px;box-shadow:0 18px 40px -24px rgba(0,0,0,.35);padding:clamp(22px,4vw,48px) clamp(16px,4vw,52px) 48px;background-image:radial-gradient(circle,var(--rule-strong) 1.1px,transparent 1.4px);background-size:28px 28px;display:grid;gap:26px}
+.sheet{max-width:1180px;margin:0 auto;background:var(--paper);border-radius:18px;box-shadow:0 18px 40px -24px rgba(0,0,0,.35);padding:clamp(22px,4vw,48px) clamp(16px,4vw,52px) 48px;background-image:radial-gradient(circle,var(--rule-strong) 1.1px,transparent 1.4px);background-size:28px 28px;display:grid;gap:40px}
 .mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--pencil)}
 h1{font-family:var(--serif);font-weight:500;font-size:clamp(30px,4vw,44px);line-height:1.08;margin:4px 0 6px;letter-spacing:-.01em}
 h2{font-family:var(--serif);font-weight:500;font-size:clamp(22px,2.6vw,30px);margin:0;line-height:1.15}
 h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:0}
 .lede{max-width:70ch;margin:0;font-size:17px}
 .muted{color:var(--pencil)}
+.terms-page{margin-top:44px;padding-top:22px;border-top:1px solid var(--rule);display:grid;gap:12px}
+.termlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px 28px;margin:6px 0 0}
+.termlist>div{border-top:1px solid var(--rule);padding-top:8px}
+.termlist dt{font-family:var(--serif);font-size:16px;font-weight:600;margin-bottom:2px}
+.termlist dd{margin:0;font-size:14px;color:var(--pencil);line-height:1.5}
 .note-hand{font-family:var(--hand);font-size:20px;color:var(--blue);line-height:1.15;display:flex;align-items:flex-start;gap:10px}
 .note-hand::before{content:"";flex:none;width:42px;height:36px;margin-top:-6px;background:currentColor;
  -webkit-mask:var(--arrow) no-repeat center/contain; mask:var(--arrow) no-repeat center/contain}
 :root{--arrow:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 38"><path d="M38 35 C34 22 27 12 14 7" fill="none" stroke="black" stroke-width="2.6" stroke-linecap="round"/><path d="M14 7 L16 18 M14 7 L25 9" fill="none" stroke="black" stroke-width="2.6" stroke-linecap="round"/></svg>')}
 
 /* controls */
-.controls{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule);padding:10px 0;display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center}
+.controls{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule);padding:14px 0;margin-bottom:6px;display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center}
 .seg{display:inline-flex;border:1px solid var(--rule-strong);border-radius:999px;overflow:hidden;background:var(--paper)}
 .seg button{border:0;background:none;padding:7px 14px;cursor:pointer;font-size:14px;color:var(--pencil)}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 .check{display:inline-flex;gap:8px;align-items:center;font-size:14px;color:var(--pencil);cursor:pointer}
 
 /* grid bands */
-.band{display:grid;gap:10px}
-.band-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.band{display:grid;gap:16px}
+.band-head{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;margin-bottom:2px}
 .grid{display:grid;grid-template-columns:var(--cols);border:1px solid var(--rule-strong);border-radius:6px;overflow:hidden;background:var(--paper)}
 :root{--cols:270px repeat(3,minmax(0,1fr))}
 .gh{background:var(--paper-2);padding:8px 10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--pencil);border-bottom:1px solid var(--rule-strong)}
 .gh.stage{text-align:center}
-.rl{padding:9px 10px;font-size:14px;border-top:1px solid var(--rule);display:grid;gap:2px}
+.rl{padding:12px 12px;font-size:14px;border-top:1px solid var(--rule);display:grid;gap:2px}
 .rl .sub{color:var(--pencil);font-size:12.5px}
 .rl .sub:empty{display:none}
 .cell.txt.indent{padding-left:30px;position:relative}
 .cell.txt.indent::before{content:"";position:absolute;left:10px;top:17px;width:12px;border-top:1px solid var(--rule-strong)}
-.cell{border-top:1px solid var(--rule);border-left:1px dashed var(--rule);display:grid;place-items:center;padding:8px 6px;gap:5px;font-size:13px;text-align:center}
+.cell{border-top:1px solid var(--rule);border-left:1px dashed var(--rule);display:grid;place-items:center;padding:11px 8px;gap:5px;font-size:13px;text-align:center}
 .cell.txt{place-items:start;text-align:left;font-size:13.5px}
 .dim{opacity:.22}
 .mk{width:15px;height:15px;border-radius:2px;display:inline-block}
@@ -88,7 +96,7 @@ h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:0}
 .btag{font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--pencil);border:1px solid var(--rule-strong);border-radius:3px;padding:1px 5px}
 
 /* outcomes */
-.outs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.outs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:2px}
 .out{background:var(--paper-2);border-radius:4px;padding:10px 12px;display:grid;gap:4px;font-size:13.5px;border-left:4px solid var(--green)}
 .out .n{font-family:var(--mono);font-size:10.5px;color:var(--pencil)}
 .chip{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:2px 8px;background:var(--paper);border:1px solid var(--rule-strong);color:var(--pencil);width:max-content}
@@ -102,6 +110,15 @@ h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:0}
 .card.future{background:var(--amber-w);border-color:var(--amber)}
 .card.live{background:var(--green-w);border-color:var(--green)}
 .card{place-items:center;text-align:center;align-content:center}
+.hscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.swipe-hint{display:none;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--pencil);margin:0}
+@media (max-width:640px){ .swipe-hint{display:block} }
+.intro p,.band p,.out,.card{overflow-wrap:anywhere}
+@media (max-width:640px){
+  .hscroll>.grid,.hscroll>.stagebar{min-width:620px}
+  .sheet{padding-inline:14px}
+}
 .legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--pencil);align-items:center}
 .legend span{display:inline-flex;align-items:center;gap:7px}
 @media (max-width:860px){
@@ -155,11 +172,18 @@ body.walking{padding-bottom:180px}
   <a href="beeline-showtells.html">MVP Experience Curve</a>
 </nav>
 <div class="sheet ls">
-  <div>
-    <p class="lede">How a young person moves through careers education in Greater Manchester, from Year 7 to Year 13: what the system requires of them, what that feels like, and where Beeline can help. Reading down a column shows one key stage. Reading across a row shows how one thing changes as they get older.</p>
-    <p class="muted" style="max-width:70ch;font-size:14.5px">I map a system like this to stay curious, to surface the gaps, and to build my own understanding where my domain knowledge runs out. Then the map earns its keep twice over. In a room, I can circle one part of it and walk a stakeholder through the journey, whatever their background. With developers and product managers, one session over this map before the spec or PRD is written saves a lot of confusion later.</p>
-    <p class="muted" style="max-width:70ch;font-size:14.5px">It locates where the system creates friction rather than reducing it, sets out what a young person should be able to say once that friction is gone, and separates what Beeline can build from what it can only flag, and from what belongs in an ask to the combined authority.</p>
-  </div>
+  <div class="intro">
+    <p class="lede">How a young person moves through careers education in Greater Manchester, from Year 7 to Year 13.
+      Reading down a column shows one key stage. Reading across a row shows how one thing changes as they get older.</p>
+    <p class="muted" style="max-width:72ch;font-size:14.5px">I map a system like this to find the gaps and to build my
+      own domain knowledge. It then earns its keep twice: I can circle one part of it
+      and walk a stakeholder through the journey whatever their background, and one session over it with developers
+      before the spec is written saves a lot of confusion later.</p>
+    <p class="muted" style="max-width:72ch;font-size:14.5px">It has changed as people who work in the system have
+      marked it up: the <button class="term" data-term="DfE">Department for Education</button>, the
+      <button class="term" data-term="National Careers Service">National Careers Service</button>,
+      <button class="term" data-term="DWP">the Department for Work and Pensions</button>, local authorities, schools
+      and careers leads.</p>
 
   <div class="controls">
     <span class="mono">Key stage</span>
@@ -222,7 +246,7 @@ body.walking{padding-bottom:180px}
 
   <div class="band">
     <div class="band-head"><h2>What success feels like</h2><span class="muted" style="font-size:14px">“I can…” outcome statements, written from the barrier they answer.</span></div>
-    <p class="note-hand" id="outHint" data-arrow="true">Showing every barrier. Tap a barrier above to see only its outcomes.</p>
+    <p class="note-hand" id="outHint">Showing every barrier. <mark>Tap a barrier above to see only its outcomes.</mark></p>
     <div class="outs" id="outs"></div>
   </div>
 
@@ -273,6 +297,11 @@ body.walking{padding-bottom:180px}
     </div>
   </div>
 </div>
+<section class="terms-page">
+  <h2>Terms used on this page</h2>
+  <p class="muted" style="max-width:72ch;font-size:14.5px;margin:0">English careers education runs on its own vocabulary. This is all of it, in one place.</p>
+  <dl class="termlist"><div><dt>MBacc</dt><dd>The Greater Manchester Baccalaureate, a framework that shows young people technical and academic routes into work. National policy since July 2026.</dd></div><div><dt>Gateways</dt><dd>The seven broad sectors in the MBacc, such as Digital or Health, that young people explore careers through.</dd></div><div><dt>Key stage</dt><dd>The blocks England divides schooling into. Key Stage 3 is roughly ages 11–14, Key Stage 4 is 14–16 and leads to GCSEs, Key Stage 5 is 16–18.</dd></div><div><dt>Statutory</dt><dd>Required by law. A statutory duty is one a school or authority must carry out, rather than one it chooses to.</dd></div><div><dt>Gatsby benchmarks</dt><dd>Eight benchmarks that define a good careers programme in England. Schools are measured against them.</dd></div><div><dt>NEET</dt><dd>Not in education, employment or training. The term for a young person who has left school and has none of the three.</dd></div><div><dt>SEND</dt><dd>Special educational needs and disabilities: young people who need extra support to learn.</dd></div><div><dt>EHCP</dt><dd>An Education, Health and Care Plan, the legal document setting out the support a young person with SEND must receive.</dd></div><div><dt>PRU / alternative provision</dt><dd>Education arranged for pupils who cannot attend a mainstream school, including pupil referral units.</dd></div><div><dt>T Level</dt><dd>A two-year technical qualification for 16 to 19 year olds, equivalent to three A Levels, with an industry placement built in.</dd></div><div><dt>EBacc</dt><dd>The English Baccalaureate, a set of GCSE subjects government encourages schools to enter pupils for. A measure of the school, not a qualification.</dd></div><div><dt>Apprenticeship</dt><dd>A paid job with training built in, leading to a recognised qualification.</dd></div><div><dt>UCAS</dt><dd>The single system through which people apply to UK universities.</dd></div><div><dt>Destination</dt><dd>Where a young person goes after a key stage: a course, an apprenticeship, a job, or none. Schools report it.</dd></div><div><dt>Careers lead</dt><dd>The person in a school or college responsible for the careers programme. Every English secondary school must have one.</dd></div><div><dt>Connexions</dt><dd>The careers and support service for young people run by many local authorities, and the name still used for it in parts of Greater Manchester.</dd></div><div><dt>Equalex</dt><dd>A framework setting the depth a careers experience is pitched at, in three tiers: Introduce and Inspire, Investigate and Explore, Apply and Demonstrate.</dd></div><div><dt>Skills Builder</dt><dd>A framework breaking eight essential skills into numbered steps, so progress can be described rather than assumed.</dd></div><div><dt>DfE · DWP · NCS</dt><dd>The Department for Education, the Department for Work and Pensions, and the National Careers Service.</dd></div><div><dt>GM Skills Plan · LSIP</dt><dd>Greater Manchester’s skills and employment strategy, and the employer-led Local Skills Improvement Plan that colleges respond to.</dd></div></dl>
+</section>
 <footer class="pagefoot">
   <span>Beeline · Greater Manchester Combined Authority</span>
   <span><a href="index.html">← Contents</a> · <a href="beeline-problem.html">Problem model →</a></span>
@@ -442,9 +471,9 @@ function renderAll(){
   /* outcomes */
   const list=OUTS.filter(o=>(barrier===null||o[1]===barrier)&&(stage==="all"||o[2]===+stage));
   $("outs").innerHTML=list.map(([n,b,st,t])=>`<div class="out"><span class="n">${String(n).padStart(2,"0")} · ${BARRIERS[b].t}</span>${t}<span class="chip">${STAGES[st].split(" · ")[0]}</span></div>`).join("")||`<p class="muted">Nothing at this key stage for that barrier yet. That gap is the point: it shows where the service has nothing to offer.</p>`;
-  $("outHint").textContent = barrier===null
-    ? (stage==="all"?"Showing all 23 outcome statements. Tap a barrier above to follow one.":`Showing what a young person should be able to say by the end of ${STAGES[+stage].split(" · ")[0]}.`)
-    : `Following “${BARRIERS[barrier].t.replace(/&amp;/g,"&")}”. Tap it again to see them all.`;
+  $("outHint").innerHTML = barrier===null
+    ? (stage==="all"?"Showing all 23 outcome statements. <mark>Tap a barrier above to follow one.</mark>":`Showing what a young person should be able to say by the end of ${STAGES[+stage].split(" · ")[0]}.`)
+    : `Following “${BARRIERS[barrier].t.replace(/&amp;/g,"&")}”. <mark>Tap it again to see them all.</mark>`;
   /* stakeholders */
   $("gStake").innerHTML=head()+STAKE.map(([l,s,cols])=>`<div class="rl">${l}</div>`+cols.map((roles,i)=>`<div class="${cls(i)}"><span class="who">${roles.map(([r,kind])=>`<span class="role ${kind==="future"?"future":""} ${kind==="grain"?"grain":""}" style="--r:${R[r][1]}"><i></i>${R[r][0]}</span>`).join("")||`<span class="muted">—</span>`}</span></div>`).join("")).join("");
   /* products */
@@ -551,5 +580,28 @@ document.addEventListener("keydown",e=>{
   if(e.key==="ArrowLeft"&&wi>0)walkTo(wi-1);
 });
 window.addEventListener("resize",()=>{if(wi>=0)walkTo(wi)});
+
+/* wrap wide grids so they scroll instead of squeezing on small screens */
+(function(){
+  var subs=[];
+  document.querySelectorAll(".grid,.stagebar").forEach(function(g){
+    if(g.parentElement&&g.parentElement.classList.contains("hscroll")) return;
+    var w=document.createElement("div"); w.className="hscroll";
+    g.parentNode.insertBefore(w,g); w.appendChild(g); subs.push(w);
+  });
+  /* keep every key-stage column strip in step so it reads as one table */
+  var lock=false;
+  subs.forEach(function(w){
+    w.addEventListener("scroll",function(){
+      if(lock) return; lock=true;
+      subs.forEach(function(o){ if(o!==w) o.scrollLeft=w.scrollLeft; });
+      requestAnimationFrame(function(){lock=false});
+    },{passive:true});
+  });
+  var c=document.querySelector(".controls");
+  if(c){ var h=document.createElement("p"); h.className="swipe-hint";
+    h.textContent="Swipe the tables sideways to move between key stages";
+    c.insertAdjacentElement("afterend",h); }
+})();
 </script>
 </html>
