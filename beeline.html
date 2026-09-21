@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beeline · Fatima Abid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="journal.css">
+<style>
+.subnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 26px}
+.subnav a{text-decoration:none;font-size:14px;color:var(--pencil);border:1px solid var(--rule-strong);
+  border-radius:999px;padding:6px 13px;background:var(--paper)}
+.subnav a:hover{border-color:var(--ink);color:var(--ink)}
+.subnav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pagehead h1{margin:2px 0 4px}
+.where{display:none}
+
+.sixty-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 30px}
+.sixty-grid>div{border-top:3px solid var(--rule-strong);padding-top:10px}
+.sixty-grid .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--pencil);display:block;margin-bottom:6px}
+.sixty-grid p{margin:0;font-size:15.5px}
+.spreads{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.spreads a{text-decoration:none;border:1px solid var(--rule);border-radius:8px;padding:16px 18px;display:grid;gap:6px;align-content:start;background:var(--paper)}
+.spreads a:hover{border-color:var(--rule-strong)}
+.spreads b{font-family:var(--serif);font-size:19px;font-weight:600}
+.spreads span{font-size:14px;color:var(--pencil)}
+
+.stack{gap:46px}
+.stack>section{display:grid;gap:14px}
+.stack h2{font-size:clamp(22px,2.4vw,28px)}
+.sec-lede{margin:0;max-width:74ch;color:var(--pencil);font-size:15.5px}
+@media (max-width:820px){ .sixty-grid,.spreads{grid-template-columns:1fr} }
+</style>
+
+<div class="layout">
+<main>
+<div class="pagehead">
+  <div class="mono">Greater Manchester Combined Authority · p. 2</div>
+  <h1>Beeline</h1>
+  <p class="lede">A careers service for young people up to 25 across Greater Manchester, online and offline. I lead the product and service design: the system map, the experiences, the evidence loop and the metrics.</p>
+  <div class="kicker"><span class="stamp-ctx stamp-sector"><i>Sector</i>Public</span><span class="stamp-ctx stamp-scale"><i>Scale</i>Regional · 10 boroughs</span><span class="stamp-ctx stamp-audience"><i>Audience</i>Young people up to 25</span><span class="stamp-ctx stamp-product"><i>Product</i>Public service, online and offline</span></div>
+</div>
+<nav class="subnav" aria-label="Beeline spreads">
+  <a href="beeline.html" aria-current="page">Overview</a>
+  <a href="youth-voice.html">Youth Voice</a>
+  <a href="beeline-landscape.html">Service Landscape</a>
+  <a href="beeline-problem.html">Problem Model</a>
+  <a href="beeline-evidence.html">Decisions &amp; Metrics</a>
+  <a href="beeline-showtells.html">MVP Experience Curve</a>
+</nav>
+<div class="stack">
+<section>
+  <h2>The short version</h2>
+  <p class="sec-lede">Four things, before the detail: what was wrong, what I do about it, where it runs and how we know whether it works.</p>
+  <div class="sixty-grid">
+  <div><span class="lbl">The problem</span>
+    <p>Greater Manchester rebuilt its careers offer around the <button class="term" data-term="MBacc">MBacc</button>
+    and its seven <button class="term" data-term="gateways">gateways</button>. Young people were being asked to navigate
+    that system with no clear line between what they enjoy, the subjects they pick, the pathways open to them and a real
+    next step. The people who need it most are the least likely to be reached by a website alone.</p></div>
+  <div><span class="lbl">What I do</span>
+    <p>I lead the product and service design. I mapped the whole careers landscape into a problem model, designed the
+    Discovery quiz online and <button class="term" data-term="Beeline Unplugged">Beeline Unplugged</button> offline,
+    took both through co-design and testing with young people, and run the evidence loop that decides what gets built:
+    <button class="term" data-term="design assurance">design assurance</button> with partners, user research with our
+    researcher, <button class="term" data-term="Show &amp; Tell">Show &amp; Tells</button> for the trade-offs, then the
+    roadmap and developer handoff.</p></div>
+  <div><span class="lbl">Where it runs</span>
+    <p>Ten boroughs, six regional events, schools, colleges, youth organisations and community settings, plus a printed
+    toolkit for groups with low digital access or additional needs. The audience is young people up to 25, and the
+    adults around them.</p></div>
+  <div><span class="lbl">How we know</span>
+    <p>A metrics framework that measures progress rather than page views: five
+    <button class="term" data-term="Learning Moments">Learning Moments</button> and a
+    <button class="term" data-term="Meaningful Next Step Rate">meaningful next step rate</button>. Every feature names
+    the metric it should move, and the gaps become asks with an owner. It reports quarterly to the
+    <button class="term" data-term="Programme Board">Programme Board</button>.</p></div>
+  </div>
+<figure class="fig"><button type="button" aria-label="Enlarge: Service landscape of careers education in Greater Manchester: the diagnostic map of actors, provision and the ten localities."><img src="./service-landscape.png" alt="A diagnostic service map showing the actors, careers provision and ten localities across Greater Manchester." loading="lazy"></button><figcaption>Service landscape of careers education in Greater Manchester: the diagnostic map of actors, provision and the ten localities.</figcaption></figure>
+</section>
+
+<section>
+  <h2>What I made, and what changed</h2>
+  <p class="sec-lede">The maps below are the working artefacts, not tidy-ups made afterwards. Click any of them to read it full size.</p>
+<figure class="fig"><button type="button" aria-label="Enlarge: MVP experience map for Beeline Discovery, drawn from sessions with young people."><img src="./mvp-experience-map.png" alt="An experience map of the Beeline Discovery minimum viable product, showing the young person’s journey and service touchpoints." loading="lazy"></button><figcaption>MVP experience map for Beeline Discovery, drawn from sessions with young people.</figcaption></figure><figure class="fig"><button type="button" aria-label="Enlarge: The “to-be” experience map for Phase 3: what the same journey should feel like once the decisions land."><img src="./experience-map-to-be.png" alt="A future-state experience map for Beeline Phase 3, showing the intended journey and supporting service interactions." loading="lazy"></button><figcaption>The “to-be” experience map for Phase 3: what the same journey should feel like once the decisions land.</figcaption></figure><figure class="fig"><button type="button" aria-label="Enlarge: Five-phase roadmap, 2026–2030, aligned to MBacc years with separate Learn and Build windows."><img src="./roadmap.png" alt="A five-phase delivery roadmap from 2026 to 2030, aligned to MBacc years and marking separate Learn and Build windows." loading="lazy"></button><figcaption>Five-phase roadmap, 2026–2030, aligned to MBacc years with separate Learn and Build windows.</figcaption></figure><figure class="fig"><button type="button" aria-label="Enlarge: How the metrics fit together: five Learning Moments and the meaningful next step rate."><img src="./metrics-model.png" alt="A model connecting Beeline’s five Learning Moments with the Meaningful Next Step Rate used for evaluation." loading="lazy"></button><figcaption>How the metrics fit together: five Learning Moments and the meaningful next step rate.</figcaption></figure>
+</section>
+
+<section>
+  <h2>Four spreads</h2>
+  <p class="sec-lede">Each one takes a different cut through the same work: the system, the problem, the decisions and how it felt to a young person. Read them in any order.</p>
+  <div class="spreads">
+    <a href="beeline-landscape.html"><b>Service Landscape</b><span>The system a young person moves through, key stage by key stage, and where the service can and cannot help. Includes a walkthrough mode.</span></a>
+    <a href="beeline-problem.html"><b>Problem Model</b><span>Six fears young people told us about, the people who carry them, and what “resolved” sounds like in their words.</span></a>
+    <a href="beeline-evidence.html"><b>Decisions &amp; Metrics</b><span>Four trails from a fear to a shipped decision, and the metric ladder that says whether it worked.</span></a>
+    <a href="beeline-showtells.html"><b>MVP Experience Curve</b><span>How the toolkit felt to young people across many sessions, offline and online, and the trade-offs we argued at Show &amp; Tells.</span></a>
+  </div>
+</section>
+
+<section>
+  <h2>Where I worked across the lifecycle</h2>
+  <p class="sec-lede">Not a hand-off at the end of discovery: I stayed with this from mapping the system through to the metrics the board reads.</p>
+  <div data-life="beeline" class="life-wrap"></div>
+</section>
+
+<p class="disclaimer">Figures on these pages are rounded or illustrative. The exact figures belong to Greater Manchester
+Combined Authority and aren’t published here. The structure, questions and decisions are real. Quotes from young people
+are transcribed from handwriting.</p>
+</div>
+<div class="nextcase"><a href="learning-meter.html"><span><small>Next</small>AI-powered Learning Meter</span><span class="open" aria-hidden="true">open →</span></a></div>
+<footer class="pagefoot">
+  <span>Beeline · Greater Manchester Combined Authority</span>
+  <span><a href="index.html">← Contents</a> · <a href="beeline-landscape.html">Service landscape →</a></span>
+</footer>
+</main>
+</div>
+<script src="site.js"></script>
+
+</html>

@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How I work · Fatima Abid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="journal.css">
+<style>
+.subnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 26px}
+.subnav a{text-decoration:none;font-size:14px;color:var(--pencil);border:1px solid var(--rule-strong);
+  border-radius:999px;padding:6px 13px;background:var(--paper)}
+.subnav a:hover{border-color:var(--ink);color:var(--ink)}
+.subnav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pagehead h1{margin:2px 0 4px}
+.where{display:none}
+
+:root{
+  --desk:#DCD9D2; --paper:#F1EFEA; --paper-2:#E8E5DE; --ink:#1E1E1C; --pencil:#6E6C67; --rule:#D3CFC6; --rule-strong:#BDB8AD;
+  --blue:#3D5A86; --red:#A2443A; --green:#4B7552; --amber:#8A5A12; --hi:rgba(232,203,74,.55); --hi-solid:#E8CB4A; --hi-ink:#7A5E00;
+  --red-w:#EEDDD8; --green-w:#DDE6DC; --blue-w:#DDE2EA; --amber-w:#F0E4CF; --hi-w:#F1E6B8;
+  --serif:"Newsreader",Georgia,serif; --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --hand:"Caveat","Bradley Hand","Segoe Print",cursive; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --desk:#121314; --paper:#1D1F21; --paper-2:#25282B; --ink:#E6E3DC; --pencil:#A9A59C; --rule:#34373B; --rule-strong:#4D5156;
+    --blue:#8FA9D6; --red:#E6978B; --green:#9CC7A3; --amber:#E6B060; --hi:rgba(232,203,74,.28); --hi-solid:#D9BC45; --hi-ink:#E8CB4A;
+    --red-w:#33282A; --green-w:#26302A; --blue-w:#262C37; --amber-w:#33291B; --hi-w:#342F1C;
+  }
+}
+.sheet{max-width:1160px;margin:0 auto 28px;background:var(--paper);border-radius:18px;box-shadow:0 18px 40px -24px rgba(0,0,0,.35);padding:clamp(22px,4vw,52px) clamp(18px,4.5vw,60px) 48px;background-image:radial-gradient(circle,var(--rule-strong) 1.1px,transparent 1.4px);background-size:28px 28px;display:grid;gap:26px;position:relative}
+.where{position:absolute;top:18px;right:22px;font-family:var(--hand);font-size:20px;color:var(--blue);transform:rotate(2deg)}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--pencil)}
+.hand{font-family:var(--hand);font-size:23px;line-height:1.1;color:var(--blue)}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.01em;margin:4px 0 8px;text-wrap:balance}
+h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.2vw,26px);margin:0;line-height:1.2}
+.lede{max-width:68ch;margin:0;font-size:17px}
+.muted{color:var(--pencil)}
+.hl{background:linear-gradient(transparent 40%,var(--hi) 40% 90%,transparent 90%);padding:0 2px}
+.panel{background:var(--paper);border:1px solid var(--rule-strong);border-radius:6px;padding:clamp(14px,2vw,22px)}
+.seg{display:inline-flex;border:1px solid var(--rule-strong);border-radius:999px;overflow:hidden;background:var(--paper)}
+.seg button{border:0;background:none;padding:7px 14px;cursor:pointer;font-size:14px;color:var(--pencil)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+
+/* ===== 1 lifecycle strip ===== */
+.life{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border:1px solid var(--rule-strong);border-radius:6px;overflow:hidden;background:var(--paper);position:relative}
+.stage{padding:12px 12px 14px;display:grid;gap:6px;align-content:start;border-left:1px dashed var(--rule-strong);position:relative;min-height:150px}
+.stage:first-child{border-left:0}
+.stage .n{font-family:var(--mono);font-size:10.5px;color:var(--pencil);letter-spacing:.06em;text-transform:uppercase}
+.stage b{font-family:var(--serif);font-size:18px;font-weight:600}
+.stage ul{margin:0;padding:0;list-style:none;display:grid;gap:4px;font-size:13.5px}
+.stage ul li::before{content:"✓ ";color:var(--green);font-weight:700}
+.band{position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--hi-solid)}
+.trad{position:absolute;top:0;bottom:0;border-left:2px dashed var(--red);pointer-events:none}
+.trad span{position:absolute;top:6px;left:6px;font-family:var(--hand);font-size:18px;color:var(--red);white-space:nowrap;transform:rotate(-2deg);background:var(--paper);padding:0 4px;line-height:1.1}
+.life-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px}
+
+/* ===== 2 curve ===== */
+.curve-wrap{display:grid;gap:14px}
+.curve-controls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pencil);align-items:center}
+.legend svg{vertical-align:middle;margin-right:6px}
+.chart{overflow-x:auto}
+.chart svg{display:block;width:100%;min-width:760px;height:auto}
+.hot{cursor:pointer}
+.hot circle{transition:r .15s}
+.hot:hover circle.ring,.hot:focus circle.ring{stroke-width:3}
+.hot:focus{outline:none}
+.hot:focus-visible circle.ring{stroke:var(--blue);stroke-width:3.5}
+.note{display:grid;gap:14px}
+.note .head{display:grid;gap:6px}
+.oo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.oo>div{border-top:3px solid var(--k);padding-top:10px;display:grid;gap:6px;align-content:start}
+.oo .lab{display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--pencil)}
+.oo p{margin:0;font-size:15px}
+.tip{font-size:13.5px;color:var(--pencil)}
+.note .said{font-family:var(--hand);font-size:22px;line-height:1.2;color:var(--ink);background:var(--paper-2);padding:12px 14px;border-radius:4px;transform:rotate(-.6deg)}
+.note .said span{display:block;font-family:var(--mono);font-size:10.5px;color:var(--pencil);margin-top:6px;transform:none}
+.pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:3px 9px;width:max-content}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.p-good{background:var(--green-w);color:var(--green)} .p-bad{background:var(--red-w);color:var(--red)} .p-mixed{background:var(--amber-w);color:var(--amber)}
+.struggle{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border:1px solid var(--rule-strong);border-radius:6px;overflow:hidden;background:var(--paper)}
+.struggle>div{padding:16px 18px;display:grid;gap:8px;align-content:start}
+.struggle>div+div{border-left:1px dashed var(--rule-strong)}
+.struggle b{font-family:var(--serif);font-size:20px;font-weight:600}
+.struggle ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14.5px}
+.s-rem{border-top:4px solid var(--red)} .s-keep{border-top:4px solid var(--green)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.dcard{background:var(--paper);border:1px solid var(--rule-strong);border-radius:4px;padding:16px 18px;display:grid;gap:10px;align-content:start;position:relative}
+.dcard .top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.dcard h4{margin:0;font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.2}
+.dl{display:grid;grid-template-columns:96px minmax(0,1fr);gap:6px 12px;font-size:14.5px;margin:0}
+.dl dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--pencil);padding-top:3px}
+.dl dd{margin:0}
+.dl dd.gave{color:var(--red)}
+.dl dd.chose{font-weight:700}
+.stamp{font-family:var(--mono);font-size:10.5px;border:1.2px solid var(--amber);color:var(--amber);border-radius:3px;padding:1px 6px;transform:rotate(-1.5deg)}
+
+/* ===== 3 system ===== */
+.sys{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:22px;align-items:start}
+.sys svg{width:100%;height:auto;display:block}
+.node{cursor:pointer}
+.node rect{transition:stroke-width .15s}
+.node:hover rect,.node:focus rect{stroke-width:2.5}
+.node:focus{outline:none}
+.node:focus-visible rect{stroke:var(--blue);stroke-width:3}
+.node[aria-pressed="true"] rect{stroke-width:3}
+.detail{display:grid;gap:10px;align-content:start}
+.detail .big{font-family:var(--serif);font-size:44px;line-height:1}
+.detail h4{margin:0;font-family:var(--serif);font-size:22px;font-weight:600}
+.detail p{margin:0}
+.row{font-family:var(--mono);font-size:12px;background:var(--paper-2);border-radius:4px;padding:10px 12px;display:grid;gap:4px;overflow-x:auto}
+.row span{white-space:nowrap}
+.redact{background:var(--ink);color:transparent;border-radius:2px;user-select:none}
+.kv{display:flex;flex-wrap:wrap;gap:6px}
+.kv span{font-size:13px;border-radius:999px;padding:3px 10px;background:var(--paper-2)}
+.sticky{justify-self:start;background:var(--hi-solid);color:#2a2410;font-family:var(--hand);font-size:21px;line-height:1.15;padding:10px 14px 12px;max-width:380px;transform:rotate(-1.2deg);box-shadow:0 6px 12px -8px rgba(0,0,0,.4)}
+
+@media (max-width:900px){
+  .life{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stage:nth-child(4){border-left:0}
+  .trad{display:none}
+  .oo,.struggle,.cards,.sys{grid-template-columns:1fr}
+  .struggle>div+div{border-left:0;border-top:1px dashed var(--rule-strong)}
+}
+@media (max-width:520px){ .life{grid-template-columns:1fr} .stage{border-left:0;border-top:1px dashed var(--rule-strong);min-height:0} .dl{grid-template-columns:1fr;gap:2px} .where{position:static;display:block} }
+
+/* ===== 3 how I work (v2) ===== */
+.flow{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:none}
+.flow>li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;padding:0 0 18px;position:relative}
+.flow>li::before{content:"";position:absolute;left:14px;top:30px;bottom:0;width:2px;background:var(--rule-strong)}
+.flow>li:last-child::before{display:none}
+.sn{display:flex;gap:10px;align-items:center;font-family:var(--serif);font-size:19px;font-weight:600;align-self:start}
+.sn span{width:30px;height:30px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-family:var(--mono);font-size:12px;background:var(--paper);flex:none;position:relative;z-index:1}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.box{background:var(--paper);border:1px solid var(--rule-strong);border-left:5px solid var(--k);border-radius:4px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.box b{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.2}
+.box .sub{font-family:var(--hand);font-size:19px;color:var(--pencil);line-height:1.1}
+.box p{margin:0;font-size:14.5px}
+.box .tag{font-family:var(--mono);font-size:10.5px;color:var(--pencil);text-transform:uppercase;letter-spacing:.05em}
+.k-red{--k:var(--red)} .k-green{--k:var(--green)} .k-blue{--k:var(--blue)} .k-hi{--k:var(--hi-solid)} .k-ink{--k:var(--ink)} .k-amber{--k:var(--amber)}
+.join{grid-column:2;margin:6px 0 0;font-family:var(--hand);font-size:20px;color:var(--blue);text-align:center}
+.routes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:4px}
+.routes div{background:var(--paper-2);border-radius:4px;padding:8px 10px;font-size:13.5px;display:grid;gap:2px}
+.routes b{font-family:var(--serif);font-size:17px;line-height:1.15}
+.loops{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-left:168px}
+.loops div{border:1px dashed var(--rule-strong);border-radius:4px;padding:12px 14px;display:grid;gap:4px}
+.loops b{font-family:var(--hand);font-size:22px;color:var(--blue);font-weight:500}
+.loops p{margin:0;font-size:14.5px}
+.lundy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--rule-strong);border-radius:6px;overflow:hidden;background:var(--paper)}
+.lundy>div{padding:14px 16px;display:grid;gap:6px;align-content:start;border-top:4px solid var(--green)}
+.lundy>div+div{border-left:1px dashed var(--rule-strong)}
+.lundy .n{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--green)}
+.lundy p{margin:0;font-size:14.5px}
+@media (max-width:900px){
+  .flow>li{grid-template-columns:1fr;gap:8px}
+  .flow>li::before{display:none}
+  .two,.three,.routes,.loops{grid-template-columns:1fr}
+  .loops{margin-left:0}
+  .join{grid-column:1}
+  .lundy{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lundy>div:nth-child(3){border-left:0}
+}
+@media (max-width:520px){ .lundy{grid-template-columns:1fr} .lundy>div+div{border-left:0} }
+
+.st-explain{background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;padding:14px 16px;margin:10px 0 16px;display:grid;gap:10px}
+.st-explain p{margin:0;max-width:74ch}
+.st-chain{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 0;font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
+.st-chain li{display:flex;align-items:center}
+.st-chain li:not(:last-child)::after{content:"→";margin:0 10px;color:var(--pencil)}
+.st-chain li:last-child{color:var(--red);font-weight:600}
+.has-stamp{position:relative;padding-right:150px}
+.boardstamp{position:absolute;top:12px;right:14px;font-family:var(--mono);font-size:10.5px;font-weight:600;line-height:1.25;letter-spacing:.08em;text-transform:uppercase;text-align:center;color:var(--red);border:2px solid var(--red);border-radius:6px;padding:6px 10px;transform:rotate(-6deg);opacity:.85;box-shadow:inset 0 0 0 2px var(--paper),inset 0 0 0 3px var(--red);pointer-events:none}
+.dcard{position:relative}
+.boardstamp.sm{position:static;display:inline-block;justify-self:end;margin-top:10px;font-size:9.5px;transform:rotate(-4deg)}
+@media (max-width:640px){.has-stamp{padding-right:16px;padding-top:64px}}
+</style>
+
+<div class="layout">
+<main>
+<div class="pagehead">
+  <div class="mono">p. 24</div>
+  <h1>How I work</h1>
+  <p class="lede">Research, design, metrics and programme delivery move at different speeds. I keep them joined in one service management notebook, so nothing falls through the cracks between pilot and build.</p>
+  <div class="kicker"></div>
+</div>
+
+
+<section class="sheet" aria-labelledby="w-h">
+  <span class="where" aria-hidden="true">notebook page: “How I work” ↓</span>
+  <div>
+    <p class="lede">Research, design, metrics and programme delivery move at different speeds. I keep them joined in one service management notebook, so what we hear from young people and partners becomes a research question, a decision, a feature, a metric and a line in the Programme Board report, and nothing falls through the cracks between pilot and build.</p>
+  </div>
+
+  <ol class="flow" aria-label="How the work flows, in six steps">
+    <li class="step2">
+      <div class="sn"><span>1</span>Listen</div>
+      <div class="two">
+        <div class="box k-red"><b>Stakeholders</b><span class="sub">internal and external</span><p>Internal: the programme team, the digital team and GMCA governance. External: local authorities, schools and colleges, community and youth organisations, and partners across the ten boroughs.</p><span class="tag">design assurance rounds · workshops</span></div>
+        <div class="box k-green"><b>Youth voice</b><span class="sub">run on the Lundy model</span><p>Co-design and co-testing groups with young people, including the Greater Manchester Youth Combined Authority and 42nd Street. Each session is logged as one row per group in the engagement tracker.</p><span class="tag">co-design · co-testing · youth voice log</span></div>
+      </div>
+      <p class="join" aria-hidden="true">both feed into ↓</p>
+    </li>
+    <li>
+      <div class="sn"><span>2</span>Log</div>
+      <div class="box k-red wide"><b>Design assurance log</b><span class="sub">121 things heard, from 10 partner groups</span><p>Everything we hear lands in one place, tagged Improve, Risk, Align or Win, with a theme, a proposed next step and a status.</p><div class="kv"><span>48 improve</span><span>37 risk</span><span>20 align</span><span>15 win</span></div></div>
+    </li>
+    <li>
+      <div class="sn"><span>3</span>Find out</div>
+      <div class="box k-blue wide"><b>User research log</b><span class="sub">15 research questions, each with a hypothesis</span><p>What the log can’t answer becomes a research question. I plan each one with our user researcher and route it to the right method.</p>
+        <div class="routes"><div><b>In the wild</b>with young people, in sessions we run together</div><div><b>Desk research</b>what’s already known, before we ask young people again</div><div><b>Synthesis</b>we make sense of the findings together and tie each one back to the log item that raised it</div></div></div>
+    </li>
+    <li>
+      <div class="sn"><span>4</span>Decide</div>
+      <div class="box k-hi wide"><b>Show &amp; Tells</b><span class="sub">6 so far</span><p>A Show &amp; Tell is a working session where I show work in progress with the evidence behind it. We argue the trade-offs in the open, agree what to do, and record each decision against the log item that raised it.</p></div>
+    </li>
+    <li>
+      <div class="sn"><span>5</span>Build &amp; measure</div>
+      <div class="three">
+        <div class="box k-ink"><b>Roadmap &amp; Gantt</b><span class="sub">when it happens</span><p>Decisions become roadmap items with Learn and Build windows, mapped to MBacc years.</p></div>
+        <div class="box k-green"><b>Metrics workbook</b><span class="sub">how we’ll know</span><p>Every feature names the metric it should move. Gaps become asks with an owner.</p></div>
+        <div class="box k-amber"><b>Engagement tracker</b><span class="sub">where it landed</span><p>Events, packs, schools and youth voice sessions across 10 boroughs, feeding the reach metrics.</p></div>
+      </div>
+    </li>
+    <li>
+      <div class="sn"><span>6</span>Report</div>
+      <div class="box k-ink wide has-stamp"><span class="boardstamp" aria-hidden="true">MBacc<br>Programme Board</span><b>Quarterly roll-up → MBacc Programme Board</b><span class="sub">what the board sees</span><p>The roll-up reads the design assurance log for a chosen window and feeds my Programme Board reporting, alongside where each metric stands. Wins and improvements are public; risks, alignment and governance stay internal.</p></div>
+    </li>
+  </ol>
+  <div class="loops" aria-label="Loops back">
+    <div><b>↺ Back to young people</b><p>They hear what changed because of them, and what didn’t and why. That closes the Lundy loop.</p></div>
+    <div><b>↺ Next assurance round</b><p>Each release opens a new round of listening, so the log never goes stale.</p></div>
+  </div>
+
+  <div>
+    <h3>The Lundy model, in practice</h3>
+    <p class="muted" style="margin:6px 0 12px;max-width:72ch">Asking young people for their views isn’t enough on its own. To help them contribute meaningfully, I plan youth voice work around the four parts of the Lundy model.</p>
+    <div class="lundy">
+      <div><span class="n">Space</span><p>Prepare young people before they contribute: a safe, inclusive session, the context explained in plain language, and time to form a view.</p></div>
+      <div><span class="n">Voice</span><p>Give them more than one way to say what they think: talking in pairs, sorting cards, writing it down, not just a survey.</p></div>
+      <div><span class="n">Audience</span><p>Make sure their views reach the people who decide: Show &amp; Tells, the programme team and the Programme Board.</p></div>
+      <div><span class="n">Influence</span><p>Act on what they said where we can, and tell them what changed, or why it didn’t.</p></div>
+    </div>
+  </div>
+</section>
+<footer class="pagefoot">
+  <span>How I work · Fatima Abid</span>
+  <span><a href="index.html">← Contents</a></span>
+</footer>
+</main>
+</div>
+<script src="site.js"></script>
+
+</html>

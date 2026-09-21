@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JUMP Math Lab · Fatima Abid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="journal.css">
+<style>
+
+:root{
+  --bg:var(--paper); --surface:var(--paper); --sunk:var(--paper-2); --line:var(--rule-strong); --muted:var(--pencil);
+  --honey:var(--hi-solid); --honey-soft:var(--amber-w); --honey-ink:var(--hi-ink);
+  --display:var(--serif);
+  --ok:var(--green); --ok-soft:var(--green-w); --bad:var(--red); --bad-soft:var(--red-w);
+  --warn:var(--amber); --warn-soft:var(--amber-w); --part:var(--amber); --part-soft:var(--amber-w);
+  --no:var(--pencil); --no-soft:var(--paper-2);
+}
+h1,h2,h3,h4{font-family:var(--serif)!important;font-weight:600}
+.wrap{max-width:none!important}
+.wrap>header{display:none}
+
+:root{ --dia:var(--green); --dia-soft:var(--green-w); --for:var(--blue); --for-soft:var(--blue-w);
+  --sum:var(--amber); --sum-soft:var(--amber-w); }
+.subnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 26px}
+.subnav a{text-decoration:none;font-size:14px;color:var(--pencil);border:1px solid var(--rule-strong);
+  border-radius:999px;padding:6px 13px;background:var(--paper)}
+.subnav a:hover{border-color:var(--ink);color:var(--ink)}
+.subnav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pagehead h1{margin:2px 0 4px}
+.where{display:none}
+
+:root{
+  --bg:var(--paper-2); --surface:var(--paper); --sunk:var(--paper-2); --muted:var(--pencil); --line:var(--rule-strong);
+  --honey:var(--hi-solid); --honey-soft:var(--amber-w); --honey-ink:var(--hi-ink);
+  --dia:var(--green); --dia-soft:var(--green-w); --for:var(--blue); --for-soft:var(--blue-w); --sum:var(--blue); --sum-soft:var(--blue-w);
+  --ok:var(--green); --ok-soft:var(--green-w); --bad:var(--red); --bad-soft:var(--red-w); --warn:var(--amber); --warn-soft:var(--amber-w);
+  --display:var(--serif);
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+.wrap{max-width:1200px;margin-inline:auto;display:grid;gap:26px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;align-items:center}
+.hex{width:14px;height:16px;background:var(--honey);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);flex:none}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.2vw,50px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,28px);letter-spacing:-.015em;margin:0;text-wrap:balance}
+.lede{max-width:70ch;color:var(--muted);margin:0;font-size:16px}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.role{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--muted)}
+.role b{color:var(--ink)}
+.ctx{display:flex;flex-wrap:wrap;gap:6px}
+.ctx span{font-size:12.5px;border-radius:999px;padding:3px 10px;background:var(--sunk)}
+.ctx i{font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+.note{display:flex;gap:10px;align-items:flex-start;background:var(--honey-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;max-width:82ch}
+.note b{color:var(--honey-ink)}
+section{display:grid;gap:14px}
+
+.tabs{display:flex;gap:4px;border-bottom:1.5px solid var(--line)}
+.tab{background:none;border:0;padding:12px 16px 10px;font-family:var(--display);font-weight:700;font-size:17px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1.5px}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--honey)}
+
+/* 60s */
+.sixty{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.sixty div{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:6px;align-content:start}
+.sixty b{font-family:var(--display);font-size:18px}
+.sixty p{margin:0}
+.sixty ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.cta{justify-self:start;border:1.5px solid var(--ink);background:var(--ink);color:var(--surface);border-radius:999px;padding:9px 18px;font-weight:700;cursor:pointer}
+.shows{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{display:inline-flex;border-radius:999px;padding:3px 10px;font-size:13px;background:var(--honey-soft)}
+
+/* evolution */
+.stepper{display:flex;gap:6px;flex-wrap:wrap}
+.stepper button{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:700;cursor:pointer;font-size:14px}
+.stepper button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.evo{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(16px,2.4vw,28px);align-items:start}
+.screen{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
+.bar{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1.5px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--muted)}
+.bar i{width:9px;height:9px;border-radius:50%;background:var(--line);display:inline-block}
+.scr{padding:14px;display:grid;gap:12px}
+.scr h4{margin:0;font-family:var(--display);font-size:18px}
+.tiles{display:grid;gap:8px}
+.tile{border:1.5px solid var(--line);border-radius:10px;padding:10px;display:grid;gap:2px;position:relative;align-content:start}
+.tile .k{font-size:11.5px;color:var(--muted)}
+.tile .v{font-family:var(--display);font-weight:800;font-size:22px;line-height:1.1}
+.tile .s{font-size:11.5px;color:var(--muted)}
+.tile.warn{border-color:var(--warn);background:var(--warn-soft)}
+.tile.bad{border-color:var(--bad);background:var(--bad-soft)}
+.tile .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:1px 6px;width:max-content}
+.t-dia{background:var(--dia-soft);color:var(--dia)} .t-for{background:var(--for-soft);color:var(--for)} .t-sum{background:var(--sum-soft);color:var(--sum)}
+.journey{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;align-items:end}
+.journey .col{display:grid;gap:4px;text-align:center;font-size:11px;color:var(--muted)}
+.journey .colbar{height:90px;background:var(--sunk);border-radius:6px;display:flex;align-items:flex-end;overflow:hidden}
+.journey .colbar i{display:block;width:100%;background:var(--for);border-radius:6px 6px 0 0}
+.journey .col.pre .colbar i{background:var(--sum)}
+.journey .col.tgt .colbar{background:none;border:2px dashed var(--honey)}
+.journey .col b{font-family:var(--mono);font-size:12px;color:var(--ink)}
+.grid-wrap{overflow-x:auto}
+table.qg{border-collapse:separate;border-spacing:3px;font-size:12px;min-width:460px;width:100%}
+.qg th{font-family:var(--mono);font-size:10.5px;color:var(--muted);font-weight:500;text-align:center}
+.qg th:first-child,.qg td:first-child{text-align:left;white-space:nowrap}
+.qg td{text-align:center;border-radius:5px;padding:4px 0;min-width:26px}
+.qg td.c{background:var(--ok-soft);color:var(--ok)} .qg td.x{background:var(--bad-soft);color:var(--bad)} .qg td.n{background:var(--sunk);color:var(--muted)}
+.qg td.sc{font-family:var(--mono);font-weight:500}
+.qg tr.flag td:first-child{color:var(--bad);font-weight:700}
+.qg .pth{font-family:var(--mono);font-size:10px;border-radius:6px;padding:1px 6px}
+.p-b{background:var(--honey-soft);color:var(--honey-ink)} .p-s{background:var(--dia-soft);color:var(--dia)}
+.annot{display:grid;gap:10px}
+.annot .a{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:4px;border-left:4px solid var(--k)}
+.annot .a b{font-family:var(--display);font-size:16.5px}
+.annot .a p{margin:0;font-size:14px;color:var(--muted)}
+.annot .v{font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+/* simulator */
+.sim{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(16px,2.4vw,28px);align-items:start}
+.card{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:clamp(16px,2.2vw,22px);display:grid;gap:12px;align-content:start}
+.qs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.qbtn{border:1.5px solid var(--line);border-radius:10px;padding:10px 0;cursor:pointer;display:grid;gap:2px;justify-items:center;background:var(--surface)}
+.qbtn b{font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:500}
+.qbtn span{font-size:18px;font-weight:700}
+.qbtn[aria-pressed="true"]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.qbtn[aria-pressed="false"] span{color:var(--bad)}
+.route{border-radius:12px;padding:12px 14px;display:grid;gap:4px}
+.route.b{background:var(--honey-soft)} .route.s{background:var(--dia-soft)}
+.route b{font-family:var(--display);font-size:18px}
+.route p{margin:0;font-size:14px}
+.toggles{display:flex;flex-wrap:wrap;gap:12px;font-size:14px}
+.toggles label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.outs{display:grid;gap:10px}
+.out{border:1.5px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:8px}
+.out .label{display:flex;justify-content:space-between}
+.stu{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.stu .big{font-family:var(--display);font-weight:800;font-size:30px}
+.stars{font-size:22px;letter-spacing:2px;color:var(--honey)}
+.stars .off{color:var(--line)}
+pre{margin:0;font-family:var(--mono);font-size:12px;background:var(--sunk);border-radius:8px;padding:10px;overflow-x:auto;line-height:1.45}
+pre .hl{background:var(--honey-soft);color:var(--honey-ink);border-radius:3px}
+
+/* taxonomy + needs */
+.tax{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tax div{border-radius:14px;padding:16px;background:var(--bgk);display:grid;gap:6px;border-top:4px solid var(--k);align-content:start}
+.tax b{font-family:var(--display);font-size:19px;color:var(--k)}
+.tax p{margin:0;font-size:14px}
+.tax small{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.needs{overflow-x:auto}
+.needs table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+.needs th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--line)}
+.needs td{padding:10px;vertical-align:top;border-bottom:1px solid var(--line)}
+.needs td:first-child{font-family:var(--display);font-weight:700;white-space:nowrap}
+.needs ul{margin:0;padding-left:16px;display:grid;gap:3px}
+.needs td.need{background:var(--ok-soft)} .needs td.want{background:var(--sunk)}
+.also{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.also div{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:6px;align-content:start}
+.also b{font-family:var(--display);font-size:17px}
+.also p{margin:0;font-size:14px;color:var(--muted)}
+footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;border-top:1.5px solid var(--line);padding-top:16px}
+
+@media (max-width:980px){ .evo,.sim{grid-template-columns:1fr} .tax{grid-template-columns:1fr} }
+@media (max-width:640px){ .sixty,.also{grid-template-columns:1fr} .journey{grid-template-columns:repeat(3,minmax(0,1fr))} .journey .col:nth-child(3),.journey .col:nth-child(4){display:none} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.sec-lede{margin:0;max-width:74ch;color:var(--pencil);font-size:15.5px}
+</style>
+
+<div class="layout">
+<main>
+<div class="pagehead">
+  <div class="mono">JUMP Math · p. 17–22</div>
+  <h1>JUMP Math Lab</h1>
+  <p class="lede">Maths modules and a teacher dashboard built on xAPI data. I took the dashboard through three rounds, from counts of activity to something a teacher can act on before the next lesson.</p>
+  <div class="kicker"><span class="stamp-ctx stamp-sector"><i>Sector</i>Non-profit</span><span class="stamp-ctx stamp-scale"><i>Scale</i>International</span><span class="stamp-ctx stamp-audience"><i>Audience</i>K–8 teachers and their students</span><span class="stamp-ctx stamp-product"><i>Product</i>Teacher learning platform</span></div>
+</div>
+
+<div class="wrap">
+  <header>
+    
+    
+    <p class="lede">JUMP Math Lab gave teachers a lot of data and very little to act on. I redesigned what the Lab measures and how the teacher dashboard shows it, so a teacher can see who needs help, with what, before the next lesson.</p>
+  </header>
+  <div class="role"><span><b>My role:</b> wrote the proposal, designed the dashboards in Figma, and specified the tracking data for developers</span><span><b>When:</b> 2024–2025</span><span><b>Outcome:</b> shipped; teacher feedback was widely positive and fed the next iteration</span></div>
+  <div class="ctx" aria-label="Context"><span><i>Sector</i>Non-profit</span><span><i>Scale</i>International</span><span><i>Audience</i>K–8 teachers and their students</span><span><i>Product</i>Teacher learning platform</span></div>
+
+  <div class="tabs" role="tablist" aria-label="Case study views">
+    <button class="tab" role="tab" id="tab-60" aria-controls="v-60" aria-selected="true">60-second read</button>
+    <button class="tab" role="tab" id="tab-ex" aria-controls="v-ex" aria-selected="false" tabindex="-1">Explore the redesign</button>
+  </div>
+
+  <section id="v-60" role="tabpanel" aria-labelledby="tab-60">
+    <div class="sixty">
+      <div><span class="label">The problem</span><b>Lots of data, little to act on</b><p>Teachers only got a pre- and post-assessment, and only the post was useful. Every student had to attempt the bonus questions, ready or not. Curriculum links lived in static PDFs, kept as two separate lists for Canada and the US.</p></div>
+      <div><span class="label">My role</span><b>From proposal to shipped screens</b><p>I wrote the proposal, designed the student, teacher and admin dashboards in Figma, and specified the tracking data developers needed, splitting every change into needs and wants.</p></div>
+      <div><span class="label">What I did</span><b>Five changes, one proposal</b><ul><li>Forked pathways: bonus or scaffolded questions, chosen by each student’s own results</li><li>Check-in quizzes after every lesson, and all content sorted into diagnostic, formative and summative</li><li>Short confidence questions built into quizzes</li><li>A module library that shows curriculum links for your province or state</li><li>Dashboards that lead with who needs help, and with what</li></ul></div>
+      <div><span class="label">What changed</span><b>Shipped, and teachers liked it</b><p>The changes shipped. Teacher feedback was widely positive and fed straight into the next iteration. In the teacher survey that started it, every teacher who answered asked for more quizzes and tests, and check-ins gave them exactly that.</p></div>
+    </div>
+    <div class="shows" style="margin-top:14px"><span class="label" style="margin-right:4px">What this shows</span><span class="chip">Data-informed redesign</span><span class="chip">User flows</span><span class="chip">Figma and developer handoff</span><span class="chip">Adaptive learning design</span><span class="chip">Prioritising needs and wants</span></div>
+    <button class="cta" type="button" id="go-ex" style="margin-top:14px">Explore the redesign →</button>
+  </section>
+
+  <section id="v-ex" role="tabpanel" aria-labelledby="tab-ex" hidden>
+    <p class="note" role="note"><span class="hex" aria-hidden="true" style="margin-top:3px"></span><span><b>About these screens.</b> They’re simplified recreations of my Figma mockups. Student names are invented and every figure is sample data, not real classroom results.</span></p>
+
+    <section aria-labelledby="evo-h">
+      <div><div class="label">Design iterations</div><h2 id="evo-h">How the teacher dashboard changed</h2></div>
+      <div class="stepper" role="group" aria-label="Dashboard version">
+        <button type="button" data-v="0" aria-pressed="false">1 · Counts</button>
+        <button type="button" data-v="1" aria-pressed="false">2 · Progress</button>
+        <button type="button" data-v="2" aria-pressed="true">3 · Decisions</button>
+      </div>
+      <div class="evo">
+        <div class="screen" aria-live="polite"><div class="bar"><i></i><i></i><i></i>&nbsp;JUMP Math Lab · Teacher dashboard · Class 5A</div><div class="scr" id="scr"></div></div>
+        <div class="annot" id="annot"></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="sim-h">
+      <div><div class="label">Try it</div><h2 id="sim-h">Forked pathways: bonus or scaffold</h2></div>
+      <p class="lede">Before, every student had to attempt two bonus questions. Now each section has five core questions, and the result picks the next step: 1–3 correct leads to two scaffolded questions with hints, 4–5 correct leads to two bonus questions. Tap the questions to change one student’s answers.</p>
+      <div class="sim">
+        <div class="card">
+          <div class="label">One student, one section</div>
+          <div class="qs" id="qs"></div>
+          <div class="route" id="route" aria-live="polite"></div>
+          <div class="toggles"><label><input type="checkbox" id="t-video"> Rewatched the main video</label><label><input type="checkbox" id="t-hint"> Viewed a hint</label></div>
+          <div class="label">Pathway questions</div>
+          <div class="qs" id="pq" style="grid-template-columns:repeat(2,minmax(0,1fr))"></div>
+        </div>
+        <div class="outs" aria-live="polite">
+          <div class="out"><div class="label"><span>What the student sees</span></div><div class="stu" id="o-stu"></div></div>
+          <div class="out"><div class="label"><span>What the teacher sees</span></div><div class="grid-wrap" id="o-tea"></div></div>
+          <div class="out"><div class="label"><span>What the developers receive (xAPI)</span><span>my spec</span></div><pre id="o-dev"></pre></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="tax-h">
+      <div><div class="label">A shared language</div><h2 id="tax-h">Three kinds of assessment, one dashboard</h2></div>
+      <div class="tax">
+        <div style="--k:var(--dia);--bgk:var(--dia-soft)"><b>Diagnostic</b><small>lesson sections</small><p>Where exactly is a student stuck? Question-level results, and which pathway they took.</p></div>
+        <div style="--k:var(--for);--bgk:var(--for-soft)"><b>Formative</b><small>check-ins after each lesson · new</small><p>Is the class on track this week? The piece teachers asked for, and the one that was missing.</p></div>
+        <div style="--k:var(--sum);--bgk:var(--sum-soft)"><b>Summative</b><small>pre- and post-assessment</small><p>Did the module work? Growth from the start of the module to the end.</p></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="needs-h">
+      <div><div class="label">Prioritisation</div><h2 id="needs-h">Needs and wants, per dashboard</h2></div>
+      <p class="lede">Every change in the proposal was labelled as a need (ships with the data changes) or a want (quality of life), so developers could plan around what was essential.</p>
+      <div class="needs"><table>
+        <thead><tr><th scope="col">Dashboard</th><th scope="col">Need</th><th scope="col">Want</th></tr></thead>
+        <tbody>
+          <tr><td>Student</td><td class="need"><ul><li>Show forked pathway results</li><li>Tell diagnostic, formative and summative apart</li></ul></td><td class="want"><ul><li>Quality-of-life changes</li></ul></td></tr>
+          <tr><td>Teacher</td><td class="need"><ul><li>Show forked pathway results</li><li>Show diagnostic, formative and summative results</li><li>Module library as dynamic tables, no PDF</li></ul></td><td class="want"><ul><li>Lead with meaningful data at a glance</li><li>More filters</li><li>Better view of student progression</li></ul></td></tr>
+          <tr><td>Admin</td><td class="need"><ul><li>Anonymous survey results across modules</li><li>Anonymous scores across sections, lessons and modules</li></ul></td><td class="want"><ul><li>Key metrics pulled across modules</li><li>Data confidence scores</li></ul></td></tr>
+        </tbody></table></div>
+    </section>
+
+    <section aria-labelledby="also-h">
+      <div><div class="label">Also at JUMP Math</div><h2 id="also-h">Two more pieces of work</h2></div>
+      <div class="also">
+        <div><b>Making Math Click on Coursera</b><p>With John Mighton and Barbara Oakley. I managed the course end to end, from outline to custom H5P activities, including a branching scenario where teachers make teaching decisions and see the consequences. 2,000+ learners enrolled before the July 2025 launch.</p></div>
+        <div><b>A reusable Storyline template system</b><p>Standardised UI patterns, accessibility features and xAPI tracking across courses, so modules could be compared cleanly. Deployed across Europe and Latin America.</p></div>
+      </div>
+    </section>
+  </section>
+
+  <p class="disclaimer">Recreated from my JUMP Math Lab proposal and Figma mockups. Student names and figures are sample data.</p>
+
+</div>
+<section style="margin-top:40px;display:grid;gap:14px">
+  <h2>Where I worked across the lifecycle</h2>
+  <p class="sec-lede">From a teacher survey to the xAPI data the dashboards read, and the needs-versus-wants list the developers built from.</p>
+  <div data-life="jm" class="life-wrap"></div>
+</section>
+<div class="nextcase"><a href="how-i-work.html"><span><small>Next</small>How I work</span><span class="open" aria-hidden="true">open →</span></a></div>
+<footer class="pagefoot">
+  <span>JUMP Math Lab · JUMP Math</span>
+  <span><a href="index.html">← Contents</a> · <a href="how-i-work.html">How I work →</a></span>
+</footer>
+</main>
+</div>
+<script src="site.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+/* tabs */
+function tab(which){const a=which==="60";$("tab-60").setAttribute("aria-selected",a);$("tab-ex").setAttribute("aria-selected",!a);$("tab-60").tabIndex=a?0:-1;$("tab-ex").tabIndex=a?-1:0;$("v-60").hidden=!a;$("v-ex").hidden=a;}
+$("tab-60").onclick=()=>tab("60");$("tab-ex").onclick=()=>tab("ex");$("go-ex").onclick=()=>{tab("ex");$("tab-ex").focus()};
+document.querySelector(".tabs").addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){const t=$("tab-60").getAttribute("aria-selected")==="true"?"ex":"60";tab(t);$("tab-"+t).focus()}});
+
+/* sample students (invented) */
+const S=[["Amara",[1,1,1,1,1],"b",[1,1]],["Leo",[0,1,0,1,0],"s",[1,1]],["Priya",[1,1,0,1,1],"b",[1,1]],["Sam",[0,0,0,0,0],"s",[0,0]],["Noah",[1,1,1,0,0],"s",[1,0]]];
+const cell=v=>v?'<td class="c" aria-label="correct">✓</td>':'<td class="x" aria-label="incorrect">✗</td>';
+function grid(mode){
+  const head=mode===0?'<th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Q5</th><th>B1</th><th>B2</th>':'<th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Q5</th><th>Path</th><th>P1</th><th>P2</th>';
+  const rows=S.map(([n,q,p,pq])=>{
+    const sc=Math.round(q.reduce((a,b)=>a+b,0)/5*100);
+    const flag=mode===2&&sc<=40;
+    const tail=mode===0?(pq.map(()=>'<td class="x">✗</td>').join("").replace(/x">✗/g,(m,i)=>m)): `<td><span class="pth ${p==="b"?"p-b":"p-s"}">${p==="b"?"Bonus":"Scaffold"}</span></td>${pq.map(cell).join("")}`;
+    const b0=mode===0?(p==="b"?pq.map(cell).join(""):'<td class="x">✗</td><td class="x">✗</td>'):"";
+    return `<tr class="${flag?"flag":""}"><td>${n}${flag?" · needs help":""}</td><td class="sc">${sc}%</td>${q.map(cell).join("")}${mode===0?b0:tail}</tr>`;
+  }).join("");
+  return `<div class="grid-wrap"><table class="qg"><thead><tr><th>Student</th><th>Score</th>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+const V=[
+ {html:`<h4>Your dashboard</h4>
+   <div class="tiles" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="tile"><span class="k">Active students</span><span class="v">36</span><span class="s">this semester</span></div><div class="tile"><span class="k">Active classes</span><span class="v">2</span></div><div class="tile"><span class="k">Active modules</span><span class="v">3</span></div></div>
+   <div class="tiles" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="tile bad"><span class="k">Review struggling students</span><span class="s">Several students scored below 50% in recent assessments</span></div><div class="tile warn"><span class="k">Review inactive students</span><span class="s">Some students have not logged in this week</span></div></div>`+grid(0),
+  notes:[["var(--muted)","Counts, not decisions","“36 active students” is true, but it doesn’t tell a teacher what to do on Monday."],["var(--bad)","Alerts without names","“Several students” means clicking around to find out who."],["var(--warn)","Everyone does the bonus questions","Students who struggled with the core questions were still forced into B1 and B2, and failed them again."]]},
+ {html:`<h4>Algebra: Expressions and Equations 1</h4>
+   <div class="journey">${[["Pre-assessment",45,"pre"],["Check-in 1",67,""],["Check-in 2",72,""],["Check-in 3",0,""],["Module target",85,"tgt"]].map(([l,v,c])=>`<div class="col ${c}"><div class="colbar">${c==="tgt"?"":`<i style="height:${v}%"></i>`}</div><b>${v?v+"%":"—"}</b>${l}</div>`).join("")}</div>
+   <div class="tiles" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="tile"><span class="tag t-sum">summative</span><span class="k">Pre-assessment</span><span class="v">45%</span><span class="s">25 of 36 attempted</span></div><div class="tile"><span class="tag t-for">formative</span><span class="k">Latest check-in</span><span class="v">72%</span><span class="s">28 of 32 students improved</span></div></div>`+grid(1),
+  notes:[["var(--for)","Progress against a target","Check-ins after each lesson show the class moving toward the module target, not just a final score."],["var(--sum)","Assessments get a type","Summative and formative are labelled, so a teacher knows what each number is for."],["var(--dia)","Pathways appear","Each student’s route, bonus or scaffold, shows in the grid next to their answers."]]},
+ {html:`<h4>Algebra: Expressions and Equations 1</h4>
+   <div class="tiles" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+     <div class="tile"><span class="tag t-sum">summative</span><span class="k">Pre → post</span><span class="v">45% → 82%</span><span class="s">28 of 32 improved</span></div>
+     <div class="tile"><span class="tag t-for">formative</span><span class="k">Check-ins 1–3</span><span class="v">85 · 72 · 88%</span><span class="s">Focus lessons: multiplication, division</span></div>
+     <div class="tile"><span class="tag t-dia">diagnostic</span><span class="k">Bonus / scaffold</span><span class="v">45% / 55%</span><span class="s">Focus: long division</span></div></div>
+   <div class="tiles"><div class="tile bad"><span class="k">Needs help now</span><span class="v" style="font-size:18px">Leo · Sam</span><span class="s">Below 50% on core questions. Click a name to see every attempt and whether they watched the solution video.</span></div></div>`+grid(2),
+  notes:[["var(--bad)","Alerts became names","The dashboard says who needs help, and a click shows every attempt, hint and video they used."],["var(--honey-ink)","One view, three assessment types","Diagnostic, formative and summative side by side, each answering a different question."],["var(--dia)","Focus areas, not just scores","Weakest lessons and sections are named, so the next lesson plan writes itself."]]}
+];
+function renderV(i){
+  document.querySelectorAll(".stepper button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v==i));
+  $("scr").innerHTML=V[i].html;
+  $("annot").innerHTML=`<div class="v">Version ${i+1} of 3</div>`+V[i].notes.map(([k,t,p])=>`<div class="a" style="--k:${k}"><b>${t}</b><p>${p}</p></div>`).join("");
+}
+document.querySelectorAll(".stepper button").forEach(b=>b.onclick=()=>renderV(+b.dataset.v));
+renderV(2);
+
+/* simulator */
+let core=[1,0,1,0,0], pathQ=[1,1];
+function renderSim(){
+  const n=core.reduce((a,b)=>a+b,0), bonus=n>=4;
+  $("qs").innerHTML=core.map((v,i)=>`<button type="button" class="qbtn" aria-pressed="${!!v}" aria-label="Question ${i+1}: ${v?"correct":"incorrect"}" data-i="${i}"><b>Q${i+1}</b><span>${v?"✓":"✗"}</span></button>`).join("");
+  $("qs").querySelectorAll(".qbtn").forEach(b=>b.onclick=()=>{core[+b.dataset.i]^=1;renderSim()});
+  $("pq").innerHTML=pathQ.map((v,i)=>`<button type="button" class="qbtn" aria-pressed="${!!v}" aria-label="${bonus?"Bonus":"Scaffold"} question ${i+1}: ${v?"correct":"incorrect"}" data-i="${i}"><b>${bonus?"B":"S"}${i+1}</b><span>${v?"✓":"✗"}</span></button>`).join("");
+  $("pq").querySelectorAll(".qbtn").forEach(b=>b.onclick=()=>{pathQ[+b.dataset.i]^=1;renderSim()});
+  $("route").className="route "+(bonus?"b":"s");
+  $("route").innerHTML=bonus?`<b>${n}/5 → Bonus pathway</b><p>Ready for more: two harder questions, each worth a star.</p>`:`<b>${n}/5 → Scaffold pathway</b><p>Two supported questions, with hints available, instead of being pushed into bonus questions.</p>`;
+  const vid=$("t-video").checked, hint=$("t-hint").checked&&!bonus;
+  $("t-hint").disabled=bonus; $("t-hint").parentElement.style.opacity=bonus?.45:1;
+  const stars=pathQ.map(v=>v?'★':'<span class="off">★</span>').join("");
+  $("o-stu").innerHTML=`<span class="big">${n}/5</span><span class="stars" aria-label="${pathQ.filter(Boolean).length} of 2 stars">${stars}</span><span style="font-size:14px;color:var(--muted)">Section score stays out of 5. The pathway earns up to 2 stars.</span>`;
+  const sc=Math.round(n/5*100);
+  $("o-tea").innerHTML=`<table class="qg"><thead><tr><th>Student</th><th>Score</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>Q5</th><th>Path</th><th>${bonus?"B1":"S1"}</th><th>${bonus?"B2":"S2"}</th><th>Video</th><th>Hint</th></tr></thead><tbody><tr class="${sc<=40?"flag":""}"><td>This student</td><td class="sc">${sc}%</td>${core.map(cell).join("")}<td><span class="pth ${bonus?"p-b":"p-s"}">${bonus?"Bonus":"Scaffold"}</span></td>${pathQ.map(cell).join("")}<td class="n">${vid?"▶":"—"}</td><td class="n">${bonus?"n/a":hint?"?":"—"}</td></tr></tbody></table>`;
+  $("o-dev").innerHTML=`"verb": { "display": { "en-US": "jm-completed" } },
+"object": { "definition": { "description": {
+  <span class="hl">"boscaff": {
+    "active": "true",
+    "type": "${bonus?"Bonus":"Scaffold"}",
+    "stars": "${pathQ.join(",")}"
+  }</span> } } },
+"result": { "score": { "raw": ${sc} } }`;
+}
+$("t-video").onchange=renderSim;$("t-hint").onchange=renderSim;
+renderSim();
+</script>
+</html>

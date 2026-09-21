@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Decisions and metrics · Beeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="journal.css">
+<style>
+
+:root{
+  --bg:var(--paper); --surface:var(--paper); --sunk:var(--paper-2); --line:var(--rule-strong); --muted:var(--pencil);
+  --honey:var(--hi-solid); --honey-soft:var(--amber-w); --honey-ink:var(--hi-ink);
+  --display:var(--serif);
+  --ok:var(--green); --ok-soft:var(--green-w); --bad:var(--red); --bad-soft:var(--red-w);
+  --warn:var(--amber); --warn-soft:var(--amber-w); --part:var(--amber); --part-soft:var(--amber-w);
+  --no:var(--pencil); --no-soft:var(--paper-2);
+}
+h1,h2,h3,h4{font-family:var(--serif)!important;font-weight:600}
+.wrap{max-width:none!important}
+.wrap>header{display:none}
+
+:root{ --c-bar:var(--red); --c-bar-soft:var(--red-w); --c-per:var(--blue); --c-per-soft:var(--blue-w);
+  --c-chl:var(--green); --c-chl-soft:var(--green-w); --c-dec:var(--ink); --c-dec-soft:var(--paper-2);
+  --c-met:var(--blue); --c-met-soft:var(--blue-w); --c-out:var(--amber); --c-out-soft:var(--amber-w); }
+.subnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 26px}
+.subnav a{text-decoration:none;font-size:14px;color:var(--pencil);border:1px solid var(--rule-strong);
+  border-radius:999px;padding:6px 13px;background:var(--paper)}
+.subnav a:hover{border-color:var(--ink);color:var(--ink)}
+.subnav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pagehead h1{margin:2px 0 4px}
+.where{display:none}
+
+:root{
+  --bg:var(--paper-2); --surface:var(--paper); --sunk:var(--paper-2); --muted:var(--pencil); --line:var(--rule-strong);
+  --honey:var(--hi-solid); --honey-soft:var(--amber-w); --honey-ink:var(--hi-ink);
+  --c-bar:var(--red); --c-bar-soft:var(--red-w);
+  --c-per:var(--blue); --c-per-soft:var(--blue-w);
+  --c-chl:var(--green); --c-chl-soft:var(--green-w);
+  --c-dec:var(--ink); --c-dec-soft:#ECEDF1;
+  --c-met:var(--blue); --c-met-soft:var(--blue-w);
+  --c-out:var(--amber); --c-out-soft:var(--amber-w);
+  --ok:var(--green); --ok-soft:var(--green-w); --part:var(--amber); --part-soft:var(--amber-w); --no:var(--pencil); --no-soft:var(--paper-2);
+  --display:var(--serif);
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+.wrap{max-width:1240px;margin-inline:auto;display:grid;gap:24px}
+
+/* header */
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;align-items:center}
+.hex{width:14px;height:16px;background:var(--honey);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);flex:none}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.2vw,50px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
+.lede{max-width:66ch;color:var(--muted);margin:0;font-size:16px}
+.note{display:flex;gap:10px;align-items:flex-start;background:var(--honey-soft);border-radius:10px;padding:10px 14px;font-size:13.5px;max-width:78ch}
+.note b{color:var(--honey-ink)}
+.approx{border-bottom:1.5px dotted currentColor;cursor:help;white-space:nowrap}
+
+/* tabs */
+.tabs{display:flex;gap:4px;border-bottom:1.5px solid var(--line)}
+.tab{background:none;border:0;padding:12px 16px 10px;font-family:var(--display);font-weight:700;font-size:17px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1.5px;display:flex;gap:8px;align-items:baseline}
+.tab small{font-family:var(--mono);font-size:11px;font-weight:500}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--honey)}
+.tab:hover{color:var(--ink)}
+
+/* ===== decision trail ===== */
+.trail-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:start}
+.picker{display:grid;gap:8px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+.picker h2,.panel-h{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
+.pick{text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;display:grid;gap:4px;transition:border-color .2s,background .2s}
+.pick:hover{border-color:var(--c-bar)}
+.pick[aria-pressed="true"]{border-color:var(--c-bar);background:var(--c-bar-soft)}
+.pick .q{font-family:var(--display);font-weight:700;font-size:16.5px;line-height:1.2;letter-spacing:-.01em}
+.pick .f{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center}
+.pick .f::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c-dec);flex:none}
+
+.trail{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:clamp(18px,2.6vw,32px);display:grid;gap:0}
+.trail-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:18px}
+.trail-top .q{font-family:var(--display);font-weight:800;font-size:clamp(26px,3vw,38px);line-height:1.05;letter-spacing:-.02em;margin:4px 0 0;text-wrap:balance}
+.station{display:grid;grid-template-columns:132px 28px minmax(0,1fr);column-gap:10px;position:relative}
+.station .lab{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--k);padding-top:4px;text-align:right}
+.station .rail{position:relative;display:flex;justify-content:center}
+.station .rail::before{content:"";position:absolute;top:0;bottom:0;width:3px;background:var(--line)}
+.station:first-of-type .rail::before{top:12px}
+.station:last-of-type .rail::before{bottom:auto;height:12px}
+.station .dot{position:relative;margin-top:4px;width:16px;height:16px;border-radius:50%;background:var(--surface);border:3.5px solid var(--k);z-index:1}
+.station .body{padding-bottom:16px;display:grid;gap:8px}
+.station .body .h{font-family:var(--display);font-weight:700;font-size:18px;line-height:1.25;letter-spacing:-.005em}
+.station .body p{margin:0;max-width:68ch}
+.s-bar{--k:var(--c-bar)} .s-chl{--k:var(--c-chl)} .s-dec{--k:var(--c-dec)} .s-met{--k:var(--c-met)} .s-evi{--k:var(--part)} .s-next{--k:var(--honey-ink)} .s-out{--k:var(--c-out)}
+.who{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 10px;font-size:13px;background:var(--sunk);border:1px solid var(--line)}
+.chip.per{background:var(--c-per-soft);border-color:transparent;color:var(--ink)}
+.chip.per b{color:var(--c-per)}
+.chip.met{background:var(--c-met-soft);border-color:transparent}
+.chip.met b{font-family:var(--mono);font-size:11.5px;color:var(--c-met)}
+.bet{background:var(--c-dec-soft);border-radius:10px;padding:10px 14px;font-size:15px}
+.bet b{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;display:block;color:var(--muted);margin-bottom:2px}
+.meta{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+ul.pts{margin:0;padding-left:18px;display:grid;gap:6px;max-width:70ch}
+.pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:3px 9px;font-weight:500;width:max-content}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.yes{background:var(--ok-soft);color:var(--ok)}
+.pill.partly{background:var(--part-soft);color:var(--part)}
+.pill.no{background:var(--no-soft);color:var(--no)}
+.pill.no::before{background:none;border:1.5px solid currentColor}
+.outs{display:grid;gap:6px}
+.outs div{display:grid;grid-template-columns:34px 1fr;gap:8px;font-size:14.5px}
+.outs span{font-family:var(--mono);font-size:12px;color:var(--c-out);padding-top:2px}
+.shows{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-top:1.5px solid var(--line);padding-top:14px;margin-top:4px}
+.shows .t{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.shows .chip{background:var(--honey-soft);border-color:transparent}
+
+/* instrument demo */
+.demo{border:1.5px dashed var(--c-met);border-radius:12px;padding:14px;display:grid;gap:10px;max-width:520px;background:var(--surface)}
+.demo .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--c-met)}
+.demo fieldset{border:0;margin:0;padding:0;display:grid;gap:10px}
+.demo legend{font-family:var(--display);font-weight:700;font-size:17px;line-height:1.3;padding:0}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opts label{position:relative}
+.opts input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.opts span{display:inline-block;border:1.5px solid var(--line);border-radius:999px;padding:8px 16px;font-weight:700;cursor:pointer;background:var(--surface);transition:background .15s,border-color .15s}
+.opts input:checked+span{background:var(--c-met);border-color:var(--c-met);color:var(--surface)}
+.opts input:focus-visible+span{outline:3px solid var(--honey);outline-offset:2px}
+.demo .res{font-size:13.5px;color:var(--muted);min-height:1.5em}
+
+/* ===== metric ladder ===== */
+.sum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.sum .c{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:2px}
+.sum .n{font-family:var(--display);font-weight:800;font-size:30px;line-height:1;letter-spacing:-.02em}
+.sum .l{font-size:13px;color:var(--muted)}
+.ladder-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(16px,2.4vw,32px);align-items:start}
+.ladder{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:8px 0 10px;overflow:hidden}
+.lhead,.lrow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(170px,1.2fr) 64px;gap:12px;align-items:center;padding:0 16px}
+.lhead{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-block:8px 6px}
+.rungs-h{display:grid;grid-template-columns:repeat(4,1fr);text-align:center;font-size:9.5px;letter-spacing:0}
+.tier{padding:12px 16px 4px;display:flex;gap:10px;align-items:baseline;border-top:1.5px solid var(--line);margin-top:6px}
+.tier:first-of-type{border-top:0;margin-top:0}
+.tier b{font-family:var(--display);font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.tier span{font-size:13px;color:var(--muted);font-style:italic}
+.lrow{width:100%;text-align:left;background:none;border:0;padding-block:8px;cursor:pointer;border-left:3px solid transparent}
+.lrow:hover{background:var(--sunk)}
+.lrow[aria-pressed="true"]{background:var(--c-met-soft);border-left-color:var(--c-met)}
+.lrow .nm{display:grid;gap:0;min-width:0}
+.lrow .nm i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--c-met)}
+.lrow .nm b{font-weight:700;font-size:14.5px;line-height:1.25}
+.lrow.sub .nm{padding-left:14px}
+.lrow.sub .nm b{font-weight:400;font-size:13.5px}
+.track{position:relative;display:grid;grid-template-columns:repeat(4,1fr);align-items:center;height:22px}
+.track::before{content:"";position:absolute;left:12.5%;right:12.5%;top:50%;height:2px;background:var(--line);transform:translateY(-50%)}
+.track .fill{position:absolute;left:12.5%;top:50%;height:4px;background:var(--c-met);transform:translateY(-50%);border-radius:2px}
+.track .n{position:relative;justify-self:center;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--line)}
+.track .n.on{background:var(--c-met);border-color:var(--c-met)}
+.track .n.tgt{box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--honey)}
+.qa{font-family:var(--mono);font-size:12px;text-align:right;color:var(--muted)}
+.qa b{color:var(--ink);font-weight:500}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted);padding:10px 16px 2px;border-top:1.5px solid var(--line);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-2px;margin-right:6px}
+
+.detail{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:clamp(16px,2.2vw,26px);display:grid;gap:16px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+.detail .id{font-family:var(--mono);font-size:12px;color:var(--c-met)}
+.detail h3{font-family:var(--display);font-weight:800;font-size:26px;line-height:1.08;letter-spacing:-.015em;margin:2px 0 6px}
+.detail p{margin:0}
+.kv{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px 14px;font-size:14.5px}
+.kv dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.kv dd{margin:0}
+.qs{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.qs li{display:grid;grid-template-columns:78px minmax(0,1fr);gap:10px;align-items:start;font-size:14px}
+.qs li small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.feats{display:flex;flex-wrap:wrap;gap:6px}
+.feats .chip b{font-family:var(--mono);font-size:10.5px;color:var(--muted);font-weight:500}
+.asks{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:14px}
+.asks li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:8px;align-items:baseline}
+.asks .num{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.asks .by{font-size:12px;color:var(--muted);white-space:nowrap}
+.asks li.closed{color:var(--muted);text-decoration:line-through}
+
+.checks{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:clamp(16px,2.2vw,26px);display:grid;gap:14px}
+.checks h3{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.01em;margin:0}
+.checkgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.check{border-radius:12px;padding:14px;background:var(--sunk);display:grid;gap:6px;align-content:start}
+.check .n{font-family:var(--display);font-weight:800;font-size:28px;line-height:1}
+.check .t{font-weight:700;font-size:14.5px}
+.check p{margin:0;font-size:13.5px;color:var(--muted)}
+.check .ids{display:flex;flex-wrap:wrap;gap:4px}
+.check .ids button{font-family:var(--mono);font-size:11.5px;border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:2px 7px;cursor:pointer}
+.check .ids button:hover{border-color:var(--c-met);color:var(--c-met)}
+
+footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;border-top:1.5px solid var(--line);padding-top:16px}
+
+@media (max-width:980px){
+  .trail-layout,.ladder-layout{grid-template-columns:1fr}
+  .picker{position:static;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);overflow-x:auto;padding-bottom:6px}
+  .picker h2{display:none}
+  .detail{position:static}
+  .checkgrid{grid-template-columns:1fr}
+  .sum{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:560px){
+  .station{grid-template-columns:22px minmax(0,1fr)}
+  .station .lab{grid-column:2;text-align:left;padding:0 0 2px}
+  .station .rail{grid-row:1 / span 2;grid-column:1}
+  .station .  .lhead,.lrow{grid-template-columns:minmax(0,1fr) 150px;}
+  .lhead>:last-child,.lrow .qa{display:none}
+  .kv{grid-template-columns:1fr;gap:2px}
+  .kv dd{margin-bottom:8px}
+  .qs li{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="layout">
+<main>
+<div class="pagehead">
+  <div class="mono">Beeline · p. 6–7</div>
+  <h1>Decisions and metrics</h1>
+  <p class="lede">What the problem model led to: four trails from a fear young people described to a decision that shipped, and the ladder of metrics that says whether any of it worked.</p>
+  <div class="kicker"></div>
+</div>
+<nav class="subnav" aria-label="Beeline spreads">
+  <a href="beeline.html">Overview</a>
+  <a href="youth-voice.html">Youth Voice</a>
+  <a href="beeline-landscape.html">Service Landscape</a>
+  <a href="beeline-problem.html">Problem Model</a>
+  <a href="beeline-evidence.html" aria-current="page">Decisions &amp; Metrics</a>
+  <a href="beeline-showtells.html">MVP Experience Curve</a>
+</nav>
+<div class="wrap">
+  
+
+  <p class="note" role="note"><span class="hex" aria-hidden="true" style="margin-top:3px"></span><span><b>About the numbers.</b> All figures on this page are rounded or illustrative. The exact numbers belong to Greater Manchester Combined Authority. The structure, questions and decisions are real.</span></p>
+
+  <div class="tabs" role="tablist" aria-label="Beeline evidence views">
+    <button class="tab" role="tab" id="tab-trail" aria-controls="view-trail" aria-selected="true">Decision Trail <small>4 trails</small></button>
+    <button class="tab" role="tab" id="tab-ladder" aria-controls="view-ladder" aria-selected="false" tabindex="-1">Metric Ladder <small>14 metrics</small></button>
+  </div>
+
+  <section id="view-trail" role="tabpanel" aria-labelledby="tab-trail">
+    <div class="trail-layout">
+      <div class="picker" id="picker" aria-label="Choose a trail"><h2>Pick a fear to follow</h2></div>
+      <article class="trail" id="trail" aria-live="polite"></article>
+    </div>
+  </section>
+
+  <section id="view-ladder" role="tabpanel" aria-labelledby="tab-ladder" hidden>
+    <div style="display:grid;gap:18px">
+      <p class="lede" style="max-width:74ch">Every Beeline metric climbs the same four steps: <b>Named</b> (it exists), <b>Defined</b> (we agreed what to count), <b>Baselined</b> (we have a first number) and <b>Trended</b> (we can see which way it’s going). A metric only climbs when the evidence allows it, and the ladder shows where each one honestly stands.</p>
+      <div class="sum" id="sum"></div>
+      <div class="ladder-layout">
+        <div class="ladder" id="ladder" role="group" aria-label="Metrics by step reached"></div>
+        <aside class="detail" id="detail" aria-live="polite"></aside>
+      </div>
+      <section class="checks" aria-labelledby="checks-h">
+        <div>
+          <div class="panel-h">Design assurance</div>
+          <h3 id="checks-h">The system checks itself</h3>
+        </div>
+        <div class="checkgrid" id="checkgrid"></div>
+      </section>
+    </div>
+  </section>
+
+  <footer>
+    <span>Built from the Beeline problem model, feature map and metrics framework. Barrier-to-feature links are my own mapping.</span>
+    <span>Fatima Abid · portfolio prototype</span>
+  </footer>
+</div>
+<footer class="pagefoot">
+  <span>Beeline · Greater Manchester Combined Authority</span>
+  <span><a href="index.html">← Contents</a> · <a href="beeline-showtells.html">MVP Experience Curve →</a></span>
+</footer>
+</main>
+</div>
+<script src="site.js"></script>
+<script>
+const A=(t,tip)=>`<span class="approx" title="${tip||"Illustrative figure. Exact figure held by GMCA"}">≈${t}</span>`;
+
+/* ---------- shared data ---------- */
+const OUTCOMES={1:"I know that jobs aren’t just for ‘certain types of people’ and my options aren’t limited by stereotypes.",8:"I can see how my hobbies and interests might connect to real jobs in the future.",12:"I understand that there are thousands of jobs out there, and some haven’t even been created yet.",13:"I understand there are lots of different ways to work, like apprenticeships, T-Levels, or office vs. remote.",15:"I can confidently compare different gateways and decide which next step is right for me.",16:"I know that I am just starting to figure out my skills, and that is okay.",20:"I can point to real things I’ve done, inside or outside of school, to show I am building workplace skills.",23:"I can show employers how I’ve used my skills in the real world."};
+
+const METRICS=[
+ {id:"PRG-01",name:"School Reach & Adoption",tier:"PRG",rung:2,target:null,targetText:"30% of Greater Manchester secondary schools",
+  measures:"Schools in Greater Manchester actively using Beeline resources: the game, the website, lesson plans and the wider educator toolkit.",why:"Proves adoption and educator buy-in, not just distribution.",
+  evidence:"Decks have gone out to schools, but sending a deck isn’t adoption. The inherited baseline combined the educator toolkit and Beeline in one number, so there’s no Beeline-only baseline yet.",
+  next:"Triangulate a source that identifies schools using Beeline specifically: custom URLs, toolkit downloads and participation records.",asks:[16,10],
+  qs:[["No","Which schools are actually using Beeline, as opposed to having been sent a deck?","The difference between distribution and adoption."]]},
+ {id:"PRG-02",name:"Community Reach & Adoption",tier:"PRG",rung:3,target:3,targetText:"Breadth of settings within each borough",
+  measures:"Presence across settings within Greater Manchester’s local authorities: the breadth of setting types reached, not just the count of authorities.",why:"Proves community buy-in beyond schools.",
+  evidence:"Present in all ten Greater Manchester boroughs. The Phase 1 target is met.",
+  next:"Record settings engaged per borough, turning presence into breadth.",asks:[11],
+  qs:[["Yes","Is Beeline present in all ten boroughs?","Met, September 2026."],["Not yet","How many, and what kinds of, setting within each borough?","Needs setting type recorded in the engagement tracker."]]},
+ {id:"PRG-03",name:"Co-design Participation",tier:"PRG",rung:2,target:null,targetText:"A first count of groups and reported reach",
+  measures:"Young people and groups actively involved in shaping Beeline, held as three sub-metrics.",why:"Tracks whether we design with young people, not for them.",
+  evidence:"Youth co-design group structured on the Lundy model, running to July 2027, with four community partners engaged.",
+  next:"Agree how co-design participation is recorded, so it can be counted.",asks:[12,14,15],
+  qs:[["Not yet","How many young people are involved, and consistently?","Meaningful participation, not growth."],["Partly","How many people do settings tell us they reach with Beeline resources?","Always labelled as projected, never as achieved reach."],["Partly","Are co-design groups drawn from a varied enough range of settings?","Qualitative, captured in design assurance rounds."]]},
+ {id:"PRG-03-01",name:"Co-design groups engaged",tier:"PRG",sub:true,rung:2,target:null,targetText:"A count per co-design block",
+  measures:"Number of co-design groups actively engaged in a co-design block.",why:"Shows the programme is designing with young people.",
+  evidence:"Four community partners engaged; co-design blocks running to July 2027.",next:"A countable field per co-design block.",asks:[13],qs:[]},
+ {id:"PRG-03-02",name:"Projected reach through resources",tier:"PRG",sub:true,rung:2,target:null,targetText:"A first dated total, held apart from measured reach",
+  measures:"Reach that settings report back through the toolkit request form.",why:"An early read on where resources land during Launch & Learn.",
+  evidence:"Self-reported by groups. Reported, not observed, so it’s never quoted as achieved reach.",next:"Agree how projected reach is derived from the form.",asks:[14],qs:[]},
+ {id:"PRG-03-03",name:"Varied settings of co-design groups",tier:"PRG",sub:true,rung:2,target:null,targetText:"Qualitative, so it doesn’t climb further",
+  measures:"The range and type of settings co-design groups sit in.",why:"Guards against a cohort that is engaged but narrow.",
+  evidence:"From the toolkit request form and design assurance rounds.",next:"Record setting type consistently.",asks:[15],qs:[]},
+ {id:"PRG-04",name:"Unplugged Transition Rate",tier:"PRG",rung:2,target:3,targetText:"Baselined",
+  measures:"People entering the digital service from physical or offline activations (QR panels, decks, events).",why:"Tests whether Unplugged work bridges young people into Beeline. Also reports against the Service Standard digital take-up KPI.",
+  evidence:"QR codes and tracked links are built and logged. Nothing has been read off them yet.",
+  next:"Read arrivals for one complete calendar month.",asks:[18],
+  qs:[["Not yet","How many people arrive from a physical activation?","Needs one full month of arrivals read."]]},
+ {id:"PRD-01",name:"Total Active Users",tier:"PRD",rung:4,target:4,targetText:"Trended",
+  measures:"Unique users landing on the platform.",why:"Baseline digital reach, and the denominator the MNSR needs.",
+  evidence:"Carried over from the previous service. GA4 is collecting against the new definition.",
+  next:"Record a figure for each complete month. Three or more gives direction.",asks:[20],
+  qs:[["Not yet","How many unique people land on the platform?","GA4 is collecting; monthly figures not yet recorded under this definition."]]},
+ {id:"PRD-02",name:"Meaningful Next Step Rate",tier:"PRD",rung:1,target:null,targetText:"Not set: it follows its components",
+  measures:"Share of users who take at least one next step across the Learning Moments.",why:"The single figure that says whether the service moved anyone.",
+  evidence:"Deliberately sequenced after its components. It can’t be defined until each Learning Moment has a settled definition and population.",
+  next:"Agree the composition: numerator from the Learning Moments, denominator from Total Active Users.",asks:[9],
+  qs:[["No","What share of users take at least one next step?","Needs settled definitions for LM-01 to LM-05."]]},
+ {id:"LM-01",name:"Engagement",tier:"LM",rung:2,target:3,targetText:"Baselined",
+  measures:"Finishing the Discovery Quiz with three gateway results, OR arriving on a gateway page from an Unplugged code, OR staying 30+ seconds with real scroll on a core gateway page.",why:"Did the entry tools turn attention into active exploration?",
+  evidence:"The definition has three parts, and none has a stated population yet.",
+  next:"State the population for each part. Until then they can’t be added up or reported as one number.",asks:[21],
+  qs:[["Not yet","Does someone who starts the quiz reach three gateway results?","Needs a stated population."],["Not yet","Does an Unplugged campaign code actually land someone on a gateway page?","Ties back to PRG-04."],["Not yet","Does someone stay and scroll far enough to count as exploring?","Needs scroll-depth tracking and a population."]]},
+ {id:"LM-02",name:"Comprehension",tier:"LM",rung:2,target:3,targetText:"Baselined",
+  measures:"Whether young people understand the seven MBacc gateways: clarity from research, plus an in-service ‘I can…’ prompt.",why:"Checks the platform demystifies technical routes and reduces early self-exclusion (‘this isn’t for me’).",
+  evidence:"In-service instrument designed September 2026: one ‘I can…’ statement per prompt, answered Yes / Not sure / Not yet.",
+  next:"Field it at the shortlisted placements in the Phase 2 Learn window. Four of six placements are offline.",asks:[19],
+  qs:[["Not yet","Can a young person say what each of the seven gateways means?","Instrument designed, not yet fielded."],["Not yet","Does the platform reduce ‘this isn’t for me’?","The barrier LM-02 exists to address."]]},
+ {id:"LM-03",name:"Decision Quality",tier:"LM",rung:2,target:3,targetText:"Baselined",
+  measures:"Share of users who explore more than two MBacc gateways within a single journey.",why:"Checks the product prevents early narrowing.",
+  evidence:`First reading over a rolling 30-day window (${A("130")} active users on the anchor gateway). GA4 can only compare three segments at once, so it reads pairs, which is a tool limit and not a finding.`,
+  next:"A user-level export and a single-journey condition, so ‘more than two gateways’ can actually be read.",asks:[4,5,17],
+  qs:[["Yes","Do people look at more than one gateway at all?",`Only ${A("6 of 21")} possible gateway pairings are explored.`],["No","Do people look at more than two gateways?","The headline question. Pairs can’t answer it."],["No","Do they broaden within one journey, or across visits?","The definition says one journey."],["Yes","Which gateways get explored together?","Informs how gateways cross-link."],["Yes","Does a gateway’s standing change after a release?","Before and after release comparisons."],["Yes","Do people return in order to decide?","They return to decide, but not to act."]]},
+ {id:"LM-04",name:"Confidence",tier:"LM",rung:2,target:3,targetText:"Baselined",
+  measures:"Self-reported confidence about next career actions, from in-service prompts and research groups.",why:"Moving from passive viewing to motivated planning.",
+  evidence:"Shares the LM-02 instrument. Statement 15, placed at the Next Steps Guide, is the keystone reading.",
+  next:"Field the instrument, and record the move from a 1–5 score to Yes / Not sure / Not yet as a deliberate baseline restart.",asks:[19,8],
+  qs:[["Not yet","Does a young person leave with a next action in mind?","Statement 15 at the Next Steps Guide."],["No","Confidence to explore, to choose, and to prove?","Proving needs a workplace setting: the Employer Hub, Phase 3. A scope limit, not a gap."]]},
+ {id:"LM-05",name:"Follow-Through",tier:"LM",rung:3,target:4,targetText:"Trended",
+  measures:"Outbound clicks from gateway pages to live job searches or technical training courses.",why:"Does interest turn into a real, tangible next step?",
+  evidence:`First complete month under a corrected definition: ${A("1,900")} outbound clicks. The measure was redefined in August 2026, because earlier figures missed the landing page, so nothing before July 2026 is comparable.`,
+  next:"Add gateway page views as the denominator, which turns a count into a rate.",asks:[2,6,1,3,7],
+  qs:[["Yes","How many times did people act?",`${A("1,900")} clicks in the baseline month.`],["No","What share of people who reached a gateway went on to act?","The single highest-value gap."],["Yes","Where does interest concentrate?",`${A("90%")} of clicks came from the seven gateway pages.`],["Yes","Do gateways reach many people shallowly, or few deeply?","Reach and depth vary widely between gateways."],["No","Is depth real, or an artefact of how many roles a page lists?","Seven numbers would fix it."],["Partly","Does finishing the Discovery Quiz make someone more likely to act?",`Quiz finishers who acted opened ${A("2×")} as many searches, but only among people we can already see.`],["No","What share of people who start the quiz finish it?","Needs step-level tracking."],["Yes","Do people come back and act again?",`Almost never: a handful out of several hundred.`],["No","Do people act on training courses as well as job searches?","Only job searches are tracked, so half the definition is invisible."]]}
+];
+const TIERS={PRG:["Programme","Is it reaching people?"],PRD:["Product headline","Is it working overall?"],LM:["Learning Moments","What changed for them?"]};
+const RUNGS=["Named","Defined","Baselined","Trended"];
+
+const ASKS={1:["Quiz submissions download","Digital team","Open"],2:["Gateway page views per month","Digital team","Open"],3:["Quiz step-level tracking: start, each step, finish, abandon","Digital team","Open"],4:["User-level export: gateways touched per journey","Digital team","Open"],5:["Single-journey condition on the gateway segments","Digital team","Open"],6:["A count of roles listed on each gateway page","Content team","Open"],7:["Tracking on apprenticeship and T Level course links","Digital team","Open"],8:["Confirm the move to Yes / Not sure / Not yet","Product","Open"],9:["Agree the MNSR composition","Product","Open"],10:["Settle the denominator behind the schools target","Programme","Closed"],11:["Record setting type per borough","Engagement team","Open"],12:["Track co-design participation","Engagement team","Open"],13:["A countable field for co-design groups","Engagement team","Open"],14:["Derive projected reach from the request form","Engagement team","Open"],15:["Route setting type from the form to the tracker","Engagement team","Closed"],16:["A triangulated source for schools using Beeline","Programme","Open"],17:["A BigQuery export for the gateway deep dive","Digital team","Open"],18:["Read one full month of Unplugged arrivals","Me","Open"],19:["Field the in-service ‘I can…’ instrument","Me","Open"],20:["Record Total Active Users monthly","Me","Open"],21:["State the population for each part of LM-01","Me","Open"]};
+
+const FEATURES=[
+ ["Discovery Quiz","1","Live",["LM-01","LM-03","LM-05"]],
+ ["Gateway pages (refresh)","1","Live",["LM-02","LM-03","LM-05"]],
+ ["Explore jobs links","1","Live",["LM-05"]],
+ ["Next Steps Guide","1","Live",["LM-04","LM-05"]],
+ ["Homepage job links","1","Live",["LM-05"]],
+ ["Unplugged QR panels & decks","1–2","Live",["PRG-04","LM-01"]],
+ ["Educator toolkit","1","Live",["PRG-01"]],
+ ["Toolkit request form","1","Live",["PRG-03-02","PRG-03-03"]],
+ ["In-service ‘I can…’ instrument","2","In design",["LM-02","LM-04"]],
+ ["Gateway pages (restructure)","2","In design",[]],
+ ["Employer Hub","3","Idea",["LM-04"]],
+ ["Build Your Future","3","Idea",["LM-04"]]
+];
+
+/* ---------- trails ---------- */
+const TRAILS=[
+ {id:"link",q:"I can’t see the link",bar:"B2",people:[["Daniel","the Outcome-Focused"]],
+  chl:["C2","How might we separate exploring jobs from building a pathway, so the gateway pages stop being where the journey collapses?"],
+  dec:{name:"Discovery Quiz",meta:"Phase 1 · Live",bet:"Matching a young person to three gateways gives them a starting point, so they explore instead of stalling at the first page."},
+  met:["LM-01 Engagement","LM-03 Decision Quality","LM-05 Follow-Through"],outs:[8,15],
+  evi:{s:"partly",l:"Partly visible",pts:[`Quiz finishers who went on to act opened ${A("2×")} as many job searches as people arriving from the landing page.`,"But that only covers people we can already see acting. How many start, finish, or finish and stop isn’t visible yet, so the quiz can’t yet be judged on the job it was built for."]},
+  next:["Asked the digital team for quiz submissions and step-level tracking, and tied both to the metric they unblock.","Discovery Game v2 changes the product in Phase 2, so I logged a deliberate re-baseline instead of letting old and new numbers blur together."],
+  shows:["Testing assumptions","Evidence before claims","Working with engineering"]},
+ {id:"safe",q:"I’ll play it safe",bar:"B3",people:[["Sarah","the Uncertain Explorer"],["Dylan","the Overwhelmed Explorer"]],
+  chl:["C3","How might we support a journey that’s messy and non-linear, where exploring and deciding happen at the same time?"],
+  dec:{name:"Gateway pages refresh",meta:"Phase 1 · Live",bet:"A clear page per gateway lets someone compare routes instead of fixing on the first one they see."},
+  met:["LM-02 Comprehension","LM-03 Decision Quality","LM-05 Follow-Through"],outs:[12,13,15],
+  evi:{s:"partly",l:"Partly visible",pts:[`Only ${A("6 of 21")} possible gateway pairings are being explored. Broadening is happening, but narrowly.`,"People come back to decide, but not to act. Returning to follow through is almost non-existent.","The analytics tool can only compare three segments at once, so ‘more than two gateways’ can’t be read yet. I flagged that as a tool limit, not a finding."]},
+  next:["Gateway pages restructure (Phase 2, in design): use which gateways get explored together to decide how they cross-link.","Asked for a user-level export and a count of roles per page, so depth isn’t just an artefact of how long a page is."],
+  shows:["Synthesising messy data","Telling a tool limit from a finding","Iterating the product"]},
+ {id:"prove",q:"I can’t prove myself",bar:"B6",people:[["Dylan","the Overwhelmed Explorer"],["Clare","the Confident, Self-directed"]],
+  chl:["C9","How might we help a young person see what they can now do that they couldn’t before?"],
+  dec:{name:"In-service ‘I can…’ instrument",meta:"Phase 2 · In design",bet:"Asking one ‘I can…’ question at the right moment reads comprehension and confidence without a survey. Three answers (Yes / Not sure / Not yet) replace a 1–5 score, so a young person answers in their own terms.",demo:true},
+  met:["LM-02 Comprehension","LM-04 Confidence"],outs:[15,20,23],
+  evi:{s:"no",l:"Not yet visible",pts:["Designed in September 2026 and not yet fielded, so there’s nothing to claim yet and the page says so.","Four of the six placements are offline (events, decks, sessions). Fielding it is a service design problem, not only a build task."]},
+  next:["Field it in the Phase 2 Learn window, starting with statement 15 at the Next Steps Guide, the keystone reading.","Record the scale change as a deliberate baseline restart, agreed with the product lead."],
+  shows:["Designing the measure itself","Offline and online research","Accessible UI"]},
+ {id:"stuck",q:"I’m stuck and left behind",bar:"B5",people:[["Heather","the Supported Sense-maker"],["Dylan","the Overwhelmed Explorer"]],
+  chl:["C7","How might we make the Unplugged offline toolkits and the website hand off to each other properly?"],
+  dec:{name:"Unplugged QR panels & decks",meta:"Phase 1–2 · Live",bet:"Physical activations (events, panels, decks) hand a young person into the digital service instead of ending at the event."},
+  met:["PRG-04 Unplugged Transition Rate","LM-01 Engagement"],outs:[1,16],
+  evi:{s:"partly",l:"Partly visible",pts:["QR codes and tracked links are built and logged for every activation.","Gateway-specific codes aren’t printed yet, so we can’t tell which panel drove a scan, and nothing has been read off them."]},
+  next:["Read one complete month of arrivals to get a first figure for the Unplugged Transition Rate.","Print gateway-specific codes so each panel, and each gateway, can be credited."],
+  shows:["Joining offline and digital","Service design","Being honest about gaps"]}
+];
+
+/* ---------- render: trail ---------- */
+const $=id=>document.getElementById(id);
+let trailId="link";
+function renderPicker(){
+  $("picker").querySelectorAll(".pick").forEach(n=>n.remove());
+  TRAILS.forEach(t=>{
+    const b=document.createElement("button");
+    b.className="pick";b.type="button";b.setAttribute("aria-pressed",t.id===trailId);
+    b.innerHTML=`<span class="meta">${t.bar}</span><span class="q">“${t.q}”</span><span class="f">${t.dec.name}</span>`;
+    b.onclick=()=>{trailId=t.id;renderPicker();renderTrail()};
+    $("picker").appendChild(b);
+  });
+}
+function station(cls,lab,body){return `<div class="station ${cls}"><div class="lab">${lab}</div><div class="rail"><span class="dot" aria-hidden="true"></span></div><div class="body">${body}</div></div>`}
+function renderTrail(){
+  const t=TRAILS.find(x=>x.id===trailId);
+  const demo=t.dec.demo?`<form class="demo" onsubmit="return false"><span class="tag">Try the component · placed at the Next Steps Guide</span>
+    <fieldset><legend>“${OUTCOMES[15]}”</legend>
+    <div class="opts">${["Yes","Not sure","Not yet"].map((o,i)=>`<label><input type="radio" name="ican" id="ican-${i}" value="${o}"><span>${o}</span></label>`).join("")}</div></fieldset>
+    <div class="res" id="ican-res">One question, three honest answers, no score.</div></form>`:"";
+  $("trail").innerHTML=`
+    <div class="trail-top"><div><div class="meta">Barrier ${t.bar.slice(1)} · traced</div><p class="q">“${t.q}”</p></div></div>
+    ${station("s-bar","Carried by",`<div class="who">${t.people.map(p=>`<span class="chip per"><b>${p[0]}</b> ${p[1]}</span>`).join("")}</div>`)}
+    ${station("s-chl","Challenge",`<div class="meta">${t.chl[0]}</div><div class="h">${t.chl[1]}</div>`)}
+    ${station("s-dec","Design decision",`<div class="h">${t.dec.name} <span class="meta">· ${t.dec.meta}</span></div><div class="bet"><b>The bet</b>${t.dec.bet}</div>${demo}`)}
+    ${station("s-met","Measured by",`<div class="who">${t.met.map(m=>`<button type="button" class="chip met" data-go="${m.split(" ")[0]}"><b>${m.split(" ")[0]}</b>${m.split(" ").slice(1).join(" ")}</button>`).join("")}</div><div class="outs">${t.outs.map(n=>`<div><span>#${n}</span>${OUTCOMES[n]}</div>`).join("")}</div>`)}
+    ${station("s-evi","What the evidence said",`<span class="pill ${t.evi.s}">${t.evi.l}</span><ul class="pts">${t.evi.pts.map(p=>`<li>${p}</li>`).join("")}</ul>`)}
+    ${station("s-next","What I did next",`<ul class="pts">${t.next.map(p=>`<li>${p}</li>`).join("")}</ul>`)}
+    <div class="shows"><span class="t">What this shows</span>${t.shows.map(s=>`<span class="chip">${s}</span>`).join("")}</div>`;
+  $("trail").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{selId=b.dataset.go;setTab("ladder");renderLadder();$("detail").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"nearest"})});
+  $("trail").querySelectorAll('input[name="ican"]').forEach(r=>r.onchange=()=>{
+    const msg={"Yes":"Recorded as Yes. It counts toward LM-04 Confidence at this placement.","Not sure":"Recorded as Not sure. That’s a signal to improve this step, not a failure.","Not yet":"Recorded as Not yet. It tells us where support is missing, without asking for a score."};
+    $("ican-res").textContent=msg[r.value];
+  });
+}
+
+/* ---------- render: ladder ---------- */
+let selId="LM-05";
+const qaCount=m=>[m.qs.filter(q=>q[0]==="Yes").length,m.qs.length];
+function renderSummary(){
+  const byR=[1,2,3,4].map(r=>METRICS.filter(m=>m.rung===r).length);
+  const allQ=METRICS.flatMap(m=>m.qs);
+  const openAsks=Object.values(ASKS).filter(a=>a[2]==="Open").length;
+  const live=FEATURES.filter(f=>f[2]==="Live").length;
+  $("sum").innerHTML=[
+    [METRICS.length,`metrics in three tiers`],
+    [`${byR[2]+byR[3]}`,`have a first number (${byR[3]} trended)`],
+    [`${allQ.filter(q=>q[0]==="Yes").length}/${allQ.length}`,`must-answer questions we can answer today`],
+    [openAsks,`open asks unblocking the rest`]
+  ].map(([n,l])=>`<div class="c"><span class="n">${n}</span><span class="l">${l}</span></div>`).join("");
+}
+function renderLadder(){
+  let h=`<div class="lhead"><span>Metric</span><span class="rungs-h">${RUNGS.map(r=>`<span>${r}</span>`).join("")}</span><span style="text-align:right">Can answer</span></div>`;
+  ["PRG","PRD","LM"].forEach(t=>{
+    h+=`<div class="tier"><b>${TIERS[t][0]}</b><span>${TIERS[t][1]}</span></div>`;
+    METRICS.filter(m=>m.tier===t).forEach(m=>{
+      const [y,n]=qaCount(m);
+      const fillW=(m.rung-1)*25;
+      h+=`<button type="button" class="lrow${m.sub?" sub":""}" data-id="${m.id}" aria-pressed="${m.id===selId}" aria-label="${m.id} ${m.name}: ${RUNGS[m.rung-1]}${m.target?", 2027 target "+RUNGS[m.target-1]:""}">
+        <span class="nm"><i>${m.id}</i><b>${m.name}</b></span>
+        <span class="track" aria-hidden="true"><span class="fill" style="width:${fillW}%"></span>${[1,2,3,4].map(r=>`<span class="n${r<=m.rung?" on":""}${m.target===r&&m.target>m.rung?" tgt":""}"></span>`).join("")}</span>
+        <span class="qa">${n?`<b>${y}</b>/${n}`:"—"}</span></button>`;
+    });
+  });
+  h+=`<div class="legend"><span><i style="background:var(--c-met)"></i>Step reached</span><span><i style="background:var(--surface);box-shadow:0 0 0 2px var(--honey)"></i>Where 2027 asks it to be</span><span>Can answer = must-answer questions answerable today</span></div>`;
+  $("ladder").innerHTML=h;
+  $("ladder").querySelectorAll(".lrow").forEach(b=>b.onclick=()=>{selId=b.dataset.id;renderLadder()});
+  renderDetail();
+}
+const pillFor=s=>({"Yes":"yes","Partly":"partly","No":"no","Not yet":"no"})[s];
+function renderDetail(){
+  const m=METRICS.find(x=>x.id===selId);
+  const feats=FEATURES.filter(f=>f[3].includes(m.id));
+  $("detail").innerHTML=`
+    <div><div class="id">${m.id} · ${TIERS[m.tier][0]}${m.sub?" · sub-metric":""}</div><h3>${m.name}</h3>
+      <span class="pill ${m.rung>=3?"yes":m.rung===2?"partly":"no"}">Step ${m.rung} · ${RUNGS[m.rung-1]}</span></div>
+    <dl class="kv">
+      <dt>Counts</dt><dd>${m.measures}</dd>
+      <dt>Why</dt><dd>${m.why}</dd>
+      <dt>Where it is</dt><dd>${m.evidence}</dd>
+      <dt>Next step</dt><dd>${m.next}</dd>
+      <dt>2027 asks</dt><dd>${m.targetText}</dd>
+    </dl>
+    ${m.qs.length?`<div><div class="panel-h">Must-answer questions</div><ul class="qs">${m.qs.map(q=>`<li><span class="pill ${pillFor(q[0])}">${q[0]}</span><span>${q[1]}<small>${q[2]}</small></span></li>`).join("")}</ul></div>`:""}
+    <div><div class="panel-h">Designed to move it</div>${feats.length?`<div class="feats">${feats.map(f=>`<span class="chip">${f[0]} <b>P${f[1]} · ${f[2]}</b></span>`).join("")}</div>`:`<p style="color:var(--c-bar);font-size:14px">No feature is designed to move this yet. It’s measured, not designed for.</p>`}</div>
+    <div><div class="panel-h">What unblocks it</div><ul class="asks">${m.asks.map(a=>`<li class="${ASKS[a][2]==="Closed"?"closed":""}"><span class="num">#${a}</span><span>${ASKS[a][0]}</span><span class="by">${ASKS[a][1]}${ASKS[a][2]==="Closed"?" · done":""}</span></li>`).join("")}</ul></div>`;
+}
+function renderChecks(){
+  const liveMetrics=new Set(FEATURES.filter(f=>f[2]==="Live").flatMap(f=>f[3]));
+  const notDesigned=METRICS.filter(m=>!liveMetrics.has(m.id)).map(m=>m.id);
+  const climbedBlocked=METRICS.filter(m=>m.rung>=3&&m.asks.some(a=>ASKS[a][2]==="Open")).map(m=>m.id);
+  const behind=METRICS.filter(m=>m.target&&m.target>m.rung).map(m=>m.id);
+  const dig=Object.values(ASKS).filter(a=>a[2]==="Open"&&a[1]==="Digital team").length;
+  const cards=[
+    [notDesigned.length,"Measured, but not designed for","No live feature points at these. Either the roadmap has a gap, or the metric belongs to the programme, not the product.",notDesigned],
+    [climbedBlocked.length,"Climbed while still blocked","These have a first number but still have open asks, so the number is real but incomplete.",climbedBlocked],
+    [behind.length,"Behind where 2027 asks",`Each one has a named next step. ${dig} of the open asks sit with the digital team, so the work is shared, not stuck.`,behind]
+  ];
+  $("checkgrid").innerHTML=cards.map(c=>`<div class="check"><span class="n">${c[0]}</span><span class="t">${c[1]}</span><p>${c[2]}</p><div class="ids">${c[3].map(i=>`<button type="button" data-go="${i}">${i}</button>`).join("")}</div></div>`).join("");
+  $("checkgrid").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{selId=b.dataset.go;renderLadder();$("detail").scrollIntoView({behavior:"smooth",block:"nearest"})});
+}
+
+/* ---------- tabs ---------- */
+function setTab(which){
+  const isT=which==="trail";
+  $("tab-trail").setAttribute("aria-selected",isT);$("tab-ladder").setAttribute("aria-selected",!isT);
+  $("tab-trail").tabIndex=isT?0:-1;$("tab-ladder").tabIndex=isT?-1:0;
+  $("view-trail").hidden=!isT;$("view-ladder").hidden=isT;
+}
+$("tab-trail").onclick=()=>setTab("trail");
+$("tab-ladder").onclick=()=>setTab("ladder");
+document.querySelector(".tabs").addEventListener("keydown",e=>{
+  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){const to=$("tab-trail").getAttribute("aria-selected")==="true"?"ladder":"trail";setTab(to);$("tab-"+to).focus()}
+});
+
+renderPicker();renderTrail();renderSummary();renderLadder();renderChecks();
+</script>
+</html>

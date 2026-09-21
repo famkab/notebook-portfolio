@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Youth Voice · Fatima Abid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="journal.css">
+<style>
+.stack{gap:48px}
+.stack>section{display:grid;gap:16px}
+.stack h2{font-size:clamp(22px,2.4vw,28px)}
+.sec-lede{margin:0;max-width:74ch;color:var(--pencil);font-size:15.5px}
+.two-ways{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:4px}
+.box{background:var(--paper);border:1px solid var(--rule-strong);border-left:5px solid var(--k,var(--rule-strong));
+  border-radius:5px;padding:20px 22px;display:grid;gap:10px;align-content:start}
+.box b{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.2}
+.box .sub{font-family:var(--hand);font-size:19px;color:var(--pencil);line-height:1.1}
+.box p{margin:0;font-size:14.5px}
+.box .tag{font-family:var(--mono);font-size:10.5px;color:var(--pencil);text-transform:uppercase;letter-spacing:.05em}
+.lundy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--rule-strong);border-radius:6px;
+  overflow:hidden;background:var(--paper);margin-top:4px}
+.lundy>div{padding:20px 20px 22px;display:grid;gap:10px;align-content:start;border-top:4px solid var(--green)}
+.lundy>div+div{border-left:1px dashed var(--rule-strong)}
+.lundy .n{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--green)}
+.lundy p{margin:0;font-size:14.5px}
+.lundy .how{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--pencil)}
+.blocks{list-style:none;margin:6px 0 0 8px;padding:0;border-left:2px solid var(--rule-strong)}
+.blocks>li{position:relative;padding:0 0 26px 24px}
+.blocks>li:last-child{padding-bottom:4px}
+.blocks>li::before{content:"";position:absolute;left:-7px;top:5px;width:12px;height:12px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--ink)}
+.blocks .bh{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;margin-bottom:7px}
+.blocks .bt{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.2}
+.blocks .bd{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--pencil)}
+.lpill{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;border:1px solid var(--green);
+  color:var(--green);border-radius:999px;padding:2px 9px;line-height:1.6}
+.blocks p{margin:0;font-size:14.5px;max-width:70ch}
+.blocks .out{margin-top:7px;font-size:14px;color:var(--pencil);max-width:70ch}
+.blocks .out i{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;font-style:normal}
+.micro{border:1px dashed var(--rule-strong);border-radius:5px;background:var(--paper-2);padding:18px 20px;
+  display:grid;gap:8px;margin-top:6px}
+.micro b{font-family:var(--serif);font-size:18px;font-weight:600}
+.micro p{margin:0;font-size:14.5px;max-width:72ch}
+.measures{display:grid;gap:10px;margin:4px 0 0;padding:0;list-style:none}
+.measures li{display:grid;grid-template-columns:92px minmax(0,1fr);gap:18px;align-items:start;
+  border:1px solid var(--rule);border-radius:5px;padding:16px 20px;background:var(--paper)}
+.measures .id{font-family:var(--mono);font-size:11px;color:var(--pencil);padding-top:2px}
+.measures b{display:block;font-family:var(--serif);font-size:17.5px;font-weight:600;margin-bottom:4px}
+.measures p{margin:0;font-size:14.5px;line-height:1.5}
+.changed{display:grid;gap:12px;margin:4px 0 0;padding:0;list-style:none}
+.changed li{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1.15fr);gap:18px;align-items:center;
+  border:1px solid var(--rule);border-radius:5px;padding:18px 22px;background:var(--paper)}
+.changed .said{font-family:var(--hand);font-size:20px;line-height:1.2}
+.changed .arrow{font-family:var(--hand);font-size:1.5rem;color:var(--red);text-align:center}
+.changed .did{font-size:14.5px;line-height:1.5}
+.changed .did b{font-family:var(--serif);font-size:17.5px;font-weight:600;display:block;margin-bottom:4px}
+.loop{border-left:3px solid var(--green);padding-left:18px;display:grid;gap:14px;margin-top:2px}
+.loop p{margin:0;max-width:72ch}
+.counts{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.counts span{font-family:var(--mono);font-size:12px;border-radius:999px;padding:4px 11px;background:var(--paper-2)}
+@media (max-width:860px){ .two-ways{grid-template-columns:1fr} .lundy{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lundy>div:nth-child(3){border-left:0} }
+@media (max-width:640px){ .lundy{grid-template-columns:1fr} .lundy>div+div{border-left:0}
+  .changed li{grid-template-columns:1fr} .changed .arrow{transform:rotate(90deg);text-align:left}
+  .measures li{grid-template-columns:1fr;gap:6px} }
+</style>
+
+<div class="layout">
+<main>
+  <div class="pagehead">
+    <div class="mono">Beeline · Greater Manchester Combined Authority · p. 10</div>
+    <h1>Youth Voice</h1>
+    <p class="lede">Beeline is for young people up to 25, so young people decide what good looks like. This is how they
+      get into the work: how they’re prepared, what each session is for, what they change, and how they hear back.</p>
+    <div class="kicker">
+      <span class="stamp-ctx stamp-sector"><i>Sector</i>Public</span>
+      <span class="stamp-ctx stamp-scale"><i>Scale</i>Regional · 10 boroughs</span>
+      <span class="stamp-ctx stamp-audience"><i>Audience</i>Young people up to 25</span>
+      <span class="stamp-ctx stamp-product"><i>Method</i>Co-design, co-testing, design assurance</span>
+    </div>
+  </div>
+
+  <nav class="subnav" style="margin-bottom:34px" aria-label="Beeline spreads">
+    <a href="beeline.html">Overview</a>
+    <a href="youth-voice.html" aria-current="page">Youth Voice</a>
+    <a href="beeline-landscape.html">Service Landscape</a>
+    <a href="beeline-problem.html">Problem Model</a>
+    <a href="beeline-evidence.html">Decisions &amp; Metrics</a>
+    <a href="beeline-showtells.html">MVP Experience Curve</a>
+  </nav>
+
+  <div class="stack">
+    <section>
+      <h2>Two ways in</h2>
+      <p class="sec-lede">Everything that shapes the service arrives through one of two doors, and both land in the same
+        <button class="term" data-term="design assurance">design assurance</button> log. Keeping them separate matters:
+        partners speak for a system, young people speak for themselves.</p>
+      <div class="two-ways">
+        <div class="box" style="--k:var(--red)">
+          <b>Stakeholders</b><span class="sub">internal and external</span>
+          <p>The programme team, the digital team and <button class="term" data-term="GMCA">GMCA</button> governance;
+            local authorities, schools and colleges, community and youth organisations across the ten boroughs.</p>
+          <span class="tag">design assurance rounds · workshops</span>
+        </div>
+        <div class="box" style="--k:var(--green)">
+          <b>Youth voice</b><span class="sub">run on the Lundy model</span>
+          <p>A co-design group drawn from the
+            <button class="term" data-term="GMYCA">Greater Manchester Youth Combined Authority</button>, running as a
+            task and finish group across the year, plus young people met at events and in the settings where the offline
+            toolkit is used.</p>
+          <span class="tag">co-design · co-testing · youth voice log</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Preparing them to contribute</h2>
+      <p class="sec-lede">Asking young people what they think isn’t participation on its own. Sessions are planned
+        around the four parts of the <button class="term" data-term="Lundy model">Lundy model</button>, and every
+        session is logged under the part it serves, so a block that never reaches influence is visible rather than
+        assumed.</p>
+      <div class="lundy">
+        <div><span class="n">Space</span>
+          <p>A safe, inclusive session with the context explained in plain language and time to form a view before
+            anyone is asked for one.</p>
+          <span class="how">Plain-language brief · no jargon · time to think</span></div>
+        <div><span class="n">Voice</span>
+          <p>More than one way to say what they think: talking in pairs, sorting cards, writing it down, drawing on the
+            thing itself. Not everyone speaks first.</p>
+          <span class="how">Cards · pairs · writing · marking up prototypes</span></div>
+        <div><span class="n">Audience</span>
+          <p>What they say reaches the people who decide, in their words, at
+            <button class="term" data-term="Show &amp; Tell">Show &amp; Tells</button> and in the quarterly report to the
+            <button class="term" data-term="Programme Board">Programme Board</button>.</p>
+          <span class="how">Show &amp; Tells · quarterly roll-up</span></div>
+        <div><span class="n">Influence</span>
+          <p>Something changes, and they’re told what, and told honestly when something didn’t change and why.</p>
+          <span class="how">Decisions logged against what they said</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>The year, in blocks</h2>
+      <p class="sec-lede">Eight ninety-minute sessions across four blocks, with the in-person ones placed in
+        half-terms and after school so attending doesn’t cost anyone a lesson. Each block ends somewhere the team has
+        to act on.</p>
+      <ol class="blocks">
+        <li>
+          <div class="bh"><span class="bt">Block 0 · Setting up</span><span class="bd">Sep–Oct</span>
+            <span class="lpill">Space</span><span class="lpill">Voice</span></div>
+          <p>The first session deliberately doesn’t present Beeline or the
+            <button class="term" data-term="gateways">gateways</button>. The group maps the careers landscape as they
+            experience it, and writes its own ground rules, before seeing anything we’ve built.</p>
+          <p class="out"><i>Out of it</i> — ground rules, and the first layer of a careers landscape map in their
+            language, which is the thing later sessions are measured against.</p>
+        </li>
+        <li>
+          <div class="bh"><span class="bt">Block 0 · Testing on the live services</span><span class="bd">October half-term</span>
+            <span class="lpill">Voice</span></div>
+          <p>In person, wider membership, screen-recorded missions on the live services. This is the session that does
+            double duty: co-design and user research at once, and where the
+            <button class="term" data-term="“I can…” outcomes">“I can…” statements</button> are validated against what
+            young people actually manage to do.</p>
+          <p class="out"><i>Out of it</i> — recorded evidence of where people get stuck, not a reported opinion of it.</p>
+        </li>
+        <li>
+          <div class="bh"><span class="bt">Block 1 · The Discovery tool</span><span class="bd">Nov–Jan</span>
+            <span class="lpill">Voice</span><span class="lpill">Influence</span></div>
+          <p>Take the Discovery Quiz end to end and stop where you would have stopped in real life. Then the harder
+            session: prioritising what to fix, with developer weeks and content costs on the table.</p>
+          <p class="out"><i>Out of it</i> — the break point in their own words, a set of alternatives, and a prioritised
+            list with a commitment attached to it.</p>
+        </li>
+        <li>
+          <div class="bh"><span class="bt">Block 2 · Employers</span><span class="bd">Feb–Mar</span>
+            <span class="lpill">Voice</span><span class="lpill">Influence</span></div>
+          <p>What makes employer content trustworthy rather than an advert. The group works on the Employer Hub while
+            the content model behind it is still open.</p>
+          <p class="out"><i>Out of it</i> — the tests a piece of employer content has to pass before it goes live.</p>
+        </li>
+        <li>
+          <div class="bh"><span class="bt">Block 3 · Saying it themselves</span><span class="bd">Mar–Jul</span>
+            <span class="lpill">Audience</span><span class="lpill">Influence</span></div>
+          <p>What do we want to say, what is the evidence, who says it, and what are we asking for. The group then takes
+            it to governance directly, and to the <button class="term" data-term="MBacc">MBacc</button> summit. If
+            nobody can be released to attend in person, the group records it instead, so the route doesn’t depend on a
+            school letting someone out for the day.</p>
+          <p class="out"><i>Out of it</i> — young people presenting to the people who hold the budget, rather than being
+            quoted to them.</p>
+        </li>
+      </ol>
+      <div class="micro">
+        <b>Between the sessions: micro-actions</b>
+        <p>Members run a short version of the work with their own youth organisation and bring the answers back to the
+          next session. The offline card toolkit exists partly because it makes this possible without a facilitator or
+          a laptop. It is how the group reaches young people who would never join a combined authority.</p>
+        <p>Whatever that reaches is counted only when the group reports it back, and it is always reported as projected
+          reach, held apart from the people we actually sat with. Nothing is estimated ahead.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>How participation is counted</h2>
+      <p class="sec-lede">Youth voice is one of the programme measures. One row per group per session, with the
+        counting rules set before the year started.</p>
+      <ul class="measures">
+        <li><span class="id">PRG-03</span>
+          <div><b>Young people actively shaping the service</b>
+            <p>A floor rather than a ceiling: at least sixty young people directly involved across the year for
+              Beeline. Involved means in a session, not reached by one.</p></div></li>
+        <li><span class="id">PRG-03-01</span>
+          <div><b>Co-design groups engaged</b>
+            <p>A group counts once per service, and only once a session with them is marked delivered. A group we have
+              only written to doesn’t count. This year the target is one group, run properly, rather than several run
+              thinly.</p></div></li>
+        <li><span class="id">PRG-03-02</span>
+          <div><b>Projected reach through resources</b>
+            <p>What micro-actions and the toolkit take out to other groups, self-reported by them and labelled
+              projected wherever it appears. Around a thousand for the year, and never added to the measured
+              figure.</p></div></li>
+        <li><span class="id">PRG-03-03</span>
+          <div><b>Variety of settings reached</b>
+            <p>How many different kinds of setting the work has reached — school, pupil referral unit, library, youth
+              centre, faith group, homelessness service and so on. It rises only when the work reaches a kind of place
+              it hasn’t before, which is the point.</p></div></li>
+      </ul>
+      <p class="sec-lede">Each row also carries the Lundy dimension it serves, what changed as a result, and whether the
+        group has heard back. A row missing any of those is flagged by the sheet rather than quietly counted.</p>
+      <div class="counts">
+        <span>10 boroughs</span><span>1 co-design group, 8 sessions</span>
+        <span>19 kinds of setting so far</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>What they changed</h2>
+      <p class="sec-lede">From the sessions behind the current version: a demonstration to the youth combined authority
+        and an industry insight session in Oldham, both with the card toolkit in the room. Each decision is recorded
+        against the thing that raised it, with what we gave up to make it.</p>
+      <ul class="changed">
+        <li>
+          <span class="said">“We sort of had to make up rules.”</span>
+          <span class="arrow" aria-hidden="true">→</span>
+          <span class="did"><b>The pack explains itself</b>A leaflet carries the sequence, the card limits and the
+            framing that it isn’t a test, so a group without a facilitator starts where a facilitated group starts.</span>
+        </li>
+        <li>
+          <span class="said">Watching the tally build steered what they picked next.</span>
+          <span class="arrow" aria-hidden="true">→</span>
+          <span class="did"><b>The running tally is hidden</b>Revealed once, at the end, so the conversation stays about
+            them rather than the score.</span>
+        </li>
+        <li>
+          <span class="said">One young person read a gateway label as “law and business”, then found the job they
+            wanted inside it.</span>
+          <span class="arrow" aria-hidden="true">→</span>
+          <span class="did"><b>The scoring shows its working</b>Every gateway card carries recognisable roles, and the
+            model is explained where it’s used.</span>
+        </li>
+        <li>
+          <span class="said">“The website gets basic and unfun.”</span>
+          <span class="arrow" aria-hidden="true">→</span>
+          <span class="did"><b>Three routes across the bridge</b>A QR code, a short URL and a printed next-steps sheet,
+            landing on a page that offers a next step rather than a verdict.</span>
+        </li>
+      </ul>
+      <p class="sec-lede">The full trail from a fear to a shipped decision is on
+        <a href="beeline-evidence.html">Decisions &amp; Metrics</a>, and how each one felt in the room is on the
+        <a href="beeline-showtells.html">MVP Experience Curve</a>.</p>
+    </section>
+
+    <section>
+      <h2>Closing the loop</h2>
+      <div class="loop">
+        <p>Every round ends where it started. Young people hear what changed because of them, and what didn’t and why.
+          That is the part of the Lundy model most often skipped, and the part that decides whether they turn up next
+          time.</p>
+        <p>Each session is one row in the tracker, carrying what changed as a result and whether the group has been told.
+          Participation is counted the same way as reach, so a group promised a follow-up can be found again.</p>
+        <p>The quarterly roll-up carries it upward: wins and improvements are public, risks and governance stay
+          internal, and the <button class="term" data-term="Programme Board">Programme Board</button> sees what young
+          people asked for alongside what the service did about it.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="nextcase"><a href="beeline-landscape.html"><span><small>Next</small>Service Landscape</span><span class="open" aria-hidden="true">open →</span></a></div>
+
+  <footer class="pagefoot">
+    <span>Beeline · Greater Manchester Combined Authority</span>
+    <span><a href="index.html">← Contents</a></span>
+  </footer>
+</main>
+</div>
+<script src="site.js"></script>
+</html>

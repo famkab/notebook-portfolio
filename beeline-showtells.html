@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MVP Experience Curve · Beeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="journal.css">
+<style>
+.subnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 26px}
+.subnav a{text-decoration:none;font-size:14px;color:var(--pencil);border:1px solid var(--rule-strong);
+  border-radius:999px;padding:6px 13px;background:var(--paper)}
+.subnav a:hover{border-color:var(--ink);color:var(--ink)}
+.subnav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pagehead h1{margin:2px 0 4px}
+.where{display:none}
+
+:root{
+  --desk:#DCD9D2; --paper:#F1EFEA; --paper-2:#E8E5DE; --ink:#1E1E1C; --pencil:#6E6C67; --rule:#D3CFC6; --rule-strong:#BDB8AD;
+  --blue:#3D5A86; --red:#A2443A; --green:#4B7552; --amber:#8A5A12; --hi:rgba(232,203,74,.55); --hi-solid:#E8CB4A; --hi-ink:#7A5E00;
+  --red-w:#EEDDD8; --green-w:#DDE6DC; --blue-w:#DDE2EA; --amber-w:#F0E4CF; --hi-w:#F1E6B8;
+  --serif:"Newsreader",Georgia,serif; --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --hand:"Caveat","Bradley Hand","Segoe Print",cursive; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --desk:#121314; --paper:#1D1F21; --paper-2:#25282B; --ink:#E6E3DC; --pencil:#A9A59C; --rule:#34373B; --rule-strong:#4D5156;
+    --blue:#8FA9D6; --red:#E6978B; --green:#9CC7A3; --amber:#E6B060; --hi:rgba(232,203,74,.28); --hi-solid:#D9BC45; --hi-ink:#E8CB4A;
+    --red-w:#33282A; --green-w:#26302A; --blue-w:#262C37; --amber-w:#33291B; --hi-w:#342F1C;
+  }
+}
+.sheet{max-width:1160px;margin:0 auto 28px;background:var(--paper);border-radius:18px;box-shadow:0 18px 40px -24px rgba(0,0,0,.35);padding:clamp(22px,4vw,52px) clamp(18px,4.5vw,60px) 48px;background-image:radial-gradient(circle,var(--rule-strong) 1.1px,transparent 1.4px);background-size:28px 28px;display:grid;gap:26px;position:relative}
+.where{position:absolute;top:18px;right:22px;font-family:var(--hand);font-size:20px;color:var(--blue);transform:rotate(2deg)}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--pencil)}
+.hand{font-family:var(--hand);font-size:23px;line-height:1.1;color:var(--blue)}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.01em;margin:4px 0 8px;text-wrap:balance}
+h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.2vw,26px);margin:0;line-height:1.2}
+.lede{max-width:68ch;margin:0;font-size:17px}
+.muted{color:var(--pencil)}
+.hl{background:linear-gradient(transparent 40%,var(--hi) 40% 90%,transparent 90%);padding:0 2px}
+.panel{background:var(--paper);border:1px solid var(--rule-strong);border-radius:6px;padding:clamp(14px,2vw,22px)}
+.seg{display:inline-flex;border:1px solid var(--rule-strong);border-radius:999px;overflow:hidden;background:var(--paper)}
+.seg button{border:0;background:none;padding:7px 14px;cursor:pointer;font-size:14px;color:var(--pencil)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+
+/* ===== 1 lifecycle strip ===== */
+.life{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border:1px solid var(--rule-strong);border-radius:6px;overflow:hidden;background:var(--paper);position:relative}
+.stage{padding:12px 12px 14px;display:grid;gap:6px;align-content:start;border-left:1px dashed var(--rule-strong);position:relative;min-height:150px}
+.stage:first-child{border-left:0}
+.stage .n{font-family:var(--mono);font-size:10.5px;color:var(--pencil);letter-spacing:.06em;text-transform:uppercase}
+.stage b{font-family:var(--serif);font-size:18px;font-weight:600}
+.stage ul{margin:0;padding:0;list-style:none;display:grid;gap:4px;font-size:13.5px}
+.stage ul li::before{content:"✓ ";color:var(--green);font-weight:700}
+.band{position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--hi-solid)}
+.trad{position:absolute;top:0;bottom:0;border-left:2px dashed var(--red);pointer-events:none}
+.trad span{position:absolute;top:6px;left:6px;font-family:var(--hand);font-size:18px;color:var(--red);white-space:nowrap;transform:rotate(-2deg);background:var(--paper);padding:0 4px;line-height:1.1}
+.life-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px}
+
+/* ===== 2 curve ===== */
+.curve-wrap{display:grid;gap:14px}
+.curve-controls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pencil);align-items:center}
+.legend svg{vertical-align:middle;margin-right:6px}
+.chart{overflow-x:auto}
+.chart svg{display:block;width:100%;min-width:760px;height:auto}
+.hot{cursor:pointer}
+.hot circle{transition:r .15s}
+.hot:hover circle.ring,.hot:focus circle.ring{stroke-width:3}
+.hot:focus{outline:none}
+.hot:focus-visible circle.ring{stroke:var(--blue);stroke-width:3.5}
+.note{display:grid;gap:14px}
+.note .head{display:grid;gap:6px}
+.oo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.oo>div{border-top:3px solid var(--k);padding-top:10px;display:grid;gap:6px;align-content:start}
+.oo .lab{display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--pencil)}
+.oo p{margin:0;font-size:15px}
+.tip{font-size:13.5px;color:var(--pencil)}
+.note .said{font-family:var(--hand);font-size:22px;line-height:1.2;color:var(--ink);background:var(--paper-2);padding:12px 14px;border-radius:4px;transform:rotate(-.6deg)}
+.note .said span{display:block;font-family:var(--mono);font-size:10.5px;color:var(--pencil);margin-top:6px;transform:none}
+.pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:3px 9px;width:max-content}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.p-good{background:var(--green-w);color:var(--green)} .p-bad{background:var(--red-w);color:var(--red)} .p-mixed{background:var(--amber-w);color:var(--amber)}
+.struggle{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border:1px solid var(--rule-strong);border-radius:6px;overflow:hidden;background:var(--paper)}
+.struggle>div{padding:16px 18px;display:grid;gap:8px;align-content:start}
+.struggle>div+div{border-left:1px dashed var(--rule-strong)}
+.struggle b{font-family:var(--serif);font-size:20px;font-weight:600}
+.struggle ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14.5px}
+.s-rem{border-top:4px solid var(--red)} .s-keep{border-top:4px solid var(--green)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.dcard{background:var(--paper);border:1px solid var(--rule-strong);border-radius:4px;padding:16px 18px;display:grid;gap:10px;align-content:start;position:relative}
+.dcard .top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.dcard h4{margin:0;font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.2}
+.dl{display:grid;grid-template-columns:96px minmax(0,1fr);gap:6px 12px;font-size:14.5px;margin:0}
+.dl dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--pencil);padding-top:3px}
+.dl dd{margin:0}
+.dl dd.gave{color:var(--red)}
+.dl dd.chose{font-weight:700}
+.stamp{font-family:var(--mono);font-size:10.5px;border:1.2px solid var(--amber);color:var(--amber);border-radius:3px;padding:1px 6px;transform:rotate(-1.5deg)}
+
+/* ===== 3 system ===== */
+.sys{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:22px;align-items:start}
+.sys svg{width:100%;height:auto;display:block}
+.node{cursor:pointer}
+.node rect{transition:stroke-width .15s}
+.node:hover rect,.node:focus rect{stroke-width:2.5}
+.node:focus{outline:none}
+.node:focus-visible rect{stroke:var(--blue);stroke-width:3}
+.node[aria-pressed="true"] rect{stroke-width:3}
+.detail{display:grid;gap:10px;align-content:start}
+.detail .big{font-family:var(--serif);font-size:44px;line-height:1}
+.detail h4{margin:0;font-family:var(--serif);font-size:22px;font-weight:600}
+.detail p{margin:0}
+.row{font-family:var(--mono);font-size:12px;background:var(--paper-2);border-radius:4px;padding:10px 12px;display:grid;gap:4px;overflow-x:auto}
+.row span{white-space:nowrap}
+.redact{background:var(--ink);color:transparent;border-radius:2px;user-select:none}
+.kv{display:flex;flex-wrap:wrap;gap:6px}
+.kv span{font-size:13px;border-radius:999px;padding:3px 10px;background:var(--paper-2)}
+.sticky{justify-self:start;background:var(--hi-solid);color:#2a2410;font-family:var(--hand);font-size:21px;line-height:1.15;padding:10px 14px 12px;max-width:380px;transform:rotate(-1.2deg);box-shadow:0 6px 12px -8px rgba(0,0,0,.4)}
+
+@media (max-width:900px){
+  .life{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stage:nth-child(4){border-left:0}
+  .trad{display:none}
+  .oo,.struggle,.cards,.sys{grid-template-columns:1fr}
+  .struggle>div+div{border-left:0;border-top:1px dashed var(--rule-strong)}
+}
+@media (max-width:520px){ .life{grid-template-columns:1fr} .stage{border-left:0;border-top:1px dashed var(--rule-strong);min-height:0} .dl{grid-template-columns:1fr;gap:2px} .where{position:static;display:block} }
+
+/* ===== 3 how I work (v2) ===== */
+.flow{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:none}
+.flow>li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;padding:0 0 18px;position:relative}
+.flow>li::before{content:"";position:absolute;left:14px;top:30px;bottom:0;width:2px;background:var(--rule-strong)}
+.flow>li:last-child::before{display:none}
+.sn{display:flex;gap:10px;align-items:center;font-family:var(--serif);font-size:19px;font-weight:600;align-self:start}
+.sn span{width:30px;height:30px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-family:var(--mono);font-size:12px;background:var(--paper);flex:none;position:relative;z-index:1}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.box{background:var(--paper);border:1px solid var(--rule-strong);border-left:5px solid var(--k);border-radius:4px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.box b{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.2}
+.box .sub{font-family:var(--hand);font-size:19px;color:var(--pencil);line-height:1.1}
+.box p{margin:0;font-size:14.5px}
+.box .tag{font-family:var(--mono);font-size:10.5px;color:var(--pencil);text-transform:uppercase;letter-spacing:.05em}
+.k-red{--k:var(--red)} .k-green{--k:var(--green)} .k-blue{--k:var(--blue)} .k-hi{--k:var(--hi-solid)} .k-ink{--k:var(--ink)} .k-amber{--k:var(--amber)}
+.join{grid-column:2;margin:6px 0 0;font-family:var(--hand);font-size:20px;color:var(--blue);text-align:center}
+.routes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:4px}
+.routes div{background:var(--paper-2);border-radius:4px;padding:8px 10px;font-size:13.5px;display:grid;gap:2px}
+.routes b{font-family:var(--serif);font-size:17px;line-height:1.15}
+.loops{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-left:168px}
+.loops div{border:1px dashed var(--rule-strong);border-radius:4px;padding:12px 14px;display:grid;gap:4px}
+.loops b{font-family:var(--hand);font-size:22px;color:var(--blue);font-weight:500}
+.loops p{margin:0;font-size:14.5px}
+.lundy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--rule-strong);border-radius:6px;overflow:hidden;background:var(--paper)}
+.lundy>div{padding:14px 16px;display:grid;gap:6px;align-content:start;border-top:4px solid var(--green)}
+.lundy>div+div{border-left:1px dashed var(--rule-strong)}
+.lundy .n{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--green)}
+.lundy p{margin:0;font-size:14.5px}
+@media (max-width:900px){
+  .flow>li{grid-template-columns:1fr;gap:8px}
+  .flow>li::before{display:none}
+  .two,.three,.routes,.loops{grid-template-columns:1fr}
+  .loops{margin-left:0}
+  .join{grid-column:1}
+  .lundy{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lundy>div:nth-child(3){border-left:0}
+}
+@media (max-width:520px){ .lundy{grid-template-columns:1fr} .lundy>div+div{border-left:0} }
+
+.st-chain{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 0;font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
+.st-chain li{display:flex;align-items:center}
+.st-chain li:not(:last-child)::after{content:"→";margin:0 10px;color:var(--pencil)}
+.st-chain li:last-child{color:var(--red);font-weight:600}
+.has-stamp{position:relative;padding-right:150px}
+.boardstamp{position:absolute;top:12px;right:14px;font-family:var(--mono);font-size:10.5px;font-weight:600;line-height:1.25;letter-spacing:.08em;text-transform:uppercase;text-align:center;color:var(--red);border:2px solid var(--red);border-radius:6px;padding:6px 10px;transform:rotate(-6deg);opacity:.85;box-shadow:inset 0 0 0 2px var(--paper),inset 0 0 0 3px var(--red);pointer-events:none}
+.dcard{position:relative}
+.boardstamp.sm{position:static;display:inline-block;justify-self:end;margin-top:10px;font-size:9.5px;transform:rotate(-4deg)}
+@media (max-width:640px){.has-stamp{padding-right:16px;padding-top:64px}}
+.st-explain{background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;padding:14px 16px;margin:10px 0 18px;display:grid;gap:10px}
+.st-explain p{margin:0;max-width:78ch;font-size:15px}
+.st-chain{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 0;font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
+.st-chain li{display:flex;align-items:center}
+.st-chain li:not(:last-child)::after{content:"→";margin:0 10px;color:var(--pencil)}
+.st-chain li:last-child{color:var(--red);font-weight:600}
+</style>
+
+<div class="layout">
+<main>
+<div class="pagehead">
+  <div class="mono">Beeline · p. 8–9</div>
+  <h1>MVP Experience Curve</h1>
+  <p class="lede">How the Discovery toolkit felt to young people, phase by phase, drawn from many sessions across the ten boroughs, offline and online, and the trade-offs we argued at Show &amp; Tells.</p>
+  <div class="kicker"></div>
+</div>
+<nav class="subnav" aria-label="Beeline spreads">
+  <a href="beeline.html">Overview</a>
+  <a href="youth-voice.html">Youth Voice</a>
+  <a href="beeline-landscape.html">Service Landscape</a>
+  <a href="beeline-problem.html">Problem Model</a>
+  <a href="beeline-evidence.html">Decisions &amp; Metrics</a>
+  <a href="beeline-showtells.html" aria-current="page">MVP Experience Curve</a>
+</nav>
+
+<section class="sheet" aria-labelledby="c-h">
+  <span class="where" aria-hidden="true">Beeline tab: “Show &amp; Tells” ↓</span>
+  <div>
+    <p class="lede">We mapped how the Discovery toolkit felt to young people, phase by phase, across many sessions in schools, colleges, youth settings and at regional events. Their confidence dips while they’re working out the game, then spikes when they figure it out. <span class="hl">Some of that dip is the point.</span> The design question I took to Show &amp; Tells was how much struggle to keep, and which kind.</p>
+  </div>
+
+  <div class="curve-wrap">
+    <div class="curve-controls">
+      <span class="seg" role="group" aria-label="Which curve" id="curveSeg">
+        <button type="button" data-v="mvp" aria-pressed="true">What happened · MVP, July 2026</button>
+        <button type="button" data-v="tobe" aria-pressed="false">What we designed for · Phase 3</button>
+      </span>
+      <div class="legend" id="legend"></div>
+    </div>
+    <div class="panel chart"><svg id="curve" viewBox="0 0 1000 360" role="img" aria-labelledby="curveTitle"><title id="curveTitle">Experience curve across five phases of a Beeline Discovery session</title></svg></div>
+    <div class="note panel" id="note" aria-live="polite"></div>
+  </div>
+
+  <div>
+    <h3>Two kinds of struggle</h3>
+    <p class="muted" style="margin:6px 0 12px;max-width:70ch">The Show &amp; Tell reflections kept returning to play: instant gratification versus delayed gratification. The answer wasn’t to flatten the curve. It was to take out the friction that’s about the game, and protect the friction that’s about them.</p>
+    <div class="struggle">
+      <div class="s-rem"><b>Remove: friction about the game</b><ul><li>Working out the rules alone (“we sort of had to make up rules”)</li><li>Not knowing how many cards to pick</li><li>A scoring model that read as arbitrary</li><li>A cold drop-off from tactile cards to static web pages</li></ul></div>
+      <div class="s-keep"><b>Keep: friction about them</b><ul><li>Not knowing yet what sounds like you, and talking it through with peers</li><li>Self-reflection before any gateway label is applied</li><li>A result that differs from your plan, with an adult there to open it up</li><li>Changing direction later, treated as the point, not a failure</li></ul></div>
+    </div>
+  </div>
+
+  <div>
+    <h3>What we decided at Show &amp; Tells, and what it cost</h3>
+    <div class="st-explain">
+      <p><b>What’s a Show &amp; Tell?</b> In UK public-sector delivery teams, a Show &amp; Tell is a standing session where
+      the team shows work in progress, not polished work, with the evidence behind it. Anyone with a stake can come:
+      the programme team, the digital team, partners, and colleagues from other services. The point is to argue the
+      trade-offs in the open and leave with a decision recorded, rather than settling it in a document nobody reads.</p>
+      <ol class="st-chain" aria-label="How a Show and Tell decision reaches the Programme Board">
+        <li>Show &amp; Tell</li><li>Decision recorded in the log</li><li>Quarterly roll-up</li><li>MBacc Programme Board</li>
+      </ol>
+    </div>
+    
+    <div class="cards" id="cards"></div>
+  </div>
+</section>
+
+
+<footer class="pagefoot">
+  <span>Beeline · Greater Manchester Combined Authority</span>
+  <span><a href="index.html">← Contents</a> · <a href="learning-meter.html">AI-powered Learning Meter →</a></span>
+</footer>
+</main>
+</div>
+<script src="site.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const seg=(id,fn)=>$(id).querySelectorAll("button").forEach(b=>b.onclick=()=>{$(id).querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));fn(b.dataset.k||b.dataset.v)});
+
+/* curve */
+
+const PH=["Arrival & onboarding","Active discovery","The reveal & scoring","The digital bridge","The cyclical loop"];
+const X0=60,X1=980,W=(X1-X0)/5, Y=v=>300-v*250; // v: 0 low .. 1 high, .5 neutral
+const px=(p,f)=>X0+W*(p+f);
+// offline (dashed) and online (dotted) from the board, approximate
+const OFF=[[0,0,.5],[0,.35,.44],[0,.75,.16],[1,.05,.27],[1,.12,.72],[1,.9,.74],[2,.1,.84],[2,.3,.80],[2,.5,.44],[2,.9,.62],[3,.1,.88],[3,.3,.9],[3,.55,.5],[3,.95,.52],[4,.2,.54],[4,1,.4]];
+const ONL=[[0,0,.5],[0,.6,.64],[1,.5,.66],[2,.5,.7],[3,.5,.72],[4,.3,.66],[4,1,.84]];
+const TOBE=[[0,0,.5],[0,.6,.6],[1,.15,.5],[1,.55,.72],[2,.3,.8],[2,.6,.7],[2,.9,.8],[3,.5,.78],[4,.5,.84],[4,1,.9]];
+const HOT={mvp:[
+ {p:0,f:.62,v:.19,t:"bad",h:"Arrival & onboarding",off:"Young people are handed the toolkit, or a group opens the pack on its own. Without a facilitator they hesitate while they work out the mechanics. Peer groups adapt by trial and error, but structured settings need clear onboarding.",on:"Young people arrive on the Beeline homepage and start the quiz. The quiz sets itself up, so there’s no set-up dip: the online line starts steady.",said:"“We sort of had to make up rules.” · “Clearer instructions, as I am not sure if we played this correctly.”",src:"Young people’s feedback, July 2026"},
+ {p:1,f:.08,v:.27,t:"good",h:"Active discovery: the productive dip",off:"Groups sort the 18 discovery cards together. Uncertainty over “doing it wrong” sometimes becomes a positive learning moment. With a facilitator it usually does; with peers alone it doesn’t always.",on:"Young people answer the same 18 statements on screen. It’s steadier, but they miss the peer conversation that makes the offline dip worth having.",said:"“It was really fun to see how my personality fits a certain job pathway. It was confusing at first but once we got the hang of it, it was really easy.”",src:"Young people’s feedback, July 2026"},
+ {p:1,f:.85,v:.73,t:"good",h:"Active discovery: the spike",off:"Once groups figure it out, flexible rules let them adapt the game to how they work, and that builds real ownership. Seeing their matched gateways on the tally chart is a clear moment of delight.",on:"The quiz gets there too: seeing three matched gateways in the results is a moment of validation, just without the group around it.",said:"“It was fun to hear everyone’s different answers in my group.”",src:"Young people’s feedback, July 2026"},
+ {p:2,f:.5,v:.44,t:"mixed",h:"The reveal & scoring",off:"A result that matches a young person’s direction reads as accurate. One that differs opens reflection when an adult is there, but the pack carried no prompt for it. Rigid sector titles can trigger early narrowing, like reading “business” as hard maths.",on:"The results page carries the same gateway labels, so the same risk of misreading applies, and there’s no adult in the room to open it up.",said:"“Suggest what the pathways for these careers look like.” · “Include a larger variety of career pathways in the game.”",src:"Young people’s feedback, July 2026"},
+ {p:3,f:.55,v:.5,t:"bad",h:"The digital bridge",off:"Scanning a QR code to move from the tactile, social game to the online gateway pages causes a drop-off. Static pages feel disconnected from the energy of the game.",on:"Quiz users are already online, so the step is smaller and the line holds. But the gateway pages still read as text-heavy for this age group.",said:"“Second part: website gets basic and unfun, like any other careers website. A lot of words for the targeted group.”",src:"Young people’s feedback, July 2026"},
+ {p:4,f:.85,v:.42,t:"bad",h:"The cyclical loop",off:"Groups who followed the loop to the Next Steps Guide felt a strong sense of completion. Those who skipped straight to it risked losing confidence. It might help to put the guide at the end of the unplugged experience too.",on:"Online, the Next Steps Guide sits at the end of the journey, and the line keeps rising for young people who follow it through.",said:"“The tally was easy to use and I liked the quiz.”",src:"Young people’s feedback, July 2026"}
+],tobe:[
+ {p:0,f:.6,v:.6,t:"good",h:"Explains itself",d:"The leaflet carries the sequence, the card limits and the framing that it’s not a test, so a group opening the pack alone starts where a facilitated group starts.",said:"Removes: working out the rules alone.",src:"Service design takeaway, Phase 3"},
+ {p:1,f:.15,v:.5,t:"good",h:"The dip we keep",d:"Sorting stays a conversation between young people about what sounds like them. Uncertainty here is about themselves, not the game, and peers help each other filter the noise.",said:"Keeps: not knowing yet, and talking it through.",src:"Service design takeaway, Phase 3"},
+ {p:2,f:.3,v:.8,t:"good",h:"Shows its working",d:"The tally is revealed once, at the end. The 3/1 model is explained where it’s used, and every gateway card carries recognisable roles.",said:"Delayed gratification, on purpose.",src:"Service design takeaway, Phase 3"},
+ {p:3,f:.5,v:.78,t:"good",h:"Keeps its promise on any device",d:"Three routes across the bridge (QR code, short URL, printed sheet) and a results page that opens with a suggestion, not a verdict.",said:"Removes: the cold drop-off.",src:"Service design takeaway, Phase 3"},
+ {p:4,f:.5,v:.84,t:"good",h:"Stays open",d:"All seven gateways are reachable from the results page, with employer content inside each, and changing direction is treated as the point.",said:"Keeps: exploring after the answer.",src:"Service design takeaway, Phase 3"}
+]};
+let view="mvp", sel={mvp:1,tobe:1};
+const path=pts=>pts.map(([p,f,v],i)=>`${i?"L":"M"}${px(p,f).toFixed(1)},${Y(v).toFixed(1)}`).join(" ");
+const col=t=>t==="good"?"var(--green)":t==="bad"?"var(--red)":"var(--amber)";
+function renderCurve(){
+  const s=$("curve"); const H=HOT[view];
+  let g=`<title id="curveTitle">Experience curve across five phases of a Beeline Discovery session</title>`;
+  for(let i=0;i<=5;i++) g+=`<line x1="${X0+W*i}" y1="30" x2="${X0+W*i}" y2="310" stroke="var(--rule-strong)" stroke-dasharray="${i%5?"3 5":"0"}"/>`;
+  g+=`<line x1="${X0}" y1="${Y(.5)}" x2="${X1}" y2="${Y(.5)}" stroke="var(--rule-strong)"/>`;
+  g+=`<text x="${X0-8}" y="${Y(.9)}" text-anchor="end" font-family="var(--mono)" font-size="11" fill="var(--pencil)">good</text><text x="${X0-8}" y="${Y(.1)}" text-anchor="end" font-family="var(--mono)" font-size="11" fill="var(--pencil)">bad</text>`;
+  PH.forEach((p,i)=>g+=`<text x="${X0+W*i+W/2}" y="340" text-anchor="middle" font-family="var(--body)" font-size="13" fill="var(--ink)">${p}</text>`);
+  if(view==="mvp"){
+    g+=`<path d="${path(ONL)}" fill="none" stroke="var(--pencil)" stroke-width="2.5" stroke-dasharray="1 7" stroke-linecap="round"/>`;
+    g+=`<path d="${path(OFF)}" fill="none" stroke="var(--ink)" stroke-width="3.5" stroke-dasharray="12 8" stroke-linecap="round"/>`;
+    } else {
+    g+=`<path d="${path(OFF)}" fill="none" stroke="var(--rule-strong)" stroke-width="2.5" stroke-dasharray="12 8"/>`;
+    g+=`<path d="${path(TOBE)}" fill="none" stroke="var(--green)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+  H.forEach((h,i)=>{const cx=px(h.p,h.f),cy=Y(h.v),on=sel[view]===i;
+    g+=`<g class="hot" tabindex="0" role="button" aria-pressed="${on}" aria-label="${h.h}" data-i="${i}"><circle class="ring" cx="${cx}" cy="${cy}" r="${on?22:17}" fill="${on?"var(--hi)":"transparent"}" stroke="${col(h.t)}" stroke-width="2"/><text x="${cx}" y="${cy-28}" text-anchor="middle" font-family="var(--hand)" font-size="20" fill="${col(h.t)}">${i+1}</text></g>`;});
+  s.innerHTML=g;
+  s.querySelectorAll(".hot").forEach(el=>{const go=()=>{sel[view]=+el.dataset.i;renderCurve()};el.onclick=go;el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}}});
+  const h=H[sel[view]];
+  const pillCls=h.t==="good"?"p-good":h.t==="bad"?"p-bad":"p-mixed", pillTxt=h.t==="good"?"perceived good":h.t==="bad"?"perceived bad":"it depends";
+  $("note").innerHTML = view==="mvp"
+   ? `<div class="head"><span class="pill ${pillCls}">${pillTxt} · point ${sel[view]+1} of ${H.length}</span><h3>${h.h}</h3></div>
+      <div class="oo"><div style="--k:var(--ink)"><span class="lab"><svg width="28" height="6" aria-hidden="true"><line x1="0" y1="3" x2="28" y2="3" stroke="var(--ink)" stroke-width="3" stroke-dasharray="7 4"/></svg>Offline · the toolkit</span><p>${h.off}</p></div>
+      <div style="--k:var(--pencil)"><span class="lab"><svg width="28" height="6" aria-hidden="true"><line x1="0" y1="3" x2="28" y2="3" stroke="var(--pencil)" stroke-width="2.5" stroke-dasharray="1 5" stroke-linecap="round"/></svg>Online · the quiz</span><p>${h.on}</p></div></div>
+      <div class="said">${h.said}<span>${h.src} · transcribed from handwriting</span></div>
+      <p class="tip">Tap the numbered circles on the curve to move between moments.</p>`
+   : `<div class="head"><span class="pill ${pillCls}">${PH[h.p]}</span><h3>${h.h}</h3><p style="margin:0">${h.d}</p></div><div class="said">${h.said}<span>${h.src}</span></div>`;
+  $("legend").innerHTML=view==="mvp"
+   ?`<span><svg width="34" height="8"><line x1="0" y1="4" x2="34" y2="4" stroke="var(--ink)" stroke-width="3" stroke-dasharray="8 5"/></svg>offline toolkit</span><span><svg width="34" height="8"><line x1="0" y1="4" x2="34" y2="4" stroke="var(--pencil)" stroke-width="2.5" stroke-dasharray="1 6" stroke-linecap="round"/></svg>online quiz</span><span>Judgements come from young people, not from us.</span>`
+   :`<span><svg width="34" height="8"><line x1="0" y1="4" x2="34" y2="4" stroke="var(--green)" stroke-width="3"/></svg>intended curve</span><span><svg width="34" height="8"><line x1="0" y1="4" x2="34" y2="4" stroke="var(--rule-strong)" stroke-width="2.5" stroke-dasharray="8 5"/></svg>July 2026, for comparison</span>`;
+}
+seg("curveSeg",v=>{view=v;renderCurve()});renderCurve();
+
+const CARDS=[
+ {st:"Show & Tell · 07/09/26",t:"Hide the running tally",heard:"The chart was live during sorting. Young people saw a gateway building and steered later card choices toward it.",opt:"Keep the tally visible and fun, or hide it until the end.",chose:"The tally stays out of sight and is revealed once, at the end.",gave:"The instant hit of watching your result build.",why:"Delayed gratification protects honest self-reflection, and the conversation between peers stays about them, not the score."},
+ {st:"Show & Tells · 24/04/26 and 10/07/26",t:"Make the pack explain itself",heard:"“We sort of had to make up rules.” One participant took every card. Groups without a facilitator stalled at set-up.",opt:"Rely on facilitators, or put the structure in the pack.",chose:"A leaflet carries the sequence, printed card limits, and the framing that it’s not a test.",gave:"Some of the freedom groups used to invent their own rules, which built real ownership.",why:"The dip should be about working out who you are, not how the game works. A group opening the pack alone should start where a facilitated group starts."},
+ {st:"Show & Tell · 12/03/26",t:"Show the working behind the score",heard:"The 3/1 model read as arbitrary. One young person set aside the Financial gateway as “law and business”, then found their intended job inside it.",opt:"Keep the scoring hidden and simple, or explain it where it’s used.",chose:"The 3/1 model is explained on the chart, and every gateway card shows recognisable roles.",gave:"A cleaner, simpler card design with fewer words.",why:"Young people read a gateway through the jobs inside it. A label they misread can close off a pathway before they’ve looked."},
+ {st:"Show & Tell · 05/06/26",t:"Three routes across the bridge",heard:"Scanning from cards to the website felt like a drop-off: “the website gets basic and unfun”.",opt:"One clean QR route, or several fallbacks.",chose:"A QR code, a short URL and a printed next-steps sheet, landing on a results page that offers a next step.",gave:"A single tidy route that’s easier to track in analytics.",why:"The transition has to hold without one device per young person and one scannable code, or the blended model fails."}
+];
+$("cards").innerHTML=CARDS.map(c=>`<article class="dcard"><div class="top"><h4>${c.t}</h4><span class="stamp">${c.st}</span></div><dl class="dl"><dt>We heard</dt><dd>${c.heard}</dd><dt>Options</dt><dd>${c.opt}</dd><dt>We chose</dt><dd class="chose">${c.chose}</dd><dt>We gave up</dt><dd class="gave">${c.gave}</dd><dt>Why</dt><dd>${c.why}</dd></dl><span class="boardstamp sm">Reported to<br>Programme Board</span></article>`).join("");
+</script>
+</html>

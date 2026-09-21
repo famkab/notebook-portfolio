@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Service landscape · Beeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="journal.css">
+<style>
+.subnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 26px}
+.subnav a{text-decoration:none;font-size:14px;color:var(--pencil);border:1px solid var(--rule-strong);
+  border-radius:999px;padding:6px 13px;background:var(--paper)}
+.subnav a:hover{border-color:var(--ink);color:var(--ink)}
+.subnav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pagehead h1{margin:2px 0 4px}
+.where{display:none}
+
+:root{
+  --desk:#DCD9D2; --paper:#F1EFEA; --paper-2:#E8E5DE; --ink:#1E1E1C; --pencil:#6E6C67; --rule:#D3CFC6; --rule-strong:#BDB8AD;
+  --blue:#3D5A86; --red:#A2443A; --green:#4B7552; --amber:#8A5A12; --hi:rgba(232,203,74,.55); --hi-solid:#E8CB4A; --hi-ink:#7A5E00;
+  --red-w:#EEDDD8; --green-w:#DDE6DC; --blue-w:#DDE2EA; --amber-w:#F0E4CF; --scrim:rgba(30,30,28,.45);
+  --serif:"Newsreader",Georgia,serif; --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --hand:"Caveat","Segoe Print",cursive; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+.sheet{max-width:1180px;margin:0 auto;background:var(--paper);border-radius:18px;box-shadow:0 18px 40px -24px rgba(0,0,0,.35);padding:clamp(22px,4vw,48px) clamp(16px,4vw,52px) 48px;background-image:radial-gradient(circle,var(--rule-strong) 1.1px,transparent 1.4px);background-size:28px 28px;display:grid;gap:26px}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--pencil)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(30px,4vw,44px);line-height:1.08;margin:4px 0 6px;letter-spacing:-.01em}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(22px,2.6vw,30px);margin:0;line-height:1.15}
+h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:0}
+.lede{max-width:70ch;margin:0;font-size:17px}
+.muted{color:var(--pencil)}
+.note-hand{font-family:var(--hand);font-size:20px;color:var(--blue);line-height:1.15;display:flex;align-items:flex-start;gap:10px}
+.note-hand::before{content:"";flex:none;width:42px;height:36px;margin-top:-6px;background:currentColor;
+ -webkit-mask:var(--arrow) no-repeat center/contain; mask:var(--arrow) no-repeat center/contain}
+:root{--arrow:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 38"><path d="M38 35 C34 22 27 12 14 7" fill="none" stroke="black" stroke-width="2.6" stroke-linecap="round"/><path d="M14 7 L16 18 M14 7 L25 9" fill="none" stroke="black" stroke-width="2.6" stroke-linecap="round"/></svg>')}
+
+/* controls */
+.controls{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule);padding:10px 0;display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--rule-strong);border-radius:999px;overflow:hidden;background:var(--paper)}
+.seg button{border:0;background:none;padding:7px 14px;cursor:pointer;font-size:14px;color:var(--pencil)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.check{display:inline-flex;gap:8px;align-items:center;font-size:14px;color:var(--pencil);cursor:pointer}
+
+/* grid bands */
+.band{display:grid;gap:10px}
+.band-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:var(--cols);border:1px solid var(--rule-strong);border-radius:6px;overflow:hidden;background:var(--paper)}
+:root{--cols:270px repeat(3,minmax(0,1fr))}
+.gh{background:var(--paper-2);padding:8px 10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--pencil);border-bottom:1px solid var(--rule-strong)}
+.gh.stage{text-align:center}
+.rl{padding:9px 10px;font-size:14px;border-top:1px solid var(--rule);display:grid;gap:2px}
+.rl .sub{color:var(--pencil);font-size:12.5px}
+.rl .sub:empty{display:none}
+.cell.txt.indent{padding-left:30px;position:relative}
+.cell.txt.indent::before{content:"";position:absolute;left:10px;top:17px;width:12px;border-top:1px solid var(--rule-strong)}
+.cell{border-top:1px solid var(--rule);border-left:1px dashed var(--rule);display:grid;place-items:center;padding:8px 6px;gap:5px;font-size:13px;text-align:center}
+.cell.txt{place-items:start;text-align:left;font-size:13.5px}
+.dim{opacity:.22}
+.mk{width:15px;height:15px;border-radius:2px;display:inline-block}
+.mk.found{background:var(--k);border:1.5px solid var(--k)}
+.mk.inf{background:transparent;border:1.5px dashed var(--k)}
+.mk.dot{border-radius:50%}
+.k-red{--k:var(--red)} .k-blue{--k:var(--blue)} .k-green{--k:var(--green)} .k-amber{--k:var(--amber)} .k-ink{--k:var(--ink)}
+.flag .mk.inf{box-shadow:0 0 0 3px var(--hi)}
+.line{display:flex;align-items:center;gap:12px;color:var(--red);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin:6px 0 0}
+.line::before,.line::after{content:"";flex:1;border-top:2px dashed var(--red)}
+.stagebar{display:grid;grid-template-columns:var(--cols)}
+.stagebar>div+div{border-left:1px dashed var(--rule)}
+.sum{padding:10px;font-size:14px}
+.sum:first-child{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--pencil);display:flex;align-items:center}
+
+/* curve */
+.chart{overflow-x:auto;border:1px solid var(--rule-strong);border-radius:6px;background:var(--paper);padding:10px}
+.chart svg{display:block;width:100%;min-width:720px;height:auto}
+.hot{cursor:pointer}
+.hot:focus{outline:none}
+.hot:focus-visible circle{stroke:var(--blue);stroke-width:3}
+.panel{border:1px solid var(--rule-strong);border-radius:6px;background:var(--paper);padding:14px 16px;display:grid;gap:8px}
+.risk{display:grid;grid-template-columns:var(--cols)}
+.risk div{padding:7px 10px;text-align:center;font-size:13.5px}
+.risk .lo{background:var(--green-w);color:var(--green)}
+.risk .mid{background:var(--amber-w);color:var(--amber)}
+.risk .hi{background:var(--red-w);color:var(--red)}
+.bar-row{cursor:pointer}
+.bar-row[aria-pressed="true"]{background:var(--hi)}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.btag{font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--pencil);border:1px solid var(--rule-strong);border-radius:3px;padding:1px 5px}
+
+/* outcomes */
+.outs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.out{background:var(--paper-2);border-radius:4px;padding:10px 12px;display:grid;gap:4px;font-size:13.5px;border-left:4px solid var(--green)}
+.out .n{font-family:var(--mono);font-size:10.5px;color:var(--pencil)}
+.chip{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:2px 8px;background:var(--paper);border:1px solid var(--rule-strong);color:var(--pencil);width:max-content}
+.who{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+.role{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;border-radius:999px;padding:2px 8px;border:1px solid var(--rule-strong);background:var(--paper)}
+.role i{width:9px;height:9px;border-radius:50%;background:var(--r)}
+.role.future{border-style:dashed}
+.role.grain{border-color:var(--red);color:var(--red)}
+.prod{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.card{border-radius:4px;padding:9px 10px;font-size:12.5px;line-height:1.2;border:1px solid var(--rule-strong);background:var(--paper);display:grid;gap:4px;align-content:space-between;width:152px;min-height:78px}
+.card.future{background:var(--amber-w);border-color:var(--amber)}
+.card.live{background:var(--green-w);border-color:var(--green)}
+.card{place-items:center;text-align:center;align-content:center}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--pencil);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+@media (max-width:860px){
+  :root{--cols:150px repeat(3,minmax(0,1fr))}
+  .rl{font-size:13px}
+  }
+@media (max-width:640px){
+  :root{--cols:118px repeat(3,minmax(0,1fr))}
+  .gh{font-size:9px;padding:6px 4px}
+  .rl{padding:8px 7px;font-size:12.5px}
+  .rl .sub{font-size:11.5px}
+  .cell{padding:6px 3px;font-size:12px}
+  .sum{font-size:12.5px;padding:8px 6px}
+  .risk div{font-size:11.5px;padding:6px 4px}
+  .card{width:100%;min-height:0;font-size:11.5px}
+  .role{font-size:10px}
+  .dim{opacity:.16}
+}
+
+.walk-start{border:1px solid var(--rule-strong);background:var(--paper);border-radius:999px;padding:6px 14px;cursor:pointer;font-size:14px}
+.walk-start:hover{border-color:var(--ink)}
+.ring{position:absolute;border:2.5px solid var(--red);border-radius:5px;pointer-events:none;z-index:40;transition:all .3s cubic-bezier(.2,.7,.3,1);box-shadow:0 0 0 9999px var(--scrim)}
+.ring::after{content:attr(data-n);position:absolute;top:-15px;left:10px;font-family:var(--hand);font-size:26px;color:var(--red);background:var(--paper);padding:0 6px;line-height:1}
+.walkbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--paper);border-top:2px solid var(--ink);box-shadow:0 -12px 30px -22px rgba(0,0,0,.6)}
+.wb-in{max-width:1180px;margin:0 auto;padding:12px clamp(14px,3vw,32px);display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.wb-txt{max-width:74ch;display:grid;gap:2px}
+.wb-txt p{margin:0;font-size:15px}
+.wb-btns{display:flex;gap:8px}
+.wb-btns button{border:1px solid var(--rule-strong);background:var(--paper);border-radius:999px;padding:7px 14px;cursor:pointer;font-size:14px}
+.wb-btns #wbNext{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+body.walking{padding-bottom:180px}
+.notebtn{border:0;background:none;cursor:pointer;color:var(--blue);font-family:var(--mono);font-size:10.5px;padding:0;text-decoration:underline dotted;justify-self:start}
+.rownote{grid-column:1/-1;background:var(--paper-2);border-top:1px solid var(--rule);padding:10px 14px;font-size:13.5px;color:var(--ink)}
+.rownote b{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--pencil);display:block;margin-bottom:3px}
+</style>
+
+<div class="layout">
+<main>
+<div class="pagehead">
+  <div class="mono">Beeline · p. 3</div>
+  <h1>Service landscape</h1>
+  <p class="lede">The whole careers education system a young person moves through from Year 7 to Year 13, and where Beeline fits. Built from my own landscape mapping.</p>
+  <div class="kicker"></div>
+</div>
+<nav class="subnav" aria-label="Beeline spreads">
+  <a href="beeline.html">Overview</a>
+  <a href="youth-voice.html">Youth Voice</a>
+  <a href="beeline-landscape.html" aria-current="page">Service Landscape</a>
+  <a href="beeline-problem.html">Problem Model</a>
+  <a href="beeline-evidence.html">Decisions &amp; Metrics</a>
+  <a href="beeline-showtells.html">MVP Experience Curve</a>
+</nav>
+<div class="sheet ls">
+  <div>
+    <p class="lede">How a young person moves through careers education in Greater Manchester, from Year 7 to Year 13: what the system requires of them, what that feels like, and where Beeline can help. Reading down a column shows one key stage. Reading across a row shows how one thing changes as they get older.</p>
+    <p class="muted" style="max-width:70ch;font-size:14.5px">I map a system like this to stay curious, to surface the gaps, and to build my own understanding where my domain knowledge runs out. Then the map earns its keep twice over. In a room, I can circle one part of it and walk a stakeholder through the journey, whatever their background. With developers and product managers, one session over this map before the spec or PRD is written saves a lot of confusion later.</p>
+    <p class="muted" style="max-width:70ch;font-size:14.5px">It locates where the system creates friction rather than reducing it, sets out what a young person should be able to say once that friction is gone, and separates what Beeline can build from what it can only flag, and from what belongs in an ask to the combined authority.</p>
+  </div>
+
+  <div class="controls">
+    <span class="mono">Key stage</span>
+    <span class="seg" role="group" aria-label="Key stage" id="stageSeg">
+      <button type="button" data-v="all" aria-pressed="true">All three</button>
+      <button type="button" data-v="0" aria-pressed="false">KS3</button>
+      <button type="button" data-v="1" aria-pressed="false">KS4</button>
+      <button type="button" data-v="2" aria-pressed="false">KS5</button>
+    </span>
+    <label class="check"><input type="checkbox" id="gapsOnly"> Highlight what isn’t evidenced yet</label>
+    <button type="button" id="walkBtn" class="walk-start">▶ Walk through it</button>
+  </div>
+
+  <div class="band">
+    <div class="band-head"><h2>What the system is doing</h2></div>
+    <div class="stagebar" id="sysSummary"></div>
+    <div class="grid" id="gSystem"></div>
+  </div>
+
+  <div class="band">
+    <div class="band-head"><h3>Systemic anchors</h3><span class="muted" style="font-size:14px">Fixed points in the calendar that decide things for young people.</span></div>
+    <div class="grid" id="gAnchors"></div>
+  </div>
+
+  <div class="band">
+    <div class="band-head"><h3>Gatsby benchmarks</h3><span class="muted" style="font-size:14px">What schools and colleges are expected to provide.</span></div>
+    <div class="grid" id="gGatsby"></div>
+    <div class="legend">
+      <span><i class="mk found k-ink"></i>Found evidence</span>
+      <span><i class="mk inf k-ink"></i>Inferred, needs confirming</span>
+    </div>
+  </div>
+
+  <p class="line">Line of visibility</p>
+
+  <div class="band">
+    <div class="band-head"><h2>What runs underneath</h2><span class="muted" style="font-size:14px">Work done on the young person’s behalf that they never see.</span></div>
+    <div class="grid" id="gUnder"></div>
+  </div>
+
+  <p class="line">Line of experience</p>
+
+  <div class="band">
+    <div class="band-head"><h2>The young person’s reality</h2></div>
+    <p class="muted" style="margin:0;max-width:70ch;font-size:14.5px">The pressure curve is how much is being decided, and how hard it is to undo. It is drawn from the anchors above. Tap a point to see what is happening.</p>
+    <div class="chart"><svg id="curve" viewBox="0 0 1000 320" role="img" aria-labelledby="curveT"><title id="curveT">Pressure on a young person across Key Stages 3 to 5</title></svg></div>
+    <div class="panel" id="curveNote" aria-live="polite"></div>
+    <div class="risk" id="riskRow"></div>
+    <div class="grid" id="gBarriers"></div>
+    <div class="legend">
+      <span><i class="mk found k-ink"></i>Found evidence</span>
+      <span><i class="btag">held in place</i> A systemic barrier holds them there</span>
+      <span><i class="btag">voice louder than theirs</i> Someone else is speaking for them</span>
+      <span><i class="btag">too many roads</i> Too much at once, so they may freeze</span>
+      <span><i class="btag">DfE NEET alpha</i> Also found in the DfE’s NEET digital alpha</span>
+    </div>
+  </div>
+
+  <p class="line">Line of ambition</p>
+
+  <div class="band">
+    <div class="band-head"><h2>What success feels like</h2><span class="muted" style="font-size:14px">“I can…” outcome statements, written from the barrier they answer.</span></div>
+    <p class="note-hand" id="outHint" data-arrow="true">Showing every barrier. Tap a barrier above to see only its outcomes.</p>
+    <div class="outs" id="outs"></div>
+  </div>
+
+  <div class="band">
+    <div class="band-head"><h3>Who helps</h3><span class="muted" style="font-size:14px">Solid is the role they play now. Dashed is the role we want them to play.</span></div>
+    <div class="grid" id="gStake"></div>
+    <div class="legend">
+      <span><i class="mk dot found k-amber"></i>Inspire &amp; reassure</span>
+      <span><i class="mk dot found k-blue"></i>Filter &amp; guide</span>
+      <span><i class="mk dot found k-green"></i>Activator</span>
+      <span style="color:var(--red)">Outlined in red: playing the role against the grain</span>
+    </div>
+  </div>
+
+  <p class="line">Line of digital offer</p>
+
+  <div class="band">
+    <div class="band-head"><h2>What we build</h2></div>
+    <div class="grid" id="gProd"></div>
+    <div class="legend"><span><i class="mk found k-green"></i>Live now</span><span><i class="mk found k-amber"></i>Next, not built yet</span></div>
+  </div>
+
+  <div class="band">
+    <div class="band-head"><h3>Where it reaches</h3><span class="muted" style="font-size:14px">Delivery buys reach. Channels buy trust.</span></div>
+    <div class="grid" id="gReach"></div>
+    <div class="legend">
+      <span><i class="mk found k-green"></i>Reaches well</span>
+      <span><i class="mk inf k-green"></i>Reaches weakly</span>
+      <span><i class="mk inf k-red"></i>Not available</span>
+    </div>
+  </div>
+
+  <p class="muted" style="font-size:13.5px;margin:0">Drawn from my own landscape mapping for Beeline. Evidence marks show what I could confirm from a source and what is still inferred.</p>
+</div>
+
+<div id="ring" class="ring" hidden aria-hidden="true"></div>
+<div id="walkBar" class="walkbar" role="region" aria-label="Walkthrough" hidden>
+  <div class="wb-in">
+    <div class="wb-txt">
+      <span class="mono" id="wbStep"></span>
+      <h3 id="wbTitle"></h3>
+      <p id="wbSay"></p>
+    </div>
+    <div class="wb-btns">
+      <button type="button" id="wbPrev">← Back</button>
+      <button type="button" id="wbNext">Next →</button>
+      <button type="button" id="wbExit">Exit</button>
+    </div>
+  </div>
+</div>
+<footer class="pagefoot">
+  <span>Beeline · Greater Manchester Combined Authority</span>
+  <span><a href="index.html">← Contents</a> · <a href="beeline-problem.html">Problem model →</a></span>
+</footer>
+</main>
+</div>
+<script src="site.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const STAGES=["Key Stage 3 · Yr 7–9","Key Stage 4 · Yr 10–11","Key Stage 5 · Yr 12–13"];
+let stage="all", gaps=false, barrier=null;
+
+/* ---------- data ---------- */
+const SYS=[
+ ["What is the system doing?",[
+  "Pressure is low, but the runway to the Year 9 options fork begins.",
+  "Post-16 deadlines land while Progress 8 pulls toward academic routes.",
+  "Retakes, transition years and high-stakes applications compete for capacity."]],
+ ["Equalex tier for intended outcomes",["Introduce &amp; Inspire","Investigate &amp; Explore","Apply &amp; Demonstrate"],
+  "Equalex sets the depth a careers experience is pitched at, in three tiers. Introduce and Inspire opens something up for the first time. Investigate and Explore asks a young person to look into it themselves. Apply and Demonstrate asks them to use it and show what they can do. Every intended outcome on this map is mapped to a tier, which is what lets the same activity run at different depths by age or need, and lets SEND versions map to EHCP goals."],
+ ["Skills Builder framework steps",["Steps 1–5","Steps 6–10","Steps 11–15"],
+  "The Skills Builder Universal Framework breaks eight essential skills, including listening, speaking, problem solving, creativity, staying positive, aiming high, leadership and teamwork, into numbered steps that run from the simplest version of a skill to the most advanced. Matching a band of steps to each key stage keeps what we ask of a young person in line with where they actually are."]
+];
+const ANCHORS=[
+ ["Year 9 options fork","MBacc alignment point",[1,0,0]],
+ ["Progress 8","League tables count academic subjects",[1,1,0],"The Curriculum and Assessment Review recommended removing the EBacc entry and attainment headline measures, and the DfE accepted. Progress 8 stays, and its buckets are being rebuilt around English and maths, science, breadth and open choice. The DfE consulted from February to May 2026, and the first cohort affected choose options in September 2027, so every cohort on this map is still measured the old way."],
+ ["Mock exam period","Predicted grades decide entry",[0,1,0]],
+ ["Post-16 application deadlines","Sixth form, FE, apprenticeships",[0,1,0]],
+ ["Duty to participate to 18","Education or training until 18",[0,1,1],"Young people must stay in education, in employment with training, or on an apprenticeship until 18. The duty begins at the end of Year 11, and it is what makes the Key Stage 5 column mandatory rather than optional."],
+ ["Level 2 maths &amp; English","Condition of funding, continued study",[0,0,1]],
+ ["T-Level foundation year","Ends 2027, further study pathway",[0,0,1],"Level 7 apprenticeship funding was withdrawn in January 2026 for anyone aged 22 and over, with care leavers and young people with an EHCP funded to 25. The T-Level foundation year is replaced from 2027 by a further study pathway, alongside V-Levels from September 2027."],
+ ["UCAS / apprenticeship window","Level 7 funded to age 21",[0,0,1]],
+ ["September Guarantee","Local authority offer duty, age 16 and 17",[0,1,1],"A duty on the local authority to make an offer of a place to every 16 and 17 year old."]
+];
+const GATSBY=[
+ ["1. A stable careers programme","Careers leader",[1,1,0]],
+ ["2. Labour market information","GM LMI, salaries, local jobs",[2,2,2]],
+ ["3. Needs of each young person","FSQ, baseline, then NEET risk",[1,1,1]],
+ ["4. Curriculum linking","Subjects tied to real jobs",[1,0,0]],
+ ["5. Employer encounters","One a year, from age 11",[1,1,1]],
+ ["6. Work experience","Two weeks by end of KS4, in person",[1,1,1],"Statutory careers guidance was updated on 23 June 2026. Reformed work experience is expected from September 2026, with placements for Years 10 and 11 meaningful, in person and immersive. The aim is two weeks by the end of Key Stage 4."],
+ ["7. Encounters with FE and HE","Six encounters, 28 February deadline",[1,1,2],"The duty runs from Year 8 to Year 13: six encounters, two by 28 February in each of Years 8 and 9, Years 10 and 11, and Years 12 and 13, all in school hours. The Year 12 and 13 pair are optional."],
+ ["8. Personal guidance","Qualified adviser, one to one",[0,2,0]],
+ ["T-Level industry placement","315 hours, counts toward Gatsby 6",[0,0,1]],
+ ["SEND / EHCP adaptation","Equalex mapped to EHCP goals",[2,2,2]]
+];
+const UNDER=[
+ ["Strategic frame",[
+  ["MBacc","Seven gateways into Greater Manchester’s technical careers."],
+  ["GM Skills Plan","Employer-led plan for regional skills gaps. The demand side: what Greater Manchester needs people to be able to do."],
+  ["Local Skills Improvement Plan","How the region trains people for those jobs."]]],
+];
+const KNOWS=[
+ ["FSQ","Career readiness",["Baseline","Re-run","Post-16 version"],"Career readiness in two sections: careers knowledge and skills, and the eight Skills Builder competencies. Five versions cover Year 7, Years 8 to 9, Years 10 to 11, Years 12 to 13, and a SEND version for all year groups. It is the only instrument covering the whole landscape."],
+ ["#BeeWell survey","Wellbeing and future",[1,1,0],"Years 8 and 10 across Greater Manchester, carrying a Future section and a Life Readiness briefing."],
+ ["OnTrack+","Risk of NEET",[1,1,0],"The risk-of-NEET indicator inside Compass+, built from aggregated attendance and disadvantage indicators for Years 7 to 11. The June 2026 statutory careers guidance points schools at it."],
+ ["Destination data","Local authority returns",[0,1,1]],
+ ["Where it lands","Compass+",[1,1,0],"From September 2026 the Careers and Enterprise Company offers one product, Compass+. Schools with a compatible management information system can connect it and see learner-level data. Colleges and independent training providers cannot connect theirs at all."]
+];
+const CURVE=[
+ {x:.06,v:.22,l:"options fork",st:0,ev:1,t:"Year 9 options fork","d":"Subjects are chosen before most young people have met the jobs they lead to. Little feels decided, but the runway has started."},
+ {x:.36,v:.45,l:"mocks",st:1,ev:1,t:"Mock exams","d":"Predicted grades start deciding what a young person can apply for."},
+ {x:.5,v:.78,l:"deadlines",st:1,ev:1,t:"Post-16 deadlines","d":"Applications land while Progress 8 pulls schools toward academic routes. The highest-pressure point in the map."},
+ {x:.63,v:.3,lp:"below",l:"summer gap",st:1,ev:1,t:"The summer gap","d":"Results, then a gap with no one holding the thread. The September Guarantee sits here as a local authority duty."},
+ {x:.72,v:.5,l:"re-sit",st:2,ev:1,t:"Maths and English re-sits","d":"Level 2 maths and English become a condition of funding for continued study."},
+ {x:.82,v:.72,lp:"below",l:"UCAS /|apprenticeships",st:2,ev:1,t:"UCAS and apprenticeship window","d":"High-stakes applications compete for the same capacity as transition years and retakes."},
+ {x:.9,v:.86,l:"RON",st:2,ev:0,t:"Risk of NEET","d":"Where a young person falls out with nothing to fall back on. Drawn as inferred: the data to confirm it sits in Compass+ and local authority returns."},
+ {x:.97,v:.4,lp:"below",l:"destination",st:2,ev:1,t:"Destination","d":"Where they land, recorded after the fact through local authority returns."}
+];
+const RISK=[["Exit risk low","lo"],["Disengagement begins","mid"],["Highest attrition","hi"]];
+const BARRIERS=[
+ {id:0,t:"It’s not for people like me",s:"Gender, class, “I’m not a builder”",m:[1,1,1],tags:["dfe","voice"]},
+ {id:1,t:"I can’t see the link",s:"Subjects to real jobs",m:[1,1,0],tags:["dfe"]},
+ {id:2,t:"I’ll play it safe",s:"Peer copying, fear of visible failure",m:[1,1,0],tags:["roads"]},
+ {id:3,t:"Someone else is steering",s:"Parents, teachers, outdated advice",m:[0,1,1],tags:["voice"]},
+ {id:4,t:"I’m stuck and left behind",s:"Re-sits, foundation year, wrong path",m:[0,0,1],tags:["dfe","held"]},
+ {id:5,t:"I can’t prove myself",s:"Assessment centres, interviews",m:[0,1,1],tags:["dfe","held"]}
+];
+const TAG={held:"held in place",voice:"voice louder than theirs",roads:"too many roads",dfe:"DfE NEET alpha"};
+const OUTS=[
+ [1,0,0,"I know that jobs aren’t just for ‘certain types of people’ and my options aren’t limited by stereotypes."],
+ [2,0,0,"I know what I enjoy doing and what I’m naturally curious about."],
+ [3,0,1,"I can name a few different roles inside a company and explain what those people actually do every day."],
+ [4,0,1,"I know how to find out which industries are actually growing right now in Greater Manchester."],
+ [5,0,2,"I can look back at my experiences, see past the stereotypes, and aim wider for my career."],
+ [6,1,0,"I can name a few different jobs, even if I don’t know everything about what they do yet."],
+ [7,1,0,"I can describe the characteristics of the workplaces these jobs might take place in."],
+ [8,1,1,"I can see how my hobbies and interests might connect to real jobs in the future."],
+ [9,1,1,"I know which personal skills I need to work on, like communication, and how to start practising them."],
+ [10,1,2,"I can compare different places I’ve worked or visited to figure out which environment actually suits me best."],
+ [11,2,0,"I know what activities I actually enjoy doing and what I am curious to try next."],
+ [12,2,0,"I understand that there are thousands of jobs out there, and some haven’t even been created yet."],
+ [13,3,1,"I understand there are lots of different ways to work: apprenticeships, T-Levels, or being based in an office versus remote."],
+ [14,3,1,"I understand the different technical pathways available to me and how they actually differ."],
+ [15,3,2,"I can confidently compare different gateways and decide which next step is right for me."],
+ [16,4,0,"I know that I am just starting to figure out my skills, and that is okay."],
+ [17,4,1,"I know how to take feedback from an employer or mentor and use it to improve my plans."],
+ [18,4,1,"I can clearly explain what I learned from my work experiences, and how they changed my mind about what I want to do."],
+ [19,4,2,"I can clearly explain how my past experiences are helping me choose my next steps with confidence."],
+ [20,4,0,"I can point to real things I’ve done, inside or outside of school, to show I am building workplace skills."],
+ [21,4,0,"I can give examples of skills I have that workplaces need, like working well in a team or working online."],
+ [22,5,1,"I can complete a task set by an employer and easily spot the skills I used to get it done."],
+ [23,5,1,"I can show employers how I’ve used my skills in the real world."]
+];
+const R={i:["Inspire &amp; reassure","var(--amber)"],f:["Filter &amp; guide","var(--blue)"],a:["Activator","var(--green)"]};
+const STAKE=[
+ ["Primary: the young person","",[[],[],[]]],
+ ["Primary: peers and near-peers","",[[["i","now"]],[["i","now"]],[["i","now"]]]],
+ ["Supporting: parents, carers and trusted adults","",[[["i","future"]],[["f","grain"],["f","future"]],[["f","grain"],["f","future"]]]],
+ ["Supporting: educators and careers advisers","",[[["f","future"]],[["f","grain"],["f","future"]],[["f","future"]]]],
+ ["Supporting: community and youth workers","",[[["i","now"],["i","future"],["f","future"],["f","now"]],[["f","future"]],[["i","future"]]]],
+ ["Contributing: employers and their support","",[[["i","now"],["i","future"]],[["a","now"],["a","future"]],[["a","future"],["f","future"]]]]
+];
+const PROD=[
+ ["For the young person",[
+   [["Beeline Discovery Game v1",0],["Beeline Discovery Quiz v1",0],["Beeline Next Steps Guide v1",0]],
+   [["Beeline Discovery Quiz v2",1],["Build Your Future v1",1],["Beeline chatbot · light intro",1]],
+   [["Beeline Next Steps Guide v2",1],["The Employer Hub v1",1],["Beeline chatbot",1]]]],
+ ["For the adults around them",[
+   [["Parents &amp; carers support page",0],["Beeline support on GMCA",0]],[],[]]]
+];
+const REACH=[
+ ["Delivery","Everyone is in one, including the disengaged. Buys reach.",[
+  ["Mainstream schools",[2,2,1]],["Local authority &amp; Connexions",[2,2,0]],["Inclusive SEND provision",[2,2,1]],
+  ["PRUs and alternative provision",[0,1,2]],["Care leaver teams",[0,1,2]]]],
+ ["Channels","Reaches those who already showed up. Buys trust.",[
+  ["Youth Zones",[2,1,1]],["Community &amp; sports",[2,1,1]],["Libraries",[2,1,1]],
+  ["Faith groups",[2,2,2]],["Refugee groups",[2,2,2]],["Care-experienced groups",[1,2,2]]]],
+ ["Adults","Reaches the adult. Buys trust.",[
+  ["Parents &amp; carers",[2,2,1]],["Electively home educated",[2,2,2]]]]
+];
+
+/* ---------- helpers ---------- */
+const off=i=>stage!=="all"&&+stage!==i;
+const cls=i=>off(i)?"cell dim stage-off":"cell";
+const head=()=>`<div class="gh">${""}</div>`+STAGES.map((s,i)=>`<div class="gh stage ${off(i)?"stage-off":""}">${s}</div>`).join("");
+const notes=new Set();
+const rowLabel=(l,sub,n,key,kind)=>`<div class="rl">${l}<span class="sub">${sub}</span>${n?`<button type="button" class="notebtn" data-k="${key}" aria-expanded="${notes.has(key)}">${notes.has(key)?"hide":(kind||"policy note")}</button>`:""}</div>`;
+const noteRow=(n,key,kind)=>n&&notes.has(key)?`<div class="rownote"><b>${kind||"Policy note"}</b>${n}</div>`:"";
+const mark=(v,k)=>v===0?"":`<i class="mk ${v===1?"found":"inf"} k-${k}"></i>`;
+
+function renderAll(){
+  /* system */
+  $("sysSummary").innerHTML=`<div class="sum">At a glance</div>`+SYS[0][1].map((t,i)=>`<div class="sum ${off(i)?"dim stage-off":""}">${t}</div>`).join("");
+  $("gSystem").innerHTML=head()+SYS.slice(1).map(([l,v,n],r)=>rowLabel(l,"",n,"s"+r,"what this means")+v.map((t,i)=>`<div class="${cls(i)}">${t}</div>`).join("")+noteRow(n,"s"+r,"What this means")).join("");
+  /* anchors */
+  $("gAnchors").innerHTML=head()+ANCHORS.map(([l,s,m,n],r)=>rowLabel(l,s,n,"a"+r)+m.map((v,i)=>`<div class="${cls(i)}">${mark(v,"red")}</div>`).join("")+noteRow(n,"a"+r)).join("");
+  /* gatsby */
+  $("gGatsby").innerHTML=head()+GATSBY.map(([l,s,m,n],r)=>rowLabel(l,s,n,"g"+r)+m.map((v,i)=>`<div class="${cls(i)} ${gaps&&v===2?"flag":""}">${mark(v,"blue")}</div>`).join("")+noteRow(n,"g"+r)).join("");
+  /* underneath */
+  let u=head();
+  u+=`<div class="rl" style="background:var(--paper-2)"><b>Strategic frame</b></div><div class="cell" style="grid-column:span 3;background:var(--paper-2)"></div>`;
+  u+=UNDER[0][1].map(([l,d])=>`<div class="rl">${l}</div><div class="cell txt indent" style="grid-column:span 3">${d}</div>`).join("");
+  u+=`<div class="rl" style="background:var(--paper-2)"><b>What the system knows about them</b></div><div class="cell" style="grid-column:span 3;background:var(--paper-2)"></div>`;
+  u+=KNOWS.map(([l,s,m,n],r)=>rowLabel(l,s,n,"k"+r)+m.map((v,i)=>`<div class="${cls(i)}">${typeof v==="string"?v:(v?`<i class="mk dot found k-blue"></i>`:`<span class="muted">—</span>`)}</div>`).join("")+noteRow(n,"k"+r)).join("");
+  $("gUnder").innerHTML=u;
+  document.querySelectorAll(".notebtn").forEach(b=>b.onclick=()=>{
+    const open=notes.has(b.dataset.k); open?notes.delete(b.dataset.k):notes.add(b.dataset.k); renderAll();
+  });
+  /* risk + barriers */
+  $("riskRow").innerHTML=`<div class="sum">Exit risk</div>`+RISK.map(([t,c],i)=>`<div class="${c} ${off(i)?"dim stage-off":""}">${t}</div>`).join("");
+  $("gBarriers").innerHTML=head()+BARRIERS.map(b=>`<div class="rl bar-row" role="button" tabindex="0" aria-pressed="${barrier===b.id}" data-b="${b.id}">${b.t}<span class="sub">${b.s}</span><span class="tags">${b.tags.map(t=>`<span class="btag">${TAG[t]}</span>`).join("")}</span></div>`+b.m.map((v,i)=>`<div class="${cls(i)}">${mark(v,"red")}</div>`).join("")).join("");
+  $("gBarriers").querySelectorAll(".bar-row").forEach(el=>{
+    const go=()=>{barrier=barrier===+el.dataset.b?null:+el.dataset.b;renderAll()};
+    el.onclick=go; el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}};
+  });
+  /* outcomes */
+  const list=OUTS.filter(o=>(barrier===null||o[1]===barrier)&&(stage==="all"||o[2]===+stage));
+  $("outs").innerHTML=list.map(([n,b,st,t])=>`<div class="out"><span class="n">${String(n).padStart(2,"0")} · ${BARRIERS[b].t}</span>${t}<span class="chip">${STAGES[st].split(" · ")[0]}</span></div>`).join("")||`<p class="muted">Nothing at this key stage for that barrier yet. That gap is the point: it shows where the service has nothing to offer.</p>`;
+  $("outHint").textContent = barrier===null
+    ? (stage==="all"?"Showing all 23 outcome statements. Tap a barrier above to follow one.":`Showing what a young person should be able to say by the end of ${STAGES[+stage].split(" · ")[0]}.`)
+    : `Following “${BARRIERS[barrier].t.replace(/&amp;/g,"&")}”. Tap it again to see them all.`;
+  /* stakeholders */
+  $("gStake").innerHTML=head()+STAKE.map(([l,s,cols])=>`<div class="rl">${l}</div>`+cols.map((roles,i)=>`<div class="${cls(i)}"><span class="who">${roles.map(([r,kind])=>`<span class="role ${kind==="future"?"future":""} ${kind==="grain"?"grain":""}" style="--r:${R[r][1]}"><i></i>${R[r][0]}</span>`).join("")||`<span class="muted">—</span>`}</span></div>`).join("")).join("");
+  /* products */
+  $("gProd").innerHTML=head()+PROD.map(([l,cols])=>`<div class="rl">${l}</div>`+cols.map((items,i)=>`<div class="${cls(i)}"><span class="prod">${items.map(([t,f])=>`<span class="card ${f?"future":"live"}">${t}</span>`).join("")||`<span class="muted">—</span>`}</span></div>`).join("")).join("");
+  /* reach */
+  $("gReach").innerHTML=head()+REACH.map(([g,cap,rows])=>`<div class="rl" style="background:var(--paper-2)"><b>${g}</b><span class="sub">${cap}</span></div><div class="cell" style="grid-column:span 3;background:var(--paper-2)"></div>`+rows.map(([l,m])=>`<div class="rl">${l}</div>`+m.map((v,i)=>`<div class="${cls(i)}">${v===2?`<i class="mk found k-green"></i>`:v===1?`<i class="mk inf k-green"></i>`:`<i class="mk inf k-red"></i>`}</div>`).join("")).join("")).join("");
+  renderCurve();
+}
+
+/* ---------- curve ---------- */
+let sel=2;
+const X=x=>60+x*900, Yv=v=>244-v*196;
+function lbl(p){
+  const parts=p.l.split("|"), below=p.lp==="below";
+  const y0=below?Yv(p.v)+24:Yv(p.v)-18-(parts.length-1)*15;
+  const anchor=p.x>.94?"end":"middle", x=p.x>.94?X(p.x)+10:X(p.x);
+  return `<text x="${x}" y="${y0}" text-anchor="${anchor}" font-family="var(--body)" font-size="12.5" fill="var(--ink)">`+
+    parts.map((t,i)=>`<tspan x="${x}" dy="${i?15:0}">${t}</tspan>`).join("")+`</text>`;
+}
+function renderCurve(){
+  const s=$("curve");
+  let g=`<title id="curveT">Pressure on a young person across Key Stages 3 to 5</title>`;
+  for(let i=0;i<=3;i++){const x=60+i*300;g+=`<line x1="${x}" y1="18" x2="${x}" y2="284" stroke="var(--rule-strong)" stroke-dasharray="${i%3?"3 5":"0"}"/>`;}
+  STAGES.forEach((t,i)=>g+=`<text x="${60+i*300+150}" y="308" text-anchor="middle" font-family="var(--body)" font-size="13" fill="${off(i)?"var(--pencil)":"var(--ink)"}" opacity="${off(i)?.4:1}">${t.replace("·","—")}</text>`);
+  const pts=CURVE.map(p=>[X(p.x),Yv(p.v)]);
+  const solid=pts.slice(0,6), dashed=pts.slice(5);
+  const d=a=>a.map((p,i)=>`${i?"L":"M"}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" ");
+  g+=`<path d="${d(solid)}" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  g+=`<path d="${d(dashed)}" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-dasharray="9 6" stroke-linecap="round"/>`;
+  g+=`<text x="${X(.93)}" y="${Yv(.95)}" font-family="var(--hand)" font-size="20" fill="var(--red)">NEET</text>`;
+  CURVE.forEach((p,i)=>{
+    const on=sel===i, dimmed=off(p.st);
+    g+=`<g class="hot" tabindex="0" role="button" aria-pressed="${on}" aria-label="${p.t}" data-i="${i}" opacity="${dimmed?.3:1}">
+      <circle cx="${X(p.x)}" cy="${Yv(p.v)}" r="${on?11:7}" fill="${on?"var(--hi-solid)":"var(--paper)"}" stroke="${p.ev?"var(--ink)":"var(--red)"}" stroke-width="2.5"/>
+      ${lbl(p)}</g>`;
+  });
+  s.innerHTML=g;
+  s.querySelectorAll(".hot").forEach(el=>{const go=()=>{sel=+el.dataset.i;renderCurve()};el.onclick=go;el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}}});
+  const p=CURVE[sel];
+  $("curveNote").innerHTML=`<div class="mono">${STAGES[p.st]} · ${p.ev?"evidenced":"inferred, needs confirming"}</div><h3>${p.t}</h3><p style="margin:0">${p.d}</p>`;
+}
+
+/* ---------- controls ---------- */
+$("stageSeg").querySelectorAll("button").forEach(b=>b.onclick=()=>{
+  $("stageSeg").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  stage=b.dataset.v; renderAll();
+});
+$("gapsOnly").onchange=e=>{gaps=e.target.checked;renderAll()};
+renderAll();
+
+/* ---------- walkthrough ---------- */
+const WALK=[
+ {sel:"#gAnchors",stage:"1",title:"The systemic anchors",say:"These are the fixed points in the calendar: mock exams, post-16 application deadlines, the duty to stay in education to 18. A lot of what young people are working with, or against, sits in this row. We can't change any of it, but we can know exactly where it lands, so nothing we design arrives on top of it."},
+ {sel:"#gGatsby",stage:"1",title:"What is already statutory",say:"The Gatsby benchmarks are what schools and colleges are already expected to provide. Knowing what is statutory is exactly where a strategic delivery partner can help: making the duty easier for a school to meet, rather than building something that duplicates it. The dashed marks are where I could not confirm it is happening."},
+ {sel:"#gUnder",stage:"all",title:"What the system already knows",say:"Below the line of visibility sits the data held about a young person: career readiness, wellbeing, risk of NEET, and where they landed. It shows what evidence already exists, and where the gaps are, before anyone goes and collects more."},
+ {sel:".chart",stage:"1",curve:2,title:"The pressure curve",say:"A graph carries things that words don't. This one is built from our user research and from the anchors above, and it shows how much is being decided at each point and how hard it is to undo. In a presentation it gives people a shape to follow while a design decision is explained."},
+ {sel:"#gBarriers",stage:"1",barrier:1,title:"The barriers, in their words",say:"Each row is a barrier young people described in research. This one, “I can't see the link”, also shows up in the DfE's NEET digital alpha, which is what the DfE tag means. One size never fits all, but it is useful to know where our own research is validated by work happening elsewhere."},
+ {sel:"#outs",stage:"1",barrier:1,title:"The outcome that answers it",say:"Every barrier has outcome statements written in a young person's words. It turns a barrier into something testable: if a Year 11 can say this, the service did its job. Where a barrier has no outcome at a key stage, that gap is a finding too."},
+ {sel:"#gStake",stage:"1",title:"Who is playing which role",say:"Naming the role each person plays now, and the role we want them to play, is a design decision in itself. If parents are filtering with outdated advice, the question becomes what the service can carry for them: a prompt, a script, a page written for the adult rather than the young person."},
+ {sel:"#gProd",stage:"2",title:"What we build",say:"The product conversation comes after the room agrees the problem. Every product and feature is the same size rectangle, so nothing looks more important because it has more words. The gaps are visible, and the chatbot and Employer Hub sit in next, not now."},
+ {sel:"#gReach",stage:"0",title:"Who we will not reach",say:"Delivery buys reach. Channels buy trust. Showing who we cannot reach, or have no route to, is valuable, because someone in the room or on the board usually has a way in. It often needs to be drawn before that offer gets made."},
+ {sel:".card.future",union:true,stage:"all",title:"What comes next",say:"This is where the session lands: the things that are not built yet, with everything above them as the reason. A spec or PRD written after this is shorter, and there is much less to argue about, because everyone saw the same picture, including the parts we cannot deliver yet."}
+];
+let wi=-1;
+function walkTo(i){
+  wi=i; const st=WALK[i];
+  stage=st.stage; barrier=(st.barrier===undefined?null:st.barrier);
+  $("stageSeg").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===stage));
+  if(st.curve!==undefined) sel=st.curve;
+  renderAll();
+  let el=document.querySelector(st.sel);
+  if(st.curve!==undefined){const h=document.querySelectorAll("#curve .hot")[st.curve]; if(h) el=h;}
+  let box=null;
+  if(st.union){
+    const all=[...document.querySelectorAll(st.sel)];
+    if(all.length){const rs=all.map(e=>e.getBoundingClientRect());
+      box={left:Math.min(...rs.map(r=>r.left)),top:Math.min(...rs.map(r=>r.top)),
+           right:Math.max(...rs.map(r=>r.right)),bottom:Math.max(...rs.map(r=>r.bottom))};
+      box.width=box.right-box.left; box.height=box.bottom-box.top;}
+  }
+  $("wbStep").textContent=`Step ${i+1} of ${WALK.length}`;
+  $("wbTitle").textContent=st.title;
+  $("wbSay").textContent=st.say;
+  $("wbPrev").disabled=i===0;
+  $("wbNext").textContent=i===WALK.length-1?"Finish":"Next →";
+  const r=box||el.getBoundingClientRect(), y=r.top+window.scrollY, pad=st.curve!==undefined?26:(st.union?18:14);
+  const ring=$("ring"); ring.hidden=false; ring.dataset.n=i+1;
+  ring.style.left=(r.left+window.scrollX-pad)+"px";
+  ring.style.top=(y-pad)+"px";
+  ring.style.width=(r.width+pad*2)+"px";
+  ring.style.height=(Math.min(r.height,600)+pad*2)+"px";
+  window.scrollTo({top:Math.max(0,y-(st.curve!==undefined?260:120)),behavior:"smooth"});
+}
+function walkStart(){document.body.classList.add("walking");$("walkBar").hidden=false;walkTo(0);}
+function walkEnd(){document.body.classList.remove("walking");$("walkBar").hidden=true;$("ring").hidden=true;wi=-1;$("walkBtn").focus();}
+$("walkBtn").onclick=walkStart;
+$("wbNext").onclick=()=>wi>=WALK.length-1?walkEnd():walkTo(wi+1);
+$("wbPrev").onclick=()=>walkTo(Math.max(0,wi-1));
+$("wbExit").onclick=walkEnd;
+document.addEventListener("keydown",e=>{
+  if(wi<0)return;
+  if(e.key==="Escape")walkEnd();
+  if(e.key==="ArrowRight"&&wi<WALK.length-1)walkTo(wi+1);
+  if(e.key==="ArrowLeft"&&wi>0)walkTo(wi-1);
+});
+window.addEventListener("resize",()=>{if(wi>=0)walkTo(wi)});
+</script>
+</html>

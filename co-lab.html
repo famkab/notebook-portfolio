@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CO/LAB · Fatima Abid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="journal.css">
+<style>
+.sample-note{font-family:var(--hand);font-size:1.3rem;color:var(--red);margin:0 0 26px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.cols>div{border-top:3px solid var(--k,var(--rule-strong));padding-top:10px}
+.cols .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--pencil);display:block;margin-bottom:6px}
+.cols p{margin:0;font-size:15.5px}
+.turn{display:grid;grid-template-columns:minmax(0,1fr) 42px minmax(0,1fr);gap:14px;align-items:center;
+  border:1px solid var(--rule-strong);border-radius:6px;padding:18px 20px;background:var(--paper)}
+.turn b{font-family:var(--serif);font-size:19px;font-weight:600;display:block;margin-bottom:4px}
+.turn .arrow{font-family:var(--hand);font-size:1.7rem;color:var(--red);text-align:center}
+.turn p{margin:0;font-size:15px;color:var(--pencil)}
+.made{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;list-style:none;margin:0;padding:0}
+.made li{border:1px solid var(--rule);border-radius:4px;padding:12px 14px;background:var(--paper);font-size:14.5px}
+.made b{display:block;font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:3px}
+.timeline{display:grid;gap:0;margin:0;padding:0;list-style:none;border-left:2px solid var(--rule-strong);margin-left:6px}
+.timeline li{padding:0 0 16px 18px;position:relative;font-size:15px}
+.timeline li::before{content:"";position:absolute;left:-7px;top:7px;width:11px;height:11px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--ink)}
+.timeline b{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--pencil);display:block}
+.took{border-left:3px solid var(--green);padding-left:14px;display:grid;gap:8px}
+.took p{margin:0;max-width:70ch}
+@media (max-width:640px){ .turn{grid-template-columns:1fr} .turn .arrow{transform:rotate(90deg)} }
+</style>
+
+<div class="layout">
+<main>
+  <div class="pagehead">
+    <div class="mono">Italian Institute of Technology · SUGAR programme · p. 23</div>
+    <h1>CO/LAB</h1>
+    <p class="lede">A lab technology nobody outside the lab could use. Nine months of design thinking with the Italian
+      Institute of Technology ended with an onboarding service for transferring science out of the lab, presented at
+      the SUGAR Expo in San Francisco.</p>
+    <div class="kicker">
+      <span class="stamp-ctx stamp-sector"><i>Sector</i>Research institute</span>
+      <span class="stamp-ctx stamp-scale"><i>Scale</i>Italy, France and the USA</span>
+      <span class="stamp-ctx stamp-audience"><i>Audience</i>Researchers, business developers, knowledge transfer offices</span>
+      <span class="stamp-ctx stamp-product"><i>Product</i>Onboarding service and toolkit</span>
+    </div>
+  </div>
+
+  <p class="sample-note">A sample, not a full case study. Older work, kept short. ↓</p>
+
+  <div class="stack">
+    <section>
+      <h2>The challenge</h2>
+      <div class="cols" style="margin-top:14px">
+        <div style="--k:var(--red)"><span class="lbl">What they had</span>
+          <p>The Italian Institute of Technology’s artificial leaf: a system that imitates photosynthesis, taking
+            sunlight, water and carbon dioxide and converting them into useful molecules. At technology readiness
+            level 4, it still lived in the lab.</p></div>
+        <div style="--k:var(--blue)"><span class="lbl">The brief</span>
+          <p>“How might we develop an innovative service based on the artificial photosynthesis technology, and create
+            a business opportunity out of it?” Six students from the University of Bologna and the Université Côte
+            d’Azur, across service design, engineering, architecture, economics and education.</p></div>
+        <div style="--k:var(--green)"><span class="lbl">My part</span>
+          <p>The education technologist on the team. I worked on the research, the journey and system mapping, the
+            value proposition, and the onboarding experience we ended up designing.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>The u-turn</h2>
+      <p class="muted" style="max-width:72ch;margin-top:10px">We spent the first phase looking for an application:
+        chimneys, cement, fashion, buildings, transport, plastic upcycling, agriculture. We picked plastics, researched
+        it hard, prototyped against it, and then turned the challenge around. The real problem was one step earlier.</p>
+      <div class="turn">
+        <div><b>What we were asked</b><p>Find a market for the leaf, then build a business case around it.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div><b>What we designed instead</b><p>Fix how the technology is explained and handed over in the first place.
+          Science communication and onboarding are what decide whether a transfer happens at all.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>What I made</h2>
+      <ul class="made" style="margin-top:14px">
+        <li><b>Journey maps, as-is and to-be</b>How a knowledge transfer office actually moves a technology toward
+          industry, and where it stalls.</li>
+        <li><b>Value proposition maps</b>Two of them: one for the institute, one for the company on the other side of
+          the handover, because they want different things.</li>
+        <li><b>System map and service blueprint</b>Who does what, in what order, and what has to exist backstage for
+          the front stage to work.</li>
+        <li><b>Business model canvas</b>How the service would pay for itself, and who pays.</li>
+        <li><b>The toolbox</b>The front end and the back end of the prototype: a guided tool, the interface around it,
+          and a 3D model of the leaf so a non-scientist can see what it does.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>How it was tested</h2>
+      <p class="muted" style="max-width:72ch;margin-top:10px">We interviewed researchers and business developers,
+        prototyped early with a rough version rather than a finished one, and ran the tool against a real case, a
+        company working on the same kind of technology. The last checks asked whether it held up for a different
+        technology, not just this one.</p>
+    </section>
+
+    <section>
+      <h2>Nine months, in order</h2>
+      <ul class="timeline" style="margin-top:14px">
+        <li><b>Oct 2021 · Nice</b>Global kickoff, team meets, needfinding begins.</li>
+        <li><b>Dec 2021</b>Plastics chosen as the application. A critical experience prototype built against it.</li>
+        <li><b>Jan–Feb 2022</b>Prototype development and testing, then merging the prototypes into one working system.</li>
+        <li><b>Mar 2022 · Bologna</b>The u-turn: away from plastics, toward onboarding and technology transfer.</li>
+        <li><b>Apr–May 2022 · Turin</b>Design principles and vision, then building both ends of the solution.</li>
+        <li><b>Jun 2022 · San Francisco</b>CO/LAB presented at the SUGAR Expo.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What I took from it</h2>
+      <div class="took">
+        <p>The brief you are given is not always the problem you should solve. Turning the challenge around six months
+          in cost us time, and it was still the right call.</p>
+        <p>Designing for scientists and business developers taught me to hold two value propositions at once, which is
+          the same muscle I use now between a combined authority, a school and a young person.</p>
+        <p>It is also where I learned that a prototype’s job is to make an abstract technology touchable, whether
+          that’s a 3D model of a leaf or a pack of printed cards.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="nextcase"><a href="how-i-work.html"><span><small>Next</small>How I work</span><span class="open" aria-hidden="true">open →</span></a></div>
+
+  <footer class="pagefoot">
+    <span>CO/LAB · SUGAR programme with the Italian Institute of Technology, 2021–22</span>
+    <span><a href="index.html">← Contents</a></span>
+  </footer>
+</main>
+</div>
+<script src="site.js"></script>
+</html>

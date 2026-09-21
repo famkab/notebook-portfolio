@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI-powered Learning Meter · Fatima Abid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="journal.css">
+<style>
+
+:root{
+  --bg:var(--paper); --surface:var(--paper); --sunk:var(--paper-2); --line:var(--rule-strong); --muted:var(--pencil);
+  --honey:var(--hi-solid); --honey-soft:var(--amber-w); --honey-ink:var(--hi-ink);
+  --display:var(--serif);
+  --ok:var(--green); --ok-soft:var(--green-w); --bad:var(--red); --bad-soft:var(--red-w);
+  --warn:var(--amber); --warn-soft:var(--amber-w); --part:var(--amber); --part-soft:var(--amber-w);
+  --no:var(--pencil); --no-soft:var(--paper-2);
+}
+h1,h2,h3,h4{font-family:var(--serif)!important;font-weight:600}
+.wrap{max-width:none!important}
+.wrap>header{display:none}
+
+:root{ --ai:var(--blue); --ai-soft:var(--blue-w); --cache:var(--green); --cache-soft:var(--green-w);
+  --b100:var(--green); --b80:var(--green); --b60:var(--amber); --b0:var(--red);
+  --b100-soft:var(--green-w); --b80-soft:var(--green-w); --b60-soft:var(--amber-w); --b0-soft:var(--red-w); }
+.subnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 26px}
+.subnav a{text-decoration:none;font-size:14px;color:var(--pencil);border:1px solid var(--rule-strong);
+  border-radius:999px;padding:6px 13px;background:var(--paper)}
+.subnav a:hover{border-color:var(--ink);color:var(--ink)}
+.subnav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pagehead h1{margin:2px 0 4px}
+.where{display:none}
+
+:root{
+  --bg:var(--paper-2); --surface:var(--paper); --sunk:var(--paper-2); --muted:var(--pencil); --line:var(--rule-strong);
+  --honey:var(--hi-solid); --honey-soft:var(--amber-w); --honey-ink:var(--hi-ink);
+  --ai:var(--blue); --ai-soft:var(--blue-w);
+  --cache:var(--green); --cache-soft:var(--green-w);
+  --b100:var(--green); --b80:var(--green); --b60:var(--amber); --b0:var(--red);
+  --b100-soft:var(--green-w); --b80-soft:var(--green-w); --b60-soft:var(--amber-w); --b0-soft:var(--red-w);
+  --display:var(--serif);
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+.wrap{max-width:1200px;margin-inline:auto;display:grid;gap:28px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;align-items:center}
+.hex{width:14px;height:16px;background:var(--honey);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);flex:none}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.2vw,50px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,28px);letter-spacing:-.015em;margin:0;text-wrap:balance}
+.lede{max-width:68ch;color:var(--muted);margin:0;font-size:16px}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.note{display:flex;gap:10px;align-items:flex-start;background:var(--honey-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;max-width:82ch}
+.note b{color:var(--honey-ink)}
+.approx{border-bottom:1.5px dotted currentColor;cursor:help;white-space:nowrap}
+.role{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--muted)}
+.role b{color:var(--ink)}
+
+/* demo */
+.demo{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(16px,2.4vw,28px);align-items:start}
+.card{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:clamp(16px,2.2vw,24px)}
+.act{display:grid;gap:14px}
+.act-top{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.clock{width:112px;height:112px;max-width:100%}
+.q{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.01em;line-height:1.1}
+.answers{display:grid;gap:8px}
+.ans{text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+.ans:hover{border-color:var(--ai)}
+.ans[aria-pressed="true"]{border-color:var(--ai);background:var(--ai-soft)}
+.ans .said{font-size:15.5px}
+.ans .said::before{content:"🎙 ";filter:grayscale(1);opacity:.6}
+.ans small{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.mode{display:flex;gap:4px;background:var(--sunk);border-radius:999px;padding:4px;width:max-content;max-width:100%}
+.mode button{border:0;background:none;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted)}
+.mode button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule-strong)}
+.mode-wrap{display:grid;gap:6px}
+.mode-wrap p{margin:0;font-size:13px;color:var(--muted)}
+
+.pipe{display:grid;gap:0}
+.step{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;position:relative;transition:opacity .25s}
+.step .rail{position:relative;display:flex;justify-content:center}
+.step .rail::before{content:"";position:absolute;top:0;bottom:0;width:3px;background:var(--line)}
+.step:first-child .rail::before{top:14px}
+.step:last-child .rail::before{height:14px;bottom:auto}
+.step .dot{position:relative;z-index:1;margin-top:3px;width:22px;height:22px;border-radius:50%;background:var(--surface);border:2.5px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--muted)}
+.step.on .dot{border-color:var(--k);background:var(--k);color:var(--surface)}
+.step.skip{opacity:.38}
+.step .b{padding-bottom:16px;display:grid;gap:4px}
+.step .t{font-weight:700;font-size:15px;display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+.step .t .tag{font-family:var(--mono);font-size:10.5px;font-weight:500;border-radius:999px;padding:1px 8px;background:var(--sunk);color:var(--muted)}
+.step .d{font-size:14px;color:var(--muted);margin:0}
+.step .io{font-family:var(--mono);font-size:12.5px;background:var(--sunk);border-radius:8px;padding:6px 10px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+.s-stt{--k:var(--muted)} .s-clean{--k:var(--muted)} .s-cache{--k:var(--cache)} .s-ai{--k:var(--ai)} .s-out{--k:var(--honey-ink)} .s-log{--k:var(--muted)}
+
+.child{border-radius:14px;padding:14px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;background:var(--band-soft);border:1.5px solid var(--band)}
+.meter{width:74px;height:74px;max-width:100%}
+.child .fb{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.25}
+.child .sc{font-family:var(--mono);font-size:11.5px;color:var(--band)}
+
+/* rubric */
+.bands{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.band{border-radius:12px;padding:12px;background:var(--bs);display:grid;gap:6px;align-content:start;border-top:4px solid var(--bc)}
+.band .n{font-family:var(--display);font-weight:800;font-size:26px;line-height:1;color:var(--bc)}
+.band ul{margin:0;padding-left:16px;font-size:13.5px;display:grid;gap:4px}
+.band .ex{font-family:var(--mono);font-size:12px;background:var(--surface);border-radius:8px;padding:6px 8px}
+.b100{--bc:var(--b100);--bs:var(--b100-soft)} .b80{--bc:var(--b80);--bs:var(--b80-soft)} .b60{--bc:var(--b60);--bs:var(--b60-soft)} .b0{--bc:var(--b0);--bs:var(--b0-soft)}
+
+/* results */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.stat{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:10px}
+.stat .t{font-weight:700;font-size:15px}
+.stat .row{display:grid;grid-template-columns:62px 1fr 48px;gap:8px;align-items:center;font-size:12.5px}
+.stat .row span:first-child{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.bar{height:12px;background:var(--sunk);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:6px}
+.stat .v{font-family:var(--mono);font-size:12.5px;text-align:right}
+.stat p{margin:0;font-size:13px;color:var(--muted)}
+.good i{background:var(--b100)} .bad i{background:var(--b0)} .old i{background:var(--muted)}
+.ops{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.op{border-radius:12px;background:var(--sunk);padding:12px 14px;display:grid;gap:2px}
+.op b{font-family:var(--display);font-size:22px;font-weight:800;letter-spacing:-.01em}
+.op span{font-size:13px;color:var(--muted)}
+.trade{border-left:4px solid var(--b60);background:var(--surface);border-radius:0 12px 12px 0;padding:12px 16px;font-size:14.5px;max-width:84ch}
+
+.decisions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.dec{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:6px;align-content:start}
+.dec b{font-family:var(--display);font-size:17px;line-height:1.25}
+.dec p{margin:0;font-size:14px;color:var(--muted)}
+.shows{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{display:inline-flex;border-radius:999px;padding:3px 10px;font-size:13px;background:var(--honey-soft)}
+footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;border-top:1.5px solid var(--line);padding-top:16px}
+section{display:grid;gap:14px}
+
+@media (max-width:980px){
+  .demo{grid-template-columns:1fr}
+  .bands,.ops{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats,.decisions{grid-template-columns:1fr}
+}
+@media (max-width:520px){ .bands,.ops{grid-template-columns:1fr} .act-top{grid-template-columns:1fr} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.sec-lede{margin:0;max-width:74ch;color:var(--pencil);font-size:15.5px}
+</style>
+
+<div class="layout">
+<main>
+<div class="pagehead">
+  <div class="mono">Kids&amp;Us · p. 11–16</div>
+  <h1>AI-powered Learning Meter</h1>
+  <p class="lede">Speaking and writing activities for children learning English, marked by AI against a teacher’s rubric. I owned it end to end: the rubric, the prompts, the evaluation set and the accuracy bar it had to clear.</p>
+  <div class="kicker"><span class="stamp-ctx stamp-sector"><i>Sector</i>Private</span><span class="stamp-ctx stamp-scale"><i>Scale</i>International · 700 schools, 13 countries</span><span class="stamp-ctx stamp-audience"><i>Audience</i>Children around 8 learning English</span><span class="stamp-ctx stamp-product"><i>Product</i>Consumer learning app</span></div>
+</div>
+
+<div class="wrap">
+  <header>
+    
+    
+    <p class="lede">The Learning Meter scored open-ended spoken and written English from 8-year-olds and answered with ten words of feedback they could act on. A wrong “well done” teaches the wrong thing, so the work was mostly about trust: rubrics, anchor answers, a test set, and an evaluation loop run before anything went live.</p>
+  </header>
+  <div class="role"><span><b>My role:</b> owned it end to end: rubric, anchor answers, prompt structure, feedback tone, test set and evaluation loop</span><span><b>Team:</b> matrix-managed the engineers and an external AI partner</span><span><b>When:</b> 2023–2024</span></div>
+
+    <p class="note" role="note"><span class="hex" aria-hidden="true" style="margin-top:3px"></span><span><b>This demo is scripted, on purpose.</b> The real Learning Meter ran on Kids&amp;Us systems and was built around children’s voice and writing data. Running a live model on a public page would mean sending visitors’ text to an AI service, adding cost, and showing behaviour I can’t stand behind. So every answer below is pre-scored from the real rubric and test results. Figures marked <span class="approx" title="Rounded from internal test runs">≈</span> are rounded.</span></p>
+
+  <section aria-labelledby="demo-h">
+    <div><div class="label">Try it</div><h2 id="demo-h">Follow one answer through the Learning Meter</h2></div>
+    <div class="demo">
+      <div class="card act">
+        <div class="act-top">
+          <svg class="clock" viewBox="0 0 120 120" role="img" aria-label="An analogue clock showing half past six">
+            <circle cx="60" cy="60" r="54" fill="var(--surface)" stroke="var(--ink)" stroke-width="4"/>
+            <g stroke="var(--muted)" stroke-width="3" stroke-linecap="round">
+              <line x1="60" y1="12" x2="60" y2="20"/><line x1="108" y1="60" x2="100" y2="60"/><line x1="60" y1="108" x2="60" y2="100"/><line x1="12" y1="60" x2="20" y2="60"/>
+            </g>
+            <line x1="60" y1="60" x2="60" y2="98" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
+            <line x1="60" y1="60" x2="66" y2="86" stroke="var(--ink)" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="60" cy="60" r="5" fill="var(--honey)"/>
+          </svg>
+          <div><div class="label">Speaking · image prompt · AP1</div><div class="q">What time is it?</div></div>
+        </div>
+        <div class="mode-wrap">
+          <div class="mode" role="group" aria-label="Which version of the prompt">
+            <button type="button" id="m-early" aria-pressed="false">First prompts (2023)</button>
+            <button type="button" id="m-tuned" aria-pressed="true">Tuned (2024)</button>
+          </div>
+          <p id="mode-note"></p>
+        </div>
+        <div class="label">Pick what the child said</div>
+        <div class="answers" id="answers"></div>
+      </div>
+      <div class="card" aria-live="polite">
+        <div class="pipe" id="pipe"></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="rub-h">
+    <div><div class="label">The rubric I wrote</div><h2 id="rub-h">Four bands, each with anchor answers for every activity</h2></div>
+    <p class="lede">The model never scored against “good English” in general. For every mini-activity it got the question, what to check, and a real example answer at each band. It could choose any score from 20 to 100, but was anchored to these four.</p>
+    <div class="bands" id="bands"></div>
+  </section>
+
+  <section aria-labelledby="res-h">
+    <div><div class="label">Evaluation before launch</div><h2 id="res-h">Did it get more trustworthy?</h2></div>
+    <p class="lede">Every change was tested against a set of <span class="approx" title="Rounded">≈4,000</span> answers with known scores before it reached a child: <span class="approx" title="Rounded">≈1,300</span> real answers, plus <span class="approx" title="Rounded">≈2,700</span> synthetic ones I wrote to cover the edge cases real data was thin on (other languages, fragments, near-misses). Each answer was graded twice to check the model gave the same score both times.</p>
+    <div class="stats" id="stats"></div>
+    <p class="trade" id="trade"></p>
+    <div class="ops">
+      <div class="op"><b>100%</b><span>of responses came back as a valid score + feedback</span></div>
+      <div class="op"><b><span class="approx" title="Typical range">≈1–2 s</span></b><span>typical response, with rare peaks near 10 s</span></div>
+      <div class="op"><b><span class="approx" title="Rounded">≈$0.01</span></b><span>or less per graded answer</span></div>
+      <div class="op"><b>0 calls</b><span>for answers already seen: they reuse a stored score</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="dec-h">
+    <div><div class="label">Design decisions</div><h2 id="dec-h">What I decided, and why</h2></div>
+    <div class="decisions">
+      <div class="dec"><b>Feedback in ten words or fewer, spoken to an 8-year-old</b><p>Feedback is read mid-game by children around 8, so it’s short, in the first person, names the fix, and stays strict on the score.</p></div>
+      <div class="dec"><b>Anything not in English scores 0</b><p>A correct idea in another language is still a miss in a language course, so it became a hard rule in every prompt.</p></div>
+      <div class="dec"><b>Reuse scores for answers already seen</b><p>Children give many of the same answers. Cleaning up and matching them first made scoring instant, cheaper and consistent: the same answer always gets the same score.</p></div>
+      <div class="dec"><b>One Learning Meter call per skill</b><p>If an activity tests grammar and vocabulary, each skill is scored against its own rubric, so feedback can say what to fix.</p></div>
+      <div class="dec"><b>Low-creativity model settings</b><p>Grading must be repeatable. Every answer was scored twice in testing to catch drift between runs.</p></div>
+      <div class="dec"><b>Humans stay in the loop</b><p>Flagged answers were reviewed and corrected in the test set, so the rubric and examples kept improving after launch.</p></div>
+    </div>
+  </section>
+
+  <div class="shows"><span class="label" style="margin-right:4px">What this shows</span><span class="chip">Designing AI-enabled experiences</span><span class="chip">Evaluation before launch</span><span class="chip">Designing for trust</span><span class="chip">Leading engineers</span><span class="chip">Responsible AI</span></div>
+
+  <p class="disclaimer">Built from my Learning Meter rubric, prompt databases and test results at Kids&amp;Us. No child data is shown, and all figures are rounded.</p>
+</div>
+<section style="margin-top:40px;display:grid;gap:14px">
+  <h2>Where I worked across the lifecycle</h2>
+  <p class="sec-lede">From writing the rubric to the accuracy numbers that decided what shipped, and the handoff that kept it running.</p>
+  <div data-life="lm" class="life-wrap"></div>
+</section>
+<div class="nextcase"><a href="jump-math.html"><span><small>Next</small>JUMP Math Lab</span><span class="open" aria-hidden="true">open →</span></a></div>
+<footer class="pagefoot">
+  <span>AI-powered Learning Meter · Kids&amp;Us</span>
+  <span><a href="index.html">← Contents</a> · <a href="jump-math.html">JUMP Math Lab →</a></span>
+</footer>
+</main>
+</div>
+<script src="site.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const BAND={100:["b100","var(--b100)","var(--b100-soft)"],80:["b80","var(--b80)","var(--b80-soft)"],60:["b60","var(--b60)","var(--b60-soft)"],0:["b0","var(--b0)","var(--b0-soft)"]};
+const band=s=>s>=90?100:s>=70?80:s>=40?60:0;
+
+/* scripted answers. STT = what speech-to-text heard; clean = after clean-up */
+const ANSWERS=[
+ {id:"a1",said:"It's half past six.",stt:"its half past six",clean:"it's half past six",seen:true,expected:100,
+  tuned:{score:100,fb:"Great job! That's exactly right."},early:{score:100,fb:"Great job! Your answer is perfect!"}},
+ {id:"a2",said:"It is six thirty.",stt:"it is six thirty",clean:"it is six thirty",seen:false,expected:100,
+  tuned:{score:100,fb:"Perfect! Six thirty is right too."},early:{score:80,fb:"Mostly correct. The answer is \"It is six thirty.\""},why:"Early prompts marked a correct alternative down because it didn’t match the first example."},
+ {id:"a3",said:"Is half past six.",stt:"is half past six",clean:"is half past six",seen:false,expected:80,
+  tuned:{score:80,fb:"Nearly! Say: It is half past six."},early:{score:100,fb:"Your answer is correct."},why:"The missing “It” went unnoticed. Anchor answers at 80 fixed this."},
+ {id:"a4",said:"Half six.",stt:"half six",clean:"half six",seen:true,expected:60,
+  tuned:{score:60,fb:"Good try! Use a full sentence: It's half six."},early:{score:60,fb:"Incomplete sentence. Correct answer: It's half six."}},
+ {id:"a5",said:"I think it's around six?",stt:"i think its around six",clean:"i think it's around six",seen:false,expected:0,
+  tuned:{score:0,fb:"Look again: the long hand says half past."},early:{score:60,fb:"Your answer hints at the correct time but is incomplete."},why:"A classic false pass: vague and wrong, but rewarded for “hinting”. The tuned rubric scores it 0."},
+ {id:"a6",said:"Son las seis y media.",stt:"son las seis y media",clean:"son las seis y media",seen:false,expected:0,
+  tuned:{score:0,fb:"Try again in English: It's half past six."},early:{score:80,fb:"Correct time! Try saying it in English."},why:"Right idea, wrong language. It became a hard rule: not English scores 0."}
+];
+let mode="tuned", sel="a5";
+
+function renderAnswers(){
+  $("answers").innerHTML=ANSWERS.map(a=>`<button type="button" class="ans" data-id="${a.id}" aria-pressed="${a.id===sel}"><span class="said">“${a.said}”</span><small>expected ${a.expected}</small></button>`).join("");
+  $("answers").querySelectorAll(".ans").forEach(b=>b.onclick=()=>{sel=b.dataset.id;renderAnswers();renderPipe()});
+}
+function meterSVG(score,col){
+  const r=30,c=2*Math.PI*r,f=c*(Math.max(score,4)/100);
+  return `<svg class="meter" viewBox="0 0 74 74" aria-hidden="true"><circle cx="37" cy="37" r="${r}" fill="none" stroke="var(--line)" stroke-width="8"/><circle cx="37" cy="37" r="${r}" fill="none" stroke="${col}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${f} ${c}" transform="rotate(-90 37 37)"/><text x="37" y="42" text-anchor="middle" font-family="var(--display)" font-weight="800" font-size="17" fill="var(--ink)">${score}</text></svg>`;
+}
+function renderPipe(){
+  const a=ANSWERS.find(x=>x.id===sel), r=a[mode];
+  const cached = a.seen && mode==="tuned";
+  const b=BAND[band(r.score)], ok=band(r.score)===a.expected;
+  const steps=[
+    ["s-stt",1,"Speech to text","",`The child speaks. Speech-to-text is imperfect with young voices and accents, so nothing downstream trusts punctuation.`,`heard: "${a.stt}"`,true],
+    ["s-clean",2,"Clean up","",`Normalise spelling, case and punctuation so “I have a red car” and “I have a red car.” count as one answer.`,`→ "${a.clean}"`,true],
+    ["s-cache",3,"Seen this before?",cached?"match · instant · no AI call":"no match",cached?`This exact answer was already scored for this mini-activity, so the stored score is reused. The same answer always gets the same score.`:`New answer for this mini-activity, so it goes to the AI with the rubric.`,"",true],
+    ["s-ai",4,"Grade against the rubric",cached?"skipped":(mode==="tuned"?"tuned prompt · strict settings":"first prompt"),`The AI gets the activity, what to check, and anchor answers at 100 / 80 / 60 / 0, then must reply as a score + feedback.`,cached?"":`{ "score": ${r.score}, "explanation": "${r.fb}" }`,!cached],
+    ["s-out",5,"Back to the child","",null,"",true],
+    ["s-log",6,"Logged for review",ok?"agrees with expected":"flagged: disagrees with expected",ok?`Stored with the activity, answer and score.`:`Expected ${a.expected}, scored ${r.score}. Flagged answers are reviewed and fed back into the rubric and test set.`,"",true]
+  ];
+  $("pipe").innerHTML=steps.map(([cls,n,t,tag,d,io,on])=>{
+    const body = cls==="s-out"
+      ? `<div class="child" style="--band:${b[1]};--band-soft:${b[2]}">${meterSVG(r.score,b[1])}<div><div class="sc">Learning Meter · ${r.score}/100</div><div class="fb">${r.fb}</div></div></div>`
+      : `${d?`<p class="d">${d}</p>`:""}${io?`<div class="io">${io}</div>`:""}`;
+    return `<div class="step ${cls} ${on?"on":"skip"}"><div class="rail"><span class="dot">${n}</span></div><div class="b"><div class="t">${t}${tag?`<span class="tag">${tag}</span>`:""}</div>${body}</div></div>`;
+  }).join("") + (a.why&&mode==="early"?`<p class="trade" style="margin:4px 0 0">${a.why}</p>`:"");
+}
+function setMode(m){
+  mode=m;$("m-early").setAttribute("aria-pressed",m==="early");$("m-tuned").setAttribute("aria-pressed",m==="tuned");
+  $("mode-note").textContent=m==="early"?"How the first prompts scored these answers (illustrative, based on real failure patterns).":"How the tuned rubric and prompts score them.";
+  renderPipe();
+}
+$("m-early").onclick=()=>setMode("early");$("m-tuned").onclick=()=>setMode("tuned");
+
+/* rubric */
+const BANDS=[
+ [100,"b100",["Full sentence, clear and relevant","Correct grammar and vocabulary","Clear pronunciation"],"It's half past six."],
+ [80,"b80",["Full sentence, minor slips","Mostly correct grammar","Still easy to understand"],"Is half past six."],
+ [60,"b60",["One word or a fragment","Frequent errors","Minimally does the task"],"Half six."],
+ [0,"b0",["Wrong or off-topic","Breaks down communication","Not in English"],"Son las seis y media."]
+];
+$("bands").innerHTML=BANDS.map(([n,c,pts,ex])=>`<div class="band ${c}"><span class="n">${n}</span><ul>${pts.map(p=>`<li>${p}</li>`).join("")}</ul><div class="ex">“${ex}”</div></div>`).join("");
+
+/* results */
+const STATS=[
+ ["Exact agreement with the expected score",[["First",44,"old"],["Tuned",56,"good"]],"The same score as the one set by a person."],
+ ["Within one band",[["First",66,"old"],["Tuned",75,"good"]],"Off by at most one step, for example 80 instead of 100."],
+ ["Wrong answers wrongly passed",[["First",58,"bad"],["Tuned",27,"good"]],"Answers that should score 0 but got 60 or more. This was the number I cared about most."]
+];
+$("stats").innerHTML=STATS.map(([t,rows,p])=>`<div class="stat"><div class="t">${t}</div>${rows.map(([l,v,c])=>`<div class="row"><span>${l}</span><span class="bar ${c}" role="img" aria-label="${l}: about ${v}%"><i style="width:${v}%"></i></span><span class="v approx" title="Rounded">≈${v}%</span></div>`).join("")}<p>${p}</p></div>`).join("");
+$("trade").innerHTML=`<b>The trade-off.</b> Tightening the rubric roughly halved false passes, but the model also got stricter with some perfect answers. That became the next thing to tune.`;
+
+renderAnswers();setMode("tuned");
+</script>
+</html>
