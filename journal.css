@@ -124,6 +124,9 @@ p{margin:0 0 14px}
 .sheet-pages a[aria-current="page"]{border-color:var(--ink);color:var(--ink)}
 .sheet-pages .thumb{width:28px;height:38px;background-size:auto 8px}
 .sheet-pages .thumb i{left:4px;top:4px;width:14px;height:3px}
+.sheet-pages .pcopy{min-width:0;display:grid;gap:3px}
+.sheet-pages .pcopy strong{font-family:var(--serif);font-size:.95rem;font-weight:500;line-height:1.2}
+.sheet-pages .pcopy small{font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;color:var(--pencil)}
 .sheet-pages .grp{display:none}
 
 /* ============ the paper page ============ */
@@ -251,6 +254,7 @@ h2,h3,[id]{scroll-margin-top:calc(var(--bar) + 12px)}
 .pstamp-full{--k:var(--red)}
 .pstamp-sample{--k:var(--blue)}
 .entry-stamp{position:absolute;right:26px;top:50%;transform:translateY(-50%) rotate(-3deg);z-index:2}
+@media (min-width:761px){ .journal-entry>div{padding-right:178px} }
 @media (max-width:760px){ .entry-stamp{position:static;transform:rotate(-2deg);margin-top:14px;justify-self:start} .pstamp{width:104px;height:104px} }
 
 /* ---------- figures with click to enlarge ---------- */
