@@ -3,13 +3,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>How I work · Fatima Abid</title>
-<link rel="icon" href="./favicon.svg" type="image/svg+xml">
-<link rel="alternate icon" href="./favicon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="./favicon-180.png">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="assets/img/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="journal.css">
+<link rel="stylesheet" href="assets/journal.css">
 <style>
 .subnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 26px}
 .subnav a{text-decoration:none;font-size:14px;color:var(--pencil);border:1px solid var(--rule-strong);
@@ -39,7 +39,8 @@
 .hand{font-family:var(--hand);font-size:23px;line-height:1.1;color:var(--blue)}
 h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.01em;margin:4px 0 8px;text-wrap:balance}
 h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.2vw,26px);margin:0;line-height:1.2}
-.lede{max-width:68ch;margin:0;font-size:17px}
+h2.subh{font-size:clamp(21px,2.2vw,26px);font-weight:500;margin:0;line-height:1.2}
+.lede{max-width:68ch;margin:0;font-size:18px}
 .muted{color:var(--pencil)}
 .hl{background:linear-gradient(transparent 40%,var(--hi) 40% 90%,transparent 90%);padding:0 2px}
 .panel{background:var(--paper);border:1px solid var(--rule-strong);border-radius:6px;padding:clamp(14px,2vw,22px)}
@@ -185,13 +186,13 @@ h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.2vw,26px);mar
 <div class="layout">
 <main>
 <div class="pagehead">
-  <div class="mono">p. 25</div>
+  <div class="mono">p. 26</div>
   <h1>How I work</h1>
   <div class="kicker"></div>
 </div>
 
 
-<section class="sheet" aria-labelledby="w-h">
+<section class="sheet" aria-label="How the work flows, in six steps">
   <span class="where" aria-hidden="true">notebook page: “How I work” ↓</span>
   <div>
     <p class="lede">Research, design, metrics and programme delivery move at different speeds. I keep them joined in one service management notebook, so what we hear from young people and partners becomes a research question, a decision, a feature, a metric and a line in the Programme Board report, and nothing falls through the cracks between pilot and build.</p>
@@ -238,7 +239,7 @@ h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.2vw,26px);mar
   </div>
 
   <div>
-    <h3>The Lundy model, in practice</h3>
+    <h2 class="subh">The Lundy model, in practice</h2>
     <p class="muted" style="margin:6px 0 12px;max-width:72ch">Asking young people for their views isn’t enough on its own. To help them contribute meaningfully, I plan youth voice work around the four parts of the Lundy model.</p>
     <div class="lundy">
       <div><span class="n">Space</span><p>Prepare young people before they contribute: a safe, inclusive session, the context explained in plain language, and time to form a view.</p></div>
@@ -267,6 +268,6 @@ h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.2vw,26px);mar
 </footer>
 </main>
 </div>
-<script src="site.js"></script>
+<script src="assets/site.js"></script>
 
 </html>

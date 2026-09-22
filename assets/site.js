@@ -7,11 +7,12 @@ const PAGES=[
   {g:"",       href:"index.html",          n:"p. 1",     t:"Contents"},
   {g:"Now · careers education", href:"beeline.html", n:"p. 2–9", t:"Beeline"},
   {g:"",       href:"youth-voice.html",  n:"p. 10",    t:"Youth Voice"},
-  {g:"Before · learning products", href:"learning-meter.html", n:"p. 11–16", t:"AI-powered Learning Meter"},
-  {g:"",       href:"jump-math.html",      n:"p. 17–22", t:"JUMP Math Lab"},
-  {g:"Sample", href:"co-lab.html",      n:"p. 23",    t:"CO/LAB"},
-  {g:"Also", href:"mbacc-summit.html", n:"p. 24",    t:"MBacc Summit"},
-  {g:"How I work", href:"how-i-work.html", n:"p. 25",    t:"How I work"}
+  {g:"",       href:"discovery-game.html", n:"p. 11",   t:"Beeline Unplugged"},
+  {g:"Before · learning products", href:"learning-meter.html", n:"p. 12–17", t:"AI-powered Learning Meter"},
+  {g:"",       href:"jump-math.html",      n:"p. 18–23", t:"JUMP Math Lab"},
+  {g:"Sample", href:"co-lab.html",      n:"p. 24",    t:"CO/LAB"},
+  {g:"Also", href:"mbacc-summit.html", n:"p. 25",    t:"MBacc Summit"},
+  {g:"How I work", href:"how-i-work.html", n:"p. 26",    t:"How I work"}
 ];
 const here=(location.pathname.split("/").pop()||"index.html");
 const group=h=>h.startsWith("beeline")?"beeline":h;
@@ -228,8 +229,12 @@ function autoTerms(){
   document.querySelectorAll(".term[data-term]").forEach(b=>seen.add(b.dataset.term.toLowerCase()));
   const keys=Object.keys(GLOSSARY).sort((a,b)=>b.length-a.length);
   const main=document.querySelector("main"); if(!main) return;
-  const hosts=[...main.querySelectorAll("p,li,dd")].filter(el=>
-    !el.closest(".term,.termpop,figcaption,.mono,h1,h2,h3,h4,a,button"));
+  const hosts=[...main.querySelectorAll("p,li,dd")].filter(el=>{
+    if(el.closest(".term,.termpop,figcaption,.mono,h1,h2,h3,h4,a,button")) return false;
+    // a grid/flex parent turns each inserted button into its own track, so skip those
+    const d=getComputedStyle(el).display;
+    return d!=="grid"&&d!=="flex"&&d!=="inline-grid"&&d!=="inline-flex";
+  });
   keys.forEach(k=>{
     if(seen.has(k.toLowerCase())) return;
     const esc=k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");

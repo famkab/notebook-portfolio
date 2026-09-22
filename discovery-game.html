@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beeline Unplugged · Fatima Abid</title>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="assets/img/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/journal.css">
+<style>
+.subnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 30px}
+.subnav a{text-decoration:none;font-size:14px;color:var(--pencil);border:1px solid var(--rule-strong);
+  border-radius:999px;padding:6px 13px;background:var(--paper)}
+.subnav a:hover{border-color:var(--ink);color:var(--ink)}
+.subnav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.stack{display:grid;gap:48px}
+.stack>section{display:grid;gap:16px}
+.stack h2{font-size:clamp(22px,2.4vw,28px)}
+.stack h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:0}
+.sec-lede{margin:0;max-width:74ch;color:var(--pencil);font-size:15.5px}
+.drivers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:4px}
+.drivers>div{background:var(--paper);border:1px solid var(--rule-strong);border-left:5px solid var(--k,var(--rule-strong));
+  border-radius:5px;padding:18px 20px;display:grid;gap:8px;align-content:start}
+.drivers b{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.2}
+.drivers p{margin:0;font-size:14.5px}
+.parts{display:grid;gap:10px;margin:4px 0 0;padding:0;list-style:none}
+.parts li{display:grid;grid-template-columns:132px minmax(0,1fr);gap:18px;align-items:start;
+  border-top:1px solid var(--rule);padding:13px 0 0;font-size:14.5px;line-height:1.5}
+.parts .n{font-family:var(--mono);font-size:11px;color:var(--pencil);padding-top:3px;letter-spacing:.04em}
+.gwtable{width:100%;border-collapse:collapse;font-size:14px;margin-top:4px}
+.gwtable th,.gwtable td{border-bottom:1px solid var(--rule);padding:9px 10px;text-align:left}
+.gwtable thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--pencil);font-weight:400;border-bottom:1px solid var(--rule-strong)}
+.gwtable td.n{text-align:right;font-family:var(--mono);font-size:13px;width:92px}
+.gwtable tfoot td{font-weight:400;border-bottom:0;border-top:1px solid var(--rule-strong);font-family:var(--mono);font-size:13px}
+.bars{display:grid;gap:7px;margin:4px 0 0}
+.bar{display:grid;grid-template-columns:200px minmax(0,1fr) 46px;gap:12px;align-items:center;font-size:14px}
+.bar i{display:block;height:15px;border-radius:2px;background:var(--k,var(--rule-strong))}
+.bar span:last-child{font-family:var(--mono);font-size:12.5px;color:var(--pencil);text-align:right}
+.cant{border:1px dashed var(--rule-strong);border-radius:5px;background:var(--paper-2);padding:18px 22px;
+  display:grid;gap:10px;margin-top:2px}
+.cant ul{margin:0;padding-left:19px;display:grid;gap:6px;font-size:14.5px;line-height:1.5}
+.money{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin-top:4px}
+.money div{border:1px solid var(--rule);border-radius:5px;padding:15px 17px;background:var(--paper);display:grid;gap:4px}
+.money b{font-family:var(--serif);font-size:26px;font-weight:600;line-height:1}
+.money span{font-size:13.5px;color:var(--pencil);line-height:1.45}
+.kits{width:100%;border-collapse:collapse;font-size:14px;margin-top:4px}
+.kits th,.kits td{border-bottom:1px solid var(--rule);padding:10px;text-align:left;vertical-align:top}
+.kits thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--pencil);font-weight:400;border-bottom:1px solid var(--rule-strong)}
+.kits td.n{text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap}
+.next{border-left:3px solid var(--green);padding-left:18px;display:grid;gap:12px}
+.next p{margin:0;max-width:72ch}
+.figs2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.figs2 figure.fig{margin:0}
+.dgc{display:grid;gap:12px;margin-top:6px}
+.dgc-key{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;font-size:13px;color:var(--pencil)}
+.dgc-key span{display:inline-flex;align-items:center;gap:7px}
+.dgc-hint{font-family:var(--hand);font-size:17px;color:var(--pencil)}
+.dgc-chart{border:1px solid var(--rule-strong);border-radius:6px;background:var(--paper);padding:10px 4px;overflow-x:auto}
+.dgc-chart svg{display:block;width:100%;min-width:660px;height:auto}
+.dgc-ph{font-family:var(--mono);font-size:11px;fill:var(--pencil);letter-spacing:.03em}
+.dgc-dot{cursor:pointer}
+.dgc-dot circle{transition:r .15s}
+.dgc-dot:focus{outline:none}
+.dgc-dot:focus circle.hit,.dgc-dot:hover circle.hit{stroke:var(--ink);stroke-width:2}
+.dgc-note{border:1px solid var(--rule-strong);border-left:5px solid var(--k,var(--rule-strong));border-radius:5px;
+  background:var(--paper);padding:16px 20px;display:grid;gap:9px;min-height:118px}
+.dgc-note .ph{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--pencil)}
+.dgc-note h4{font-family:var(--serif);font-size:19px;font-weight:600;margin:0}
+.dgc-note p{margin:0;font-size:14.5px;line-height:1.55;max-width:76ch}
+.dgc-note .said{font-family:var(--hand);font-size:19px;line-height:1.3;color:var(--ink)}
+@media (max-width:620px){ .dgc-hint{display:none} }
+@media (max-width:860px){ .drivers{grid-template-columns:1fr} .figs2{grid-template-columns:1fr} }
+@media (max-width:620px){ .parts li{grid-template-columns:1fr;gap:3px} .bar{grid-template-columns:1fr;gap:3px}
+  .bar span:last-child{text-align:left} }
+</style>
+
+<div class="layout">
+<main>
+<div class="pagehead">
+  <div class="mono">Beeline · Greater Manchester Combined Authority · p. 11</div>
+  <h1>Beeline Unplugged</h1>
+  <p class="lede">The Discovery Game: a deck of cards that runs the Beeline discovery logic without a screen. Why it
+    was worth building, what six rounds of field testing showed, and what the first round could not yet tell us.</p>
+  <div class="rolestrip">
+    <span><b>My role</b>Designed the activity and the scoring model, ran the field testing and the design assurance
+      rounds, briefed and worked with an external creative agency through artwork and production, wrote the business
+      case and the board decision paper, and set the measurement approach</span>
+    <span><b>Team</b>Programme and digital teams, an external creative agency for design and production, and
+      facilitators across six events</span>
+    <span><b>When</b>February – July 2026</span>
+  </div>
+  <div class="kicker">
+    <span class="stamp-ctx stamp-sector"><i>Sector</i>Public</span>
+    <span class="stamp-ctx stamp-scale"><i>Scale</i>Regional · 10 boroughs</span>
+    <span class="stamp-ctx stamp-audience"><i>Audience</i>Young people, and the adults with them</span>
+    <span class="stamp-ctx stamp-product"><i>Product</i>Printed toolkit, bridging to the digital service</span>
+  </div>
+</div>
+
+<nav class="subnav" aria-label="Beeline spreads">
+  <a href="beeline.html">Overview</a>
+  <a href="youth-voice.html">Youth Voice</a>
+  <a href="discovery-game.html" aria-current="page">Beeline Unplugged</a>
+  <a href="beeline-landscape.html">Service Landscape</a>
+  <a href="beeline-problem.html">Problem Model</a>
+  <a href="beeline-evidence.html">Decisions &amp; Metrics</a>
+  <a href="beeline-showtells.html">MVP Experience Curve</a>
+</nav>
+
+<div class="stack">
+
+  <section>
+    <h2>The argument</h2>
+    <p class="sec-lede">Beeline is a digital service. Asking a public body to spend money printing cards means showing
+      what the website cannot do on its own. Three programme problems carried the case.</p>
+    <div class="drivers">
+      <div style="--k:var(--blue)"><b>The home–school connection</b>
+        <p>A young person in a busy assembly will not save a link or scan a code they have no reason to care about yet.
+          Something they can carry out of the room, and show a parent, moves the conversation past the school gate.</p></div>
+      <div style="--k:var(--green)"><b>Access and inclusion</b>
+        <p>Built on Universal Design for Learning: give people more than one way to act and express. Useful for younger
+          learners, for <button class="term" data-term="SEND">SEND</button> learners, and for anyone who finds a careers
+          website intimidating before they find it useful.</p></div>
+      <div style="--k:var(--red)"><b>Channel resilience</b>
+        <p>A large share of direct engagement came through social media. Restrictions on young people's use of it are a
+          live policy question, so a physical route into the service is a hedge against losing a channel we do not
+          control.</p></div>
+    </div>
+    <p class="sec-lede">The pattern came from computer science education, where unplugged activities are long
+      established through Barefoot Computing, the Raspberry Pi Foundation and the National Centre for Computing
+      Education. I know that field from the inside: I have built digital learning products, learned to code, and taught
+      science. Bringing a method that already works next door into careers education is how the case was made, and
+      knowing why it works there is what let me adapt it rather than copy it.</p>
+  </section>
+
+  <section>
+    <h2>What it is</h2>
+    <p class="sec-lede">Eighteen prompt cards, a scoring model printed on their backs, seven gateway cards, a tally
+      chart and a facilitation guide. Two to three minutes with one young person, or a whole class with one adult.</p>
+    <ul class="parts">
+      <li><span class="n">18 prompt cards</span><span>Six Interests (“I enjoy…”), six Skills (“I'm good at…”) and six
+        Ambitions (“I want a job that…”). Deliberately broad and youth-readable: helping people, making and fixing,
+        solving problems, being creative, leading, organising.</span></li>
+      <li><span class="n">Scoring on the back</span><span>Three points for a clear fit, one for a related one, nothing
+        otherwise, with a cap of two gateways sharing any score. The model is printed where the young person can see
+        it, so the result is something they can argue with.</span></li>
+      <li><span class="n">7 gateway cards</span><span>Each one carries recognisable roles and why the sector matters locally,
+        so a <button class="term" data-term="gateways">gateway</button> stops being an abstract label.</span></li>
+      <li><span class="n">Tally chart</span><span>Filled in by hand, taken home, and carrying the QR code back to the digital
+        service.</span></li>
+      <li><span class="n">Facilitation guide</span><span>Two cards. The opening line is “You don't need to be a careers
+        expert”, because the adult in the room usually is not one.</span></li>
+    </ul>
+    <p class="sec-lede">It is framed throughout as exploration, not job-matching. No right answers, nothing closed off,
+      and no premature narrowing at 14.</p>
+    <div class="figs2">
+      <figure class="fig"><button type="button" aria-label="Enlarge: the Beeline Unplugged introduction card"><img src="assets/img/dg-intro-card.png" alt="The introduction card: Welcome to Beeline, explaining the deck and carrying a QR code to the digital service." loading="lazy"></button><figcaption>The introduction card. “There are absolutely no wrong answers” is the first thing it says.</figcaption></figure>
+      <figure class="fig"><button type="button" aria-label="Enlarge: the card for teachers, facilitators, parents and communities"><img src="assets/img/dg-educator-card.png" alt="The card addressed to teachers, facilitators, parents and communities, pointing to the MBacc Educator Toolkit." loading="lazy"></button><figcaption>The adult's card, pointing at the lesson plans and the downloadable tally chart so one deck serves a whole class.</figcaption></figure>
+    </div>
+    <figure class="fig"><button type="button" aria-label="Enlarge: how to run a Beeline Discovery session, the five-step facilitation guide"><img src="assets/img/dg-facilitation-guide.png" alt="The facilitation guide across two cards: goals, what you need, and five steps from reading the intro card to visiting Beeline." loading="lazy"></button><figcaption>The facilitation guide. Five steps, no training required.</figcaption></figure>
+    <figure class="fig"><button type="button" aria-label="Enlarge: the six Interests cards"><img src="assets/img/dg-interests.png" alt="The Interests prompt card and its six statements, from helping people to bringing order to messy situations." loading="lazy"></button><figcaption>Interests: what do you enjoy doing, in and out of school.</figcaption></figure>
+    <figure class="fig"><button type="button" aria-label="Enlarge: the six Skills cards"><img src="assets/img/dg-skills.png" alt="The Skills prompt card and its six statements, from giving advice to keeping track of tasks." loading="lazy"></button><figcaption>Skills: written as things other people notice about you, not as a self-assessment.</figcaption></figure>
+    <figure class="fig"><button type="button" aria-label="Enlarge: the six Ambitions cards"><img src="assets/img/dg-ambitions.png" alt="The Ambitions prompt card and its six statements, from making a difference to a job with clear progression." loading="lazy"></button><figcaption>Ambitions: including pay and progression. Young people rarely think about work in those terms until something puts the words in front of them.</figcaption></figure>
+    <figure class="fig"><button type="button" aria-label="Enlarge: the scoring model printed on the back of each card"><img src="assets/img/dg-scoring.png" alt="The reverse of three cards showing the gateway scoring: three points for a clear fit, one point for a related fit." loading="lazy"></button><figcaption>The back of every card. Showing the working is what stops the result reading as a verdict.</figcaption></figure>
+    <figure class="fig"><button type="button" aria-label="Enlarge: the seven MBacc gateway cards"><img src="assets/img/dg-gateways.png" alt="The seven gateway cards: Construction and the Green Economy, Digital and Technology, Engineering and Manufacturing, Creative Culture and Sport, Education and Early Years, Financial Business and Professional Services, and Health and Social Care." loading="lazy"></button><figcaption>The seven gateways, each with jobs a 14-year-old can picture and a QR code into that gateway online.</figcaption></figure>
+    <figure class="fig"><button type="button" aria-label="Enlarge: the tally chart young people fill in and take home"><img src="assets/img/dg-tally.png" alt="The tally chart: seven gateway rows with hand-drawn tally marks and totals, and a QR code to the digital service." loading="lazy"></button><figcaption>The tally chart. Filled in by hand, taken home, and the thing that turned out to do the bridging.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Six settings, to find out whether it worked</h2>
+    <p class="sec-lede">The deck was a prototype long before it was a product. Round one ran across six public events
+      between February and May 2026, each one chosen to stress a different part of it: crowd and noise, a quiet corner,
+      younger learners, older learners, families, and a room with employers in it. Nothing was printed at volume until
+      those rooms had been through it. The settings were: a large
+      careers event at Manchester Central, Future's Day and the Children's Commissioner's event at the Science and
+      Industry Museum, a wellbeing conference at the People's History Museum, a families and communities participation
+      group, and an award co-design workshop with young people, educators and employers.</p>
+    <h3>The digital comparison</h3>
+    <p class="sec-lede">At the largest event, the cards reached about twice as many young people as the digital
+      service did on the same days, in the same building. The deck was on a stand in a hall; the website was there for
+      anyone who wanted it.</p>
+    <div class="bars">
+      <div class="bar" style="--k:var(--hi-solid)"><span>Unplugged, on the stand</span><i style="width:100%"></i><span>≈290</span></div>
+      <div class="bar" style="--k:var(--rule-strong)"><span>Beeline digital, same days</span><i style="width:49%"></i><span>≈140</span></div>
+    </div>
+    <h3>Every gateway got used</h3>
+    <p class="sec-lede">The spread mattered more than the ranking. No gateway went unselected, which answers the
+      concern that a short card deck would funnel everyone into the same two or three sectors.</p>
+    <table class="gwtable">
+      <thead><tr><th scope="col">Gateway</th><th scope="col" class="n">Young people</th></tr></thead>
+      <tbody>
+        <tr><td>Financial, Business and Professional Services</td><td class="n">≈57</td></tr>
+        <tr><td>Construction and the Green Economy</td><td class="n">≈52</td></tr>
+        <tr><td>Creative, Culture and Sport</td><td class="n">≈42</td></tr>
+        <tr><td>Health and Social Care</td><td class="n">≈40</td></tr>
+        <tr><td>Education and Early Years</td><td class="n">≈37</td></tr>
+        <tr><td>Engineering and Manufacturing</td><td class="n">≈32</td></tr>
+        <tr><td>Digital and Technology</td><td class="n">≈31</td></tr>
+      </tbody>
+      <tfoot><tr><td>Seven of seven used</td><td class="n">≈291</td></tr></tfoot>
+    </table>
+    <h3>The bridge works at home, not in the room</h3>
+    <p class="sec-lede">On the one day the QR tracking was live, the general link printed on the take-home tally chart
+      was scanned about twice as often as all the gateway-specific codes on the panels combined. People scanned the
+      thing in their pocket later, not the board in front of them. That finding changed where the codes go.</p>
+    <h3>What the sessions taught us</h3>
+    <ul class="parts">
+      <li><span class="n">Pace</span><span>Two to three minutes per young person. Four facilitators working in pairs reached
+        capacity at about four young people per pair before the conversation quality dropped.</span></li>
+      <li><span class="n">Peers</span><span>Groups of friends produced richer sessions than one-to-ones. They argued about
+        which cards fitted each other, and the best part came after the activity finished.</span></li>
+      <li><span class="n">Noise</span><span>A loud hall makes a conversation-based activity hard. A quiet corner at the
+        People's History Museum produced the deepest engagement of the round.</span></li>
+      <li><span class="n">Reading</span><span>SEND groups needed the cards read aloud, which the format allows and a screen
+        does not.</span></li>
+      <li><span class="n">Confidence</span><span>Some young people already had a goal but doubted they had the strengths for
+        it. When the tally matched the plan they already had, it read as permission.</span></li>
+      <li><span class="n">Employers</span><span>At the co-design workshop we laid the cards out and barely explained them.
+        Employers picked them up and used them to explain their own sectors.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>What we could not measure</h2>
+    <p class="sec-lede">The report to the board said this in as many words: an early operational review, not an
+      evaluation, and not to be used for claims about impact or demand.</p>
+    <div class="cant">
+      <ul>
+        <li>Age, setting and SEND status were observed, not collected, so no demographic breakdown holds.</li>
+        <li>No before-and-after measure, so no claim about confidence, clarity or intent.</li>
+      </ul>
+      <p style="margin:0;font-size:14.5px">The tracking failure became the first operational priority for round two.
+        A measure with a known hole in it is worth more to a board than a number nobody can defend.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Two shapes of the same journey</h2>
+    <p class="sec-lede">The offline and online halves run the same discovery logic and behave nothing alike. The
+      blueprint holds five phases, from arrival to re-exploration, and each one favours a different half. Designing
+      both meant being honest about which.</p>
+    <table class="kits">
+      <thead><tr><th scope="col">Phase</th><th scope="col">Offline, with the cards</th><th scope="col">Online, on the service</th></tr></thead>
+      <tbody>
+        <tr><td><b>Arrival</b></td>
+          <td>An adult sets it up, so the entry cost is a sentence. The pack is sitting on a table and someone picks it up.</td>
+          <td>They arrive alone and have to decide it is worth their time before anything has happened.</td></tr>
+        <tr><td><b>Active discovery</b></td>
+          <td>Cards, tally, panels and the person next to you, all live at once. Order is not fixed and people move between them.</td>
+          <td>One question at a time, in the order we chose. Clean, quick, and the same for everyone.</td></tr>
+        <tr><td><b>The reveal</b></td>
+          <td>The result lands in a room with someone in it. A surprising score becomes a conversation.</td>
+          <td>The result lands on a screen with nobody there. A surprising score can read as a verdict.</td></tr>
+        <tr><td><b>The bridge</b></td>
+          <td>Depends on a code being scanned later, often at home, from a chart in a pocket.</td>
+          <td>Already there. The next page is one tap away.</td></tr>
+        <tr><td><b>Coming back</b></td>
+          <td>Needs the pack again, and usually the adult again.</td>
+          <td>Costs nothing to return to, at any hour, as many times as they like.</td></tr>
+      </tbody>
+    </table>
+    <div class="drivers" style="margin-top:8px">
+      <div style="--k:var(--hi-solid)"><b>What the physical half is for</b>
+        <p>Several things happening at once, in company. It absorbs a whole group with one adult, works with no device
+          and no signal, can be read aloud, and produces an object that leaves the building. Peer talk, which a screen
+          cannot manufacture, is where the best sessions happened.</p></div>
+      <div style="--k:var(--blue)"><b>What the digital half is for</b>
+        <p>One clean path, instrumented end to end. It scales to everyone at once at no extra cost per person, holds
+          far more depth than a card can, updates the moment a job market does, and tells us exactly where people
+          stopped.</p></div>
+      <div style="--k:var(--red)"><b>What each one costs you</b>
+        <p>The pack costs money per person, depends on the adult in the room, and is almost unmeasurable beyond what
+          someone writes down. The service is measurable and free to repeat, and it reaches nobody who never arrives.</p></div>
+    </div>
+    <p class="sec-lede">So the design question was never which one to build. It was where the handover sits, and what
+      has to survive it.</p>
+
+    <h3>What the curve showed</h3>
+    <p class="sec-lede">Mapping both journeys on one chart made the difference visible. The offline line swings; the
+      online line is flatter. Tap a point to read what happens there, and what young people said about it.</p>
+    <div class="dgc">
+      <div class="dgc-key">
+        <span><svg width="34" height="8" aria-hidden="true"><line x1="0" y1="4" x2="34" y2="4" stroke="var(--ink)" stroke-width="3" stroke-dasharray="8 5"/></svg>Offline, with the cards</span>
+        <span><svg width="34" height="8" aria-hidden="true"><line x1="0" y1="4" x2="34" y2="4" stroke="var(--pencil)" stroke-width="2.5" stroke-dasharray="1 6" stroke-linecap="round"/></svg>Online, on the service</span>
+        <span class="dgc-hint">Judgements come from young people, not from us.</span>
+      </div>
+      <div class="dgc-chart"><svg id="dgcSvg" viewBox="0 0 1000 340" role="img" aria-labelledby="dgcTitle"><title id="dgcTitle">Experience curves for the offline and online Beeline Discovery journeys across five phases</title></svg></div>
+      <div class="dgc-note" id="dgcNote" aria-live="polite"></div>
+    </div>
+    <p class="sec-lede">The Next Steps Guide gave a strong sense of completion and agency where people reached it.
+      Anyone who stopped short of it lost that, which argues for putting the guide at the end of the unplugged
+      experience too rather than only online.</p>
+  </section>
+
+  <section>
+    <h2>Designing it to cost less</h2>
+    <p class="sec-lede">Public money, so the cheapest version that still worked was part of the design rather than a
+      constraint applied afterwards. Four things brought the cost per young person down.</p>
+    <ul class="parts">
+      <li><span class="n">Bulk, not kits</span><span>Supplier minimums mean a single kit assembled to order costs many times
+        what the same kit costs inside a full run. Ordering every component in one print run and assembling the kits
+        ourselves moved the cost per contact from prohibitive to routine.</span></li>
+      <li><span class="n">Four configurations</span><span>Each sized to where it goes. A summit giveaway is a deck and a
+        guide. A school kit is boxed so it survives a term and gets reused. An event kit carries the panels and the
+        stickers that only a staffed stand needs. Nothing pays for materials it will not use.</span></li>
+      <li><span class="n">One deck, many young people</span><span>The tally chart is downloadable, so a class of thirty
+        needs one deck and thirty printed sheets. That decision alone changed what a school has to be given.</span></li>
+      <li><span class="n">A v1, not the full order</span><span>The recommendation was a smaller first batch to early events
+        and a pilot group, with the tracked codes running, then a v2 once we knew where the friction was. Money
+        follows evidence instead of arriving ahead of it.</span></li>
+    </ul>
+    <p class="sec-lede">The specification argued for durability where it earns its keep and against it where it does
+      not: rounded corners and printed boxes for the decks that live in classrooms, plain banding for the ones handed
+      out at a summit and used once.</p>
+  </section>
+
+  <section>
+    <h2>Where it stands</h2>
+    <div class="next">
+      <p>The decision paper went to the MBacc Programme Board in April 2026 and was approved. The kits were in people's
+        hands at the summit in July, and v1 is in use and under test across schools, colleges, youth settings and
+        community venues.</p>
+      <p>Interim findings go back to the board in December 2026, with a recommendation for year two of both the
+        digital quiz and Unplugged by March 2027. The transition that could not be measured in round one is now a
+        programme measure in its own right, PRG-04, the Unplugged Transition Rate: how many people who met Beeline
+        offline go on to arrive on the digital service. It is counted monthly against the packs handed out that
+        month.</p>
+      <p>The pack is also the vehicle for the co-design micro-actions on <a href="youth-voice.html">Youth Voice</a>:
+        members run a session with their own youth group and bring the answers back.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Both halves, on one sheet</h2>
+    <p class="sec-lede">The blueprint is where that comparison was worked out. Offline touchpoints above the line,
+      digital ones below it, with the intended experience curve, what young people said at each phase, who is
+      supporting them, and which Learning Moment the phase is meant to move.</p>
+    <figure class="fig"><button type="button" aria-label="Enlarge: the Beeline Discovery service blueprint"><img src="assets/img/service-blueprint.png" alt="The Beeline Discovery service blueprint across five phases, showing frontstage actions, offline and online touchpoints, the experience curve with young people's feedback, supporting roles, and the learning moments behind each phase." loading="lazy"></button><figcaption>Five phases from arrival to re-exploration, with the offline touchpoints above the line and the digital ones below it.</figcaption></figure>
+  </section>
+</div>
+
+<p class="disclaimer">Drawn from my own business case, board decision paper and field-testing report. All figures are
+  rounded; the exact numbers belong to Greater Manchester Combined Authority. The field testing was an early
+  operational review, and the limits on what it can show are set out above.</p>
+
+<div class="nextcase"><a href="beeline-landscape.html"><span><small>Next</small>Service Landscape</span><span class="open" aria-hidden="true">open →</span></a></div>
+<footer class="pagefoot">
+  <span>Beeline Unplugged · Greater Manchester Combined Authority</span>
+  <span><a href="index.html">← Contents</a> · <a href="beeline-landscape.html">Service landscape →</a></span>
+</footer>
+</main>
+</div>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+const PH=["Arrival","Active discovery","The reveal","The digital bridge","Coming back"];
+const X0=54,X1=968,W=(X1-X0)/5,Y=v=>300-v*250,px=(p,f)=>X0+W*(p+f);
+const OFF=[[0,0,.52],[0,.4,.42],[0,.8,.17],[1,.1,.27],[1,.45,.68],[1,.9,.76],[2,.15,.84],[2,.5,.45],[2,.9,.66],
+           [3,.15,.86],[3,.55,.44],[3,.95,.5],[4,.3,.54],[4,1,.38]];
+const ONL=[[0,0,.52],[0,.6,.63],[1,.5,.66],[2,.5,.7],[3,.5,.73],[4,.3,.68],[4,1,.86]];
+const PTS=[
+ {p:0,f:.8,v:.17,t:"bad",h:"The dip at the start",
+  d:"Unguided setup causes hesitation when young people are asked to work out the mechanics themselves. Peer groups adapt by trial and error in informal settings; a structured room needs clear onboarding. The online quiz has no equivalent dip, because the order is made for them.",
+  said:"\u201cWe sort of had to make up rules.\u201d \u00b7 \u201cA bit confusing as we all interpreted the instructions differently.\u201d"},
+ {p:1,f:.45,v:.68,t:"good",h:"The dip is useful",
+  d:"Uncertainty about doing it wrong works as a learning catalyst some of the time, and the flexible rules let groups adapt the game to themselves, which produced real ownership of the process. It works reliably with a facilitator, and unreliably peer to peer. That is the line between friction worth keeping and friction to remove.",
+  said:"\u201cIt was fun to hear everyone\u2019s different answers in my group.\u201d"},
+ {p:2,f:.15,v:.84,t:"good",h:"The spike at the reveal",
+  d:"Seeing matched gateways appear, on a tally chart or on screen, is the clearest moment of delight in either journey. A result matching someone\u2019s existing plan reads as affirming.",
+  said:"The pack carries no prompt for a result that differs from the plan they arrived with."},
+ {p:2,f:.5,v:.45,t:"mixed",h:"Where it can narrow too early",
+  d:"The risk is early narrowing when a sector title clashes with how someone sees themselves: business read as hard maths, construction read as building sites. Skilled youth workers reverse that dip fast by using the unexpected result as a way in.",
+  said:"A result that differs opens reflection where an adult is present."},
+ {p:3,f:.55,v:.44,t:"bad",h:"The drop at the bridge",
+  d:"The sharpest fall on the whole map. Scanning from a tactile, social activity into static gateway pages feels disconnected from the momentum the game just built. This is the one place where the digital half actively loses what the physical half created, and it is where the next round of work sits.",
+  said:"\u201cThe website gets basic and unfun.\u201d"},
+ {p:4,f:.3,v:.54,t:"mixed",h:"Who holds it up",
+  d:"Peers act as confidence builders while people interpret the cards, and help filter when someone is unsure a skill applies to them. Comparing tally charts reassures people through discussion. Youth workers absorb the friction of setting up the deck, then step back once the group is running. None of that has an equivalent on a screen.",
+  said:"The adult in the room is part of the design, not a workaround for it."}];
+const col=t=>t==="good"?"var(--green)":t==="bad"?"var(--red)":"var(--amber)";
+const path=a=>a.map(([p,f,v],i)=>`${i?"L":"M"}${px(p,f).toFixed(1)},${Y(v).toFixed(1)}`).join(" ");
+const svg=document.getElementById("dgcSvg"), note=document.getElementById("dgcNote");
+let sel=0;
+function draw(){
+  let h=`<line x1="${X0}" y1="${Y(.5)}" x2="${X1}" y2="${Y(.5)}" stroke="var(--rule)" stroke-width="1"/>`;
+  PH.forEach((n,i)=>{
+    const x=px(i,0);
+    h+=`<line x1="${x}" y1="24" x2="${x}" y2="306" stroke="var(--rule)" stroke-width="1" stroke-dasharray="3 5"/>`;
+    h+=`<text class="dgc-ph" x="${x+8}" y="322">${n}</text>`;
+  });
+  h+=`<line x1="${X1}" y1="24" x2="${X1}" y2="306" stroke="var(--rule)" stroke-width="1" stroke-dasharray="3 5"/>`;
+  h+=`<path d="${path(ONL)}" fill="none" stroke="var(--pencil)" stroke-width="2.5" stroke-dasharray="1 6" stroke-linecap="round"/>`;
+  h+=`<path d="${path(OFF)}" fill="none" stroke="var(--ink)" stroke-width="3" stroke-dasharray="8 5"/>`;
+  PTS.forEach((o,i)=>{
+    const x=px(o.p,o.f), y=Y(o.v), on=i===sel;
+    h+=`<g class="dgc-dot" tabindex="0" role="button" data-i="${i}" aria-label="${o.h}">`+
+       `<circle class="hit" cx="${x}" cy="${y}" r="15" fill="transparent"/>`+
+       `<circle cx="${x}" cy="${y}" r="${on?9:6.5}" fill="${col(o.t)}" stroke="var(--paper)" stroke-width="2.5"/></g>`;
+  });
+  svg.innerHTML=`<title id="dgcTitle">Experience curves for the offline and online Beeline Discovery journeys across five phases</title>`+h;
+  svg.querySelectorAll(".dgc-dot").forEach(g=>{
+    const go=()=>{sel=+g.dataset.i;draw();};
+    g.addEventListener("click",go);
+    g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}});
+  });
+  const o=PTS[sel];
+  note.style.setProperty("--k",col(o.t));
+  note.innerHTML=`<span class="ph">${PH[o.p]}</span><h4>${o.h}</h4><p>${o.d}</p><p class="said">${o.said}</p>`;
+}
+draw();
+})();
+</script>
+</html>

@@ -3,13 +3,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Decisions and metrics · Beeline</title>
-<link rel="icon" href="./favicon.svg" type="image/svg+xml">
-<link rel="alternate icon" href="./favicon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="./favicon-180.png">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="assets/img/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="journal.css">
+<link rel="stylesheet" href="assets/journal.css">
 <style>
 
 :root{
@@ -53,12 +53,9 @@ h1,h2,h3,h4{font-family:var(--serif)!important;font-weight:600}
 
 /* header */
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;align-items:center}
-h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.2vw,50px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
-.lede{max-width:66ch;color:var(--muted);margin:0;font-size:16px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,5vw,60px);line-height:1.04;letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
+.lede{max-width:66ch;color:var(--muted);margin:0;font-size:18px}
 .rough{margin-top:44px;display:grid;gap:12px}
-.disclaimer{border-left:0;padding:16px 0 0;margin-top:34px;border-top:1px solid var(--rule);
-  font-size:13px;line-height:1.6;color:var(--pencil);max-width:78ch}
-.disclaimer b{font-weight:400;color:var(--ink)}
 .note{display:flex;gap:10px;align-items:flex-start;background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:10px 14px;font-size:13.5px;max-width:78ch}
 .note b{color:var(--honey-ink)}
 .approx{border-bottom:1.5px dotted currentColor;cursor:help;white-space:nowrap}
@@ -199,6 +196,8 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
   .trail-layout,.ladder-layout{grid-template-columns:1fr}
   .picker{position:static;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);overflow-x:auto;padding-bottom:6px}
   .picker h2{display:none}
+  }
+@media (min-width:981px){ .picker h2{font-family:var(--serif);font-size:19px;font-weight:600;margin:0 0 8px}
   .detail{position:static}
   .checkgrid{grid-template-columns:1fr}
   .sum{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -223,11 +222,17 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
   <div class="mono">Beeline · p. 6–7</div>
   <h1>Decisions and metrics</h1>
   <p class="lede">What the problem model led to: four trails from a fear young people described to a decision that shipped, and the ladder of metrics that says whether any of it worked.</p>
+  <div class="rolestrip">
+    <span><b>My role</b>I traced each decision back to the thing that raised it, and built the metrics framework the board reads</span>
+    <span><b>Team</b>A programme team and a digital team, a user researcher, and GMCA governance</span>
+    <span><b>When</b>2026 – present</span>
+  </div>
   <div class="kicker"></div>
 </div>
 <nav class="subnav" aria-label="Beeline spreads">
   <a href="beeline.html">Overview</a>
   <a href="youth-voice.html">Youth Voice</a>
+  <a href="discovery-game.html">Beeline Unplugged</a>
   <a href="beeline-landscape.html">Service Landscape</a>
   <a href="beeline-problem.html">Problem Model</a>
   <a href="beeline-evidence.html" aria-current="page">Decisions &amp; Metrics</a>
@@ -279,19 +284,20 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
     questions it can and cannot answer yet, what is blocking the rest, which features are meant to move it, where it
     sits on the maturity ladder, what the board sees, and what has to happen for it to reach the next step.</p>
   <figure class="fig"><button type="button" aria-label="Enlarge: LM-05 Follow-Through walked through the metrics workbook, from what it counts to what it needs next.">
-    <img src="./lm05-workbook.png" alt="A seven-panel walkthrough of the LM-05 Follow-Through metric: what it measures, its sub-questions, the standing asks blocking it, the features meant to move it, its position on the maturity ladder, the board view, and the next step." loading="lazy"></button>
+    <img src="assets/img/lm05-workbook.png" alt="A seven-panel walkthrough of the LM-05 Follow-Through metric: what it measures, its sub-questions, the standing asks blocking it, the features meant to move it, its position on the maturity ladder, the board view, and the next step." loading="lazy"></button>
     <figcaption>LM-05 Follow-Through, walked through the workbook: a metric with a first number, four questions it cannot answer yet, and a named owner for each thing in the way.</figcaption></figure>
 </section>
 
 <p class="disclaimer"><b>About the numbers.</b> All figures on this page are rounded or illustrative. The exact numbers
   belong to Greater Manchester Combined Authority. The structure, questions and decisions are real.</p>
+<div class="nextcase"><a href="beeline-showtells.html"><span><small>Next</small>MVP Experience Curve</span><span class="open" aria-hidden="true">open →</span></a></div>
 <footer class="pagefoot">
   <span>Beeline · Greater Manchester Combined Authority</span>
   <span><a href="index.html">← Contents</a> · <a href="beeline-showtells.html">MVP Experience Curve →</a></span>
 </footer>
 </main>
 </div>
-<script src="site.js"></script>
+<script src="assets/site.js"></script>
 <script>
 const A=(t,tip)=>`<span class="approx" title="${tip||"Illustrative figure. Exact figure held by GMCA"}">≈${t}</span>`;
 

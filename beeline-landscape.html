@@ -3,13 +3,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Service landscape · Beeline</title>
-<link rel="icon" href="./favicon.svg" type="image/svg+xml">
-<link rel="alternate icon" href="./favicon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="./favicon-180.png">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="assets/img/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="journal.css">
+<link rel="stylesheet" href="assets/journal.css">
 <style>
 .intro{display:grid;gap:14px}
 .intro .lede{margin:0}
@@ -31,10 +31,10 @@
 }
 .sheet{max-width:1180px;margin:0 auto;background:var(--paper);border-radius:18px;box-shadow:0 18px 40px -24px rgba(0,0,0,.35);padding:clamp(22px,4vw,48px) clamp(16px,4vw,52px) 48px;background-image:radial-gradient(circle,var(--rule-strong) 1.1px,transparent 1.4px);background-size:28px 28px;display:grid;gap:40px}
 .mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--pencil)}
-h1{font-family:var(--serif);font-weight:500;font-size:clamp(30px,4vw,44px);line-height:1.08;margin:4px 0 6px;letter-spacing:-.01em}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,5vw,60px);line-height:1.04;margin:4px 0 8px;letter-spacing:-.02em}
 h2{font-family:var(--serif);font-weight:500;font-size:clamp(22px,2.6vw,30px);margin:0;line-height:1.15}
 h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:0}
-.lede{max-width:70ch;margin:0;font-size:17px}
+.lede{max-width:70ch;margin:0;font-size:18px}
 .muted{color:var(--pencil)}
 .terms-page{margin-top:44px;padding-top:22px;border-top:1px solid var(--rule);display:grid;gap:12px}
 .termlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px 28px;margin:6px 0 0}
@@ -153,7 +153,8 @@ h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:0}
 .wb-btns button{border:1px solid var(--rule-strong);background:var(--paper);border-radius:999px;padding:7px 14px;cursor:pointer;font-size:14px}
 .wb-btns #wbNext{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 body.walking{padding-bottom:180px}
-.notebtn{border:0;background:none;cursor:pointer;color:var(--blue);font-family:var(--mono);font-size:10.5px;padding:0;text-decoration:underline dotted;justify-self:start}
+.notebtn{border:0;background:none;cursor:pointer;color:var(--blue);font-family:var(--mono);font-size:10.5px;
+  padding:4px 6px;margin:-4px -6px;text-decoration:underline dotted;justify-self:start}
 .rownote{grid-column:1/-1;background:var(--paper-2);border-top:1px solid var(--rule);padding:10px 14px;font-size:13.5px;color:var(--ink)}
 .rownote b{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--pencil);display:block;margin-bottom:3px}
 </style>
@@ -164,11 +165,17 @@ body.walking{padding-bottom:180px}
   <div class="mono">Beeline · p. 3</div>
   <h1>Service landscape</h1>
   <p class="lede">The whole careers education system a young person moves through from Year 7 to Year 13, and where Beeline fits. Built from my own landscape mapping.</p>
+  <div class="rolestrip">
+    <span><b>My role</b>I built this landscape map: the system model, the provision audit against it, and the gaps it shows</span>
+    <span><b>Team</b>A programme team and a digital team, a user researcher, and GMCA governance</span>
+    <span><b>When</b>2026 – present</span>
+  </div>
   <div class="kicker"></div>
 </div>
 <nav class="subnav" aria-label="Beeline spreads">
   <a href="beeline.html">Overview</a>
   <a href="youth-voice.html">Youth Voice</a>
+  <a href="discovery-game.html">Beeline Unplugged</a>
   <a href="beeline-landscape.html" aria-current="page">Service Landscape</a>
   <a href="beeline-problem.html">Problem Model</a>
   <a href="beeline-evidence.html">Decisions &amp; Metrics</a>
@@ -305,13 +312,16 @@ body.walking{padding-bottom:180px}
   <p class="muted" style="max-width:72ch;font-size:14.5px;margin:0">English careers education runs on its own vocabulary. This is all of it, in one place.</p>
   <dl class="termlist"><div><dt>MBacc</dt><dd>The Greater Manchester Baccalaureate, a framework that shows young people technical and academic routes into work. National policy since July 2026.</dd></div><div><dt>Gateways</dt><dd>The seven broad sectors in the MBacc, such as Digital or Health, that young people explore careers through.</dd></div><div><dt>Key stage</dt><dd>The blocks England divides schooling into. Key Stage 3 is roughly ages 11–14, Key Stage 4 is 14–16 and leads to GCSEs, Key Stage 5 is 16–18.</dd></div><div><dt>Statutory</dt><dd>Required by law. A statutory duty is one a school or authority must carry out, rather than one it chooses to.</dd></div><div><dt>Gatsby benchmarks</dt><dd>Eight benchmarks that define a good careers programme in England. Schools are measured against them.</dd></div><div><dt>NEET</dt><dd>Not in education, employment or training. The term for a young person who has left school and has none of the three.</dd></div><div><dt>SEND</dt><dd>Special educational needs and disabilities: young people who need extra support to learn.</dd></div><div><dt>EHCP</dt><dd>An Education, Health and Care Plan, the legal document setting out the support a young person with SEND must receive.</dd></div><div><dt>PRU / alternative provision</dt><dd>Education arranged for pupils who cannot attend a mainstream school, including pupil referral units.</dd></div><div><dt>T Level</dt><dd>A two-year technical qualification for 16 to 19 year olds, equivalent to three A Levels, with an industry placement built in.</dd></div><div><dt>EBacc</dt><dd>The English Baccalaureate, a set of GCSE subjects government encourages schools to enter pupils for. A measure of the school, not a qualification.</dd></div><div><dt>Apprenticeship</dt><dd>A paid job with training built in, leading to a recognised qualification.</dd></div><div><dt>UCAS</dt><dd>The single system through which people apply to UK universities.</dd></div><div><dt>Destination</dt><dd>Where a young person goes after a key stage: a course, an apprenticeship, a job, or none. Schools report it.</dd></div><div><dt>Careers lead</dt><dd>The person in a school or college responsible for the careers programme. Every English secondary school must have one.</dd></div><div><dt>Connexions</dt><dd>The careers and support service for young people run by many local authorities, and the name still used for it in parts of Greater Manchester.</dd></div><div><dt>Equalex</dt><dd>A framework setting the depth a careers experience is pitched at, in three tiers: Introduce and Inspire, Investigate and Explore, Apply and Demonstrate.</dd></div><div><dt>Skills Builder</dt><dd>A framework breaking eight essential skills into numbered steps, so progress can be described in steps.</dd></div><div><dt>DfE · DWP · NCS</dt><dd>The Department for Education, the Department for Work and Pensions, and the National Careers Service.</dd></div><div><dt>GM Skills Plan · LSIP</dt><dd>Greater Manchester’s skills and employment strategy, and the employer-led Local Skills Improvement Plan that colleges respond to.</dd></div></dl>
 </section>
+<p class="disclaimer">This map is my own landscape mapping for the programme, set alongside published policy and
+publicly available provision. No internal Greater Manchester Combined Authority figures appear on this page.</p>
+<div class="nextcase"><a href="beeline-problem.html"><span><small>Next</small>Problem model</span><span class="open" aria-hidden="true">open →</span></a></div>
 <footer class="pagefoot">
   <span>Beeline · Greater Manchester Combined Authority</span>
   <span><a href="index.html">← Contents</a> · <a href="beeline-problem.html">Problem model →</a></span>
 </footer>
 </main>
 </div>
-<script src="site.js"></script>
+<script src="assets/site.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const STAGES=["Key Stage 3 · Yr 7–9","Key Stage 4 · Yr 10–11","Key Stage 5 · Yr 12–13"];
