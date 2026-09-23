@@ -10,9 +10,8 @@ const PAGES=[
   {g:"",       href:"discovery-game.html", n:"p. 11",   t:"Beeline Unplugged"},
   {g:"Before · learning products", href:"learning-meter.html", n:"p. 12–17", t:"AI-powered Learning Meter"},
   {g:"",       href:"jump-math.html",      n:"p. 18–23", t:"JUMP Math Lab"},
-  {g:"Sample", href:"co-lab.html",      n:"p. 24",    t:"CO/LAB"},
-  {g:"Also", href:"mbacc-summit.html", n:"p. 25",    t:"MBacc Summit"},
-  {g:"How I work", href:"how-i-work.html", n:"p. 26",    t:"How I work"}
+  {g:"Also", href:"mbacc-summit.html", n:"p. 24",    t:"MBacc Summit"},
+  {g:"How I work", href:"how-i-work.html", n:"p. 25",    t:"How I work"}
 ];
 const here=(location.pathname.split("/").pop()||"index.html");
 const group=h=>h.startsWith("beeline")?"beeline":h;
@@ -311,7 +310,7 @@ const LIFE={
  lm:{foot:"From a rubric to the accuracy numbers that decided what shipped.",items:[
   ["Speech and writing tasks for eight-year-olds","Rubric bands"],
   ["Prompt databases","Anchor answers per activity"],
-  ["A test set of about 4,000 answers","Real answers plus synthetic edge cases"],
+  ["A test set of about 4,000 answers","Real answers plus synthetic edge cases","10 representative franchise schools"],
   ["Evaluation loop before launch","Every answer graded twice"],
   ["Handoff to engineers","Caching for repeat answers"],
   ["False passes, agreement, latency, cost"]]},

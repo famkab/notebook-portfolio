@@ -20,8 +20,8 @@
 .where{display:none}
 
 :root{
-  --desk:#DCD9D2; --paper:#F1EFEA; --paper-2:#E8E5DE; --ink:#1E1E1C; --pencil:#6E6C67; --rule:#D3CFC6; --rule-strong:#BDB8AD;
-  --blue:#3D5A86; --red:#A2443A; --green:#4B7552; --amber:#8A5A12; --hi:rgba(232,203,74,.55); --hi-solid:#E8CB4A; --hi-ink:#7A5E00;
+  --desk:#DCD9D2; --paper:#F1EFEA; --paper-2:#E8E5DE; --ink:#1E1E1C; --pencil:#636159; --rule:#D3CFC6; --rule-strong:#BDB8AD;
+  --blue:#3D5A86; --red:#A2443A; --green:#446A4A; --amber:#8A5A12; --hi:rgba(232,203,74,.55); --hi-solid:#E8CB4A; --hi-ink:#7A5E00;
   --red-w:#EEDDD8; --green-w:#DDE6DC; --blue-w:#DDE2EA; --amber-w:#F0E4CF; --hi-w:#F1E6B8;
   --serif:"Newsreader",Georgia,serif; --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
   --hand:"Caveat","Bradley Hand","Segoe Print",cursive; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
@@ -37,7 +37,7 @@
 .where{position:absolute;top:18px;right:22px;font-family:var(--hand);font-size:20px;color:var(--blue);transform:rotate(2deg)}
 .mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--pencil)}
 .hand{font-family:var(--hand);font-size:23px;line-height:1.1;color:var(--blue)}
-h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.01em;margin:4px 0 8px;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(24px,2.8vw,32px);line-height:1.15;margin:0;text-wrap:balance}
 h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.2vw,26px);margin:0;line-height:1.2}
 .note .head .nh{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.2vw,26px);margin:0;line-height:1.2}
 .lede{max-width:68ch;margin:0;font-size:18px}
@@ -186,10 +186,13 @@ h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.2vw,26px);mar
 .st-chain li{display:flex;align-items:center}
 .st-chain li:not(:last-child)::after{content:"→";margin:0 10px;color:var(--pencil)}
 .st-chain li:last-child{color:var(--red);font-weight:600}
+
+.sample-note{font-family:var(--hand);font-size:1.25rem;color:var(--red);margin:0 0 22px;max-width:70ch;line-height:1.35}
 </style>
 
+<a class="skip" href="#main">Skip to the page</a>
 <div class="layout">
-<main>
+<main id="main" tabindex="-1">
 <div class="pagehead">
   <div class="mono">Beeline · p. 8–9</div>
   <h1>MVP Experience Curve</h1>
@@ -201,6 +204,7 @@ h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.2vw,26px);mar
   </div>
   <div class="kicker"></div>
 </div>
+<p class="sample-note">A sample: three moments on the curve, and two of the decisions we argued ↓</p>
 <nav class="subnav" aria-label="Beeline spreads">
   <a href="beeline.html">Overview</a>
   <a href="youth-voice.html">Youth Voice</a>
@@ -283,9 +287,6 @@ const HOT={mvp:[
  {p:0,f:.62,v:.19,t:"bad",h:"Arrival & onboarding",off:"Young people are handed the toolkit, or a group opens the pack on its own. Without a facilitator they hesitate while they work out the mechanics. Peer groups adapt by trial and error, but structured settings need clear onboarding.",said:"“We sort of had to make up rules.” · “Clearer instructions, as I am not sure if we played this correctly.”",src:"Young people’s feedback, July 2026"},
  {p:1,f:.08,v:.27,t:"good",h:"Active discovery: the productive dip",off:"Groups sort the 18 discovery cards together. Uncertainty over “doing it wrong” sometimes becomes a positive learning moment. With a facilitator it usually does; with peers alone it doesn’t always.",said:"“It was really fun to see how my personality fits a certain job pathway. It was confusing at first but once we got the hang of it, it was really easy.”",src:"Young people’s feedback, July 2026"},
  {p:1,f:.85,v:.73,t:"good",h:"Active discovery: the spike",off:"Once groups figure it out, flexible rules let them adapt the game to how they work, and that builds real ownership. Seeing their matched gateways on the tally chart is a clear moment of delight.",said:"“It was fun to hear everyone’s different answers in my group.”",src:"Young people’s feedback, July 2026"},
- {p:2,f:.5,v:.44,t:"mixed",h:"The reveal & scoring",off:"A result that matches a young person’s direction reads as accurate. One that differs opens reflection when an adult is there, but the pack carried no prompt for it. Rigid sector titles can trigger early narrowing, like reading “business” as hard maths.",said:"“Suggest what the pathways for these careers look like.” · “Include a larger variety of career pathways in the game.”",src:"Young people’s feedback, July 2026"},
- {p:3,f:.55,v:.5,t:"bad",h:"The digital bridge",off:"Scanning a QR code to move from the tactile, social game to the online gateway pages causes a drop-off. Static pages feel disconnected from the energy of the game.",said:"“Second part: website gets basic and unfun, like any other careers website. A lot of words for the targeted group.”",src:"Young people’s feedback, July 2026"},
- {p:4,f:.85,v:.42,t:"bad",h:"The cyclical loop",off:"Groups who followed the loop to the Next Steps Guide felt a strong sense of completion. Those who skipped straight to it risked losing confidence. It might help to put the guide at the end of the unplugged experience too.",said:"“The tally was easy to use and I liked the quiz.”",src:"Young people’s feedback, July 2026"}
 ],tobe:[
  {p:0,f:.6,v:.6,t:"good",h:"Explains itself",d:"The leaflet carries the sequence, the card limits and the framing that it’s not a test, so a group opening the pack alone starts where a facilitated group starts.",said:"Removes: working out the rules alone.",src:"Service design takeaway, Phase 3"},
  {p:1,f:.15,v:.5,t:"good",h:"The dip we keep",d:"Sorting stays a conversation between young people about what sounds like them. Uncertainty here is about themselves, not the game, and peers help each other filter the noise.",said:"Keeps: not knowing yet, and talking it through.",src:"Service design takeaway, Phase 3"},
@@ -328,10 +329,8 @@ function renderCurve(){
 seg("curveSeg",v=>{view=v;renderCurve()});renderCurve();
 
 const CARDS=[
- {st:"Show & Tell · 07/09/26",t:"Hide the running tally",heard:"The chart was live during sorting. Young people saw a gateway building and steered later card choices toward it.",opt:"Keep the tally visible and fun, or hide it until the end.",chose:"The tally stays out of sight and is revealed once, at the end.",gave:"The instant hit of watching your result build.",why:"Delayed gratification protects honest self-reflection, and the conversation between peers stays about them, not the score."},
- {st:"Show & Tells · 24/04/26 and 10/07/26",t:"Make the pack explain itself",heard:"“We sort of had to make up rules.” One participant took every card. Groups without a facilitator stalled at set-up.",opt:"Rely on facilitators, or put the structure in the pack.",chose:"A leaflet carries the sequence, printed card limits, and the framing that it’s not a test.",gave:"Some of the freedom groups used to invent their own rules, which built real ownership.",why:"The dip should be about working out who you are, not how the game works. A group opening the pack alone should start where a facilitated group starts."},
- {st:"Show & Tell · 12/03/26",t:"Show the working behind the score",heard:"The 3/1 model read as arbitrary. One young person set aside the Financial gateway as “law and business”, then found their intended job inside it.",opt:"Keep the scoring hidden and simple, or explain it where it’s used.",chose:"The 3/1 model is explained on the chart, and every gateway card shows recognisable roles.",gave:"A cleaner, simpler card design with fewer words.",why:"Young people read a gateway through the jobs inside it. A label they misread can close off a pathway before they’ve looked."},
- {st:"Show & Tell · 05/06/26",t:"Three routes across the bridge",heard:"Scanning from cards to the website felt like a drop-off: “the website gets basic and unfun”.",opt:"One clean QR route, or several fallbacks.",chose:"A QR code, a short URL and a printed next-steps sheet, landing on a results page that offers a next step.",gave:"A single tidy route that’s easier to track in analytics.",why:"The transition has to hold without one device per young person and one scannable code, or the blended model fails."}
+ {st:"Show & Tell · 07/09/26",t:"Hide the running tally",heard:"The chart was live during sorting. Young people saw a gateway building and steered later card choices toward it.",opt:"Keep the tally visible and fun, or hide it until the end.",chose:"The tally stays out of sight and is revealed once, at the end.",gave:"The instant hit of watching your result build.",why:"Delayed gratification protects honest self-reflection, and the conversation between peers stays about them, not the score. It is also how we get at the prior knowledge and assumptions they arrive with, and work through them."},
+ {st:"Show & Tells · 24/04/26 and 10/07/26",t:"Make the pack explain itself",heard:"“We sort of had to make up rules.” One participant took every card. Groups without a facilitator stalled at set-up.",opt:"Rely on facilitators, or put the structure in the pack.",chose:"A leaflet carries the sequence, printed card limits, and the framing that it’s not a test.",gave:"Some of the freedom groups used to invent their own rules, which built real ownership.",why:"The dip should be about working out who you are, not how the game works. A group opening the pack alone should start where a facilitated group starts."}
 ];
 $("cards").innerHTML=CARDS.map(c=>`<article class="dcard"><div class="top"><h4>${c.t}</h4><span class="stamp">${c.st}</span></div><dl class="dl"><dt>We heard</dt><dd>${c.heard}</dd><dt>Options</dt><dd>${c.opt}</dd><dt>We chose</dt><dd class="chose">${c.chose}</dd><dt>We gave up</dt><dd class="gave">${c.gave}</dd><dt>Why</dt><dd>${c.why}</dd></dl><span class="boardstamp sm">Reported to<br>Programme Board</span></article>`).join("");
 </script>

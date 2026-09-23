@@ -49,7 +49,7 @@ h1,h2,h3,h4{font-family:var(--serif)!important;font-weight:600}
 .wrap{max-width:1200px;margin-inline:auto;display:grid;gap:28px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;align-items:center}
 h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,5vw,60px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
-h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,28px);letter-spacing:-.015em;margin:0;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(24px,2.8vw,32px);line-height:1.15;margin:0;text-wrap:balance}
 .lede{max-width:68ch;color:var(--muted);margin:0;font-size:18px}
 .label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .approx{border-bottom:1.5px dotted currentColor;cursor:help;white-space:nowrap}
@@ -147,12 +147,13 @@ section{display:grid;gap:14px}
 .demo{margin-top:2px}
 </style>
 
+<a class="skip" href="#main">Skip to the page</a>
 <div class="layout">
-<main>
+<main id="main" tabindex="-1">
 <div class="pagehead">
   <div class="mono">Kids&amp;Us · p. 12–17</div>
   <h1>AI-powered Learning Meter</h1>
-  <p class="lede">Speaking and writing activities for children learning English, marked by AI against a teacher’s rubric. A wrong “well done” teaches the wrong thing, so the work was mostly about trust: rubrics, anchor answers, a test set, and an evaluation loop run before anything went live.</p>
+  <p class="lede">Speaking and writing activities for children learning English as a second language, marked by AI against a teacher’s rubric. A wrong “well done” teaches the wrong thing, so the work was mostly about trust: rubrics, anchor answers, a test set, and an evaluation loop run before anything went live.</p>
   <div class="rolestrip">
     <span><b>My role</b>Owned it end to end: rubric, anchor answers, prompt structure, feedback tone, test set and evaluation loop</span>
     <span><b>Team</b>Matrix-managed the engineers and an external AI partner</span>

@@ -47,6 +47,11 @@ main{padding:0}
 .bookmark{position:absolute;right:26px;top:-1px;width:24px;height:52px;clip-path:polygon(0 0,100% 0,100% 100%,50% 77%,0 100%)}
 .bk-honey{background:var(--hi-solid)}.bk-blue{background:var(--blue)}.bk-green{background:var(--green)}
 .ctx-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;list-style:none;padding:0}
+.depth{margin:-8px 0 0;padding:0 34px;font-size:14px;color:var(--pencil);max-width:78ch}
+.depth span{font-family:var(--mono);font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-right:8px;color:var(--pencil)}
+.depth a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:760px){ .depth{padding:0 20px} }
 .howlink{margin-top:28px;display:inline-flex;min-height:44px;align-items:center;font-family:var(--hand);
   font-size:1.5rem;color:var(--blue);text-decoration:underline;text-underline-offset:4px}
 .contact-note{display:grid;gap:22px;border-top:1px solid var(--rule-strong);padding:55px clamp(24px,6vw,78px)}
@@ -62,15 +67,17 @@ main{padding:0}
   }
 </style>
 
+<a class="skip" href="#main">Skip to the page</a>
 <div class="layout">
-<main>
+<main id="main" tabindex="-1">
   <section class="home-hero">
     <p class="mono">Lives and works between Manchester and Bilbao · 2026</p>
     <h1>I design products and services for <span class="circled">learning<svg viewBox="0 0 240 72" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="120" cy="36" rx="113" ry="30"/></svg></span>.</h1>
     <p class="hero-line"><span class="margin-note" aria-hidden="true">start here →</span>I design learning and careers
-      products for young people, from discovery through prototype, pilot and validation to build and measurement.</p>
+      products for young people. I work from discovery through prototype and pilot to build and measurement.</p>
     <p class="hero-sub">I currently lead the product and service design of Beeline, Greater Manchester’s careers
-      education service for young people up to 25.</p>
+      education service for young people up to 25, built around the region’s technical education pathways into
+      work.</p>
   </section>
 
   <section aria-labelledby="contents-heading" class="contents-section">
@@ -100,6 +107,10 @@ main{padding:0}
         </div>
         <span class="entry-stamp"><span class="pstamp pstamp-full" aria-hidden="true">Portfolio<b>Full case study</b></span></span>
       </a>
+      <p class="depth"><span>Behind the overview</span> Four spreads, each a sample of one artefact:
+        <a href="beeline-landscape.html">Service Landscape</a>, <a href="beeline-problem.html">Problem Model</a>,
+        <a href="beeline-evidence.html">Decisions &amp; Metrics</a> and
+        <a href="beeline-showtells.html">MVP Experience Curve</a>.</p>
 
       
       <a class="journal-entry" href="youth-voice.html">
@@ -107,7 +118,7 @@ main{padding:0}
         <div>
           <p class="entry-meta">Entry 02 · p. 10</p>
           <h3>Youth Voice</h3>
-          <p class="entry-description">The other half of Beeline: how young people get into the work. How they’re
+          <p class="entry-description">The other half of Beeline: how young people are involved in the design. How they’re
             prepared using the Lundy model, a year of co-design run in blocks, how participation is counted, and the
             decisions that exist because they said something.</p>
           <ul class="ctx-row" aria-label="Case study context">
@@ -125,9 +136,9 @@ main{padding:0}
         <div>
           <p class="entry-meta">Entry 03 · p. 11</p>
           <h3>Beeline Unplugged</h3>
-          <p class="entry-description">A deck of cards that does what the website does, without the website. Eighteen
-            prompts, a scoring model printed where a young person can argue with it, and a tally chart they fill in by
-            hand and take home. Six settings of testing, and both journeys mapped against each other.</p>
+          <p class="entry-description">A deck of cards that does part of what the digital service does, without the digital.
+            Eighteen prompts, a scoring model that shows how a young person’s interests and skills might map to
+            different areas of work, and a tally chart they fill in by hand and take home.</p>
           <ul class="ctx-row" aria-label="Case study context">
             <li class="stamp-ctx stamp-sector"><i>Sector</i>Public</li>
             <li class="stamp-ctx stamp-scale"><i>Scale</i>Regional · 10 boroughs</li>
@@ -144,8 +155,8 @@ main{padding:0}
         <div>
           <p class="entry-meta">Entry 04 · p. 12</p>
           <h3>AI-powered Learning Meter</h3>
-          <p class="entry-description">At Kids&amp;Us I led the AI-powered Learning Meter, which scores children’s
-            spoken and written English in the MyWay app and gives them short feedback they can act on.</p>
+          <p class="entry-description">A model that scores children’s spoken and written English in MyWay, a gamified
+            English language learning experience, and gives them short feedback they can act on.</p>
           <ul class="ctx-row" aria-label="Case study context">
             <li class="stamp-ctx stamp-sector"><i>Sector</i>Private</li>
             <li class="stamp-ctx stamp-scale"><i>Scale</i>International · 700 schools, 13 countries</li>
@@ -160,8 +171,8 @@ main{padding:0}
         <div>
           <p class="entry-meta">Entry 05 · p. 18</p>
           <h3>JUMP Math Lab</h3>
-          <p class="entry-description">At JUMP Math I redesigned what the Lab measures and how teachers see it, from
-            counts of activity to something a teacher can act on before the next lesson.</p>
+          <p class="entry-description">I redesigned what the Lab measures and how teachers see it, from counts of activity
+            to something a teacher can act on before the next lesson.</p>
           <ul class="ctx-row" aria-label="Case study context">
             <li class="stamp-ctx stamp-sector"><i>Sector</i>Non-profit</li>
             <li class="stamp-ctx stamp-scale"><i>Scale</i>International</li>
@@ -172,33 +183,15 @@ main{padding:0}
         <span class="entry-stamp"><span class="pstamp pstamp-sample" aria-hidden="true">Portfolio<b>Sample + demo</b></span></span>
       </a>
 
-      <div class="group-line" style="margin-top:8px"><p class="mono">Sample · innovation &amp; technology transfer</p><p class="hand">older work, kept short</p></div>
-
-      <a class="journal-entry" href="co-lab.html">
-        <div>
-          <p class="entry-meta">Entry 06 · p. 24</p>
-          <h3>CO/LAB</h3>
-          <p class="entry-description">With the Italian Institute of Technology, on the SUGAR programme: nine months
-            turning a lab technology into a service. We were asked to find a market for it, and designed the onboarding
-            that gets science out of the lab instead. Presented at the SUGAR Expo in San Francisco.</p>
-          <ul class="ctx-row" aria-label="Case study context">
-            <li class="stamp-ctx stamp-sector"><i>Sector</i>Research institute</li>
-            <li class="stamp-ctx stamp-scale"><i>Scale</i>Italy, France, USA</li>
-            <li class="stamp-ctx stamp-audience"><i>Audience</i>Researchers and knowledge transfer offices</li>
-            <li class="stamp-ctx stamp-product"><i>Product</i>Onboarding service and toolkit</li>
-          </ul>
-        </div>
-        <span class="entry-stamp"><span class="pstamp pstamp-sample" aria-hidden="true">Portfolio<b>Sample</b></span></span>
-        
-      </a>
+      <div class="group-line" style="margin-top:8px"><p class="mono">Also</p><p class="hand">one day, in public</p></div>
 
       <a class="journal-entry" href="mbacc-summit.html">
         <div>
-          <p class="entry-meta">Entry 07 · p. 25</p>
+          <p class="entry-meta">Entry 06 · p. 24</p>
           <h3>MBacc Summit</h3>
           <p class="entry-description">The day Beeline went public. The centrepiece of the 2026 summit in front of
             schools, employers and organisations from all ten boroughs, in the month the MBacc became national policy.
-            I ran the floor, and young people walked the room through the release from the stage.</p>
+            I ran the floor on the day.</p>
           <ul class="ctx-row" aria-label="Case study context">
             <li class="stamp-ctx stamp-sector"><i>Sector</i>Public</li>
             <li class="stamp-ctx stamp-scale"><i>Scale</i>Regional · 10 boroughs</li>

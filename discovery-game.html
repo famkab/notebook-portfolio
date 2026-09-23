@@ -16,9 +16,9 @@
   border-radius:999px;padding:6px 13px;background:var(--paper)}
 .subnav a:hover{border-color:var(--ink);color:var(--ink)}
 .subnav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.stack{display:grid;gap:48px}
+.stack{display:grid;gap:46px}
 .stack>section{display:grid;gap:16px}
-.stack h2{font-size:clamp(22px,2.4vw,28px)}
+.stack h2{font-size:clamp(24px,2.8vw,32px)}
 .stack h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:0}
 .sec-lede{margin:0;max-width:74ch;color:var(--pencil);font-size:15.5px}
 .drivers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:4px}
@@ -79,8 +79,9 @@
   .bar span:last-child{text-align:left} }
 </style>
 
+<a class="skip" href="#main">Skip to the page</a>
 <div class="layout">
-<main>
+<main id="main" tabindex="-1">
 <div class="pagehead">
   <div class="mono">Beeline · Greater Manchester Combined Authority · p. 11</div>
   <h1>Beeline Unplugged</h1>
@@ -173,13 +174,10 @@
 
   <section>
     <h2>Six settings, to find out whether it worked</h2>
-    <p class="sec-lede">The deck was a prototype long before it was a product. Round one ran across six public events
+    <p class="sec-lede">Round one ran across six public events
       between February and May 2026, each one chosen to stress a different part of it: crowd and noise, a quiet corner,
       younger learners, older learners, families, and a room with employers in it. Nothing was printed at volume until
-      those rooms had been through it. The settings were: a large
-      careers event at Manchester Central, Future's Day and the Children's Commissioner's event at the Science and
-      Industry Museum, a wellbeing conference at the People's History Museum, a families and communities participation
-      group, and an award co-design workshop with young people, educators and employers.</p>
+      those rooms had been through it.</p>
     <h3>The digital comparison</h3>
     <p class="sec-lede">At the largest event, the cards reached about twice as many young people as the digital
       service did on the same days, in the same building. The deck was on a stand in a hall; the website was there for
@@ -210,18 +208,16 @@
       thing in their pocket later, not the board in front of them. That finding changed where the codes go.</p>
     <h3>What the sessions taught us</h3>
     <ul class="parts">
-      <li><span class="n">Pace</span><span>Two to three minutes per young person. Four facilitators working in pairs reached
-        capacity at about four young people per pair before the conversation quality dropped.</span></li>
-      <li><span class="n">Peers</span><span>Groups of friends produced richer sessions than one-to-ones. They argued about
-        which cards fitted each other, and the best part came after the activity finished.</span></li>
-      <li><span class="n">Noise</span><span>A loud hall makes a conversation-based activity hard. A quiet corner at the
-        People's History Museum produced the deepest engagement of the round.</span></li>
-      <li><span class="n">Reading</span><span>SEND groups needed the cards read aloud, which the format allows and a screen
-        does not.</span></li>
-      <li><span class="n">Confidence</span><span>Some young people already had a goal but doubted they had the strengths for
-        it. When the tally matched the plan they already had, it read as permission.</span></li>
-      <li><span class="n">Employers</span><span>At the co-design workshop we laid the cards out and barely explained them.
-        Employers picked them up and used them to explain their own sectors.</span></li>
+      <li><span class="n">Pace</span><span>Two to three minutes per young person, and about four per pair of facilitators
+        before conversation quality dropped.</span></li>
+      <li><span class="n">Peers</span><span>Groups of friends argued about which cards fitted each other. The best part came
+        after the activity finished.</span></li>
+      <li><span class="n">Noise</span><span>A quiet corner produced the deepest engagement of the round.</span></li>
+      <li><span class="n">Reading</span><span>SEND groups needed the cards read aloud, which the format allows.</span></li>
+      <li><span class="n">Confidence</span><span>When the tally matched a plan someone already had, it read as
+        permission.</span></li>
+      <li><span class="n">Employers</span><span>Laid out with barely any explanation, employers picked the cards up and used
+        them to explain their own sectors.</span></li>
     </ul>
   </section>
 
@@ -266,19 +262,16 @@
     </table>
     <div class="drivers" style="margin-top:8px">
       <div style="--k:var(--hi-solid)"><b>What the physical half is for</b>
-        <p>Several things happening at once, in company. It absorbs a whole group with one adult, works with no device
-          and no signal, can be read aloud, and produces an object that leaves the building. Peer talk, which a screen
-          cannot manufacture, is where the best sessions happened.</p></div>
+        <p>A whole group with one adult, no device and no signal, read aloud where it needs to be, and an object that
+          leaves the building. Peer talk is where the best sessions happened.</p></div>
       <div style="--k:var(--blue)"><b>What the digital half is for</b>
-        <p>One clean path, instrumented end to end. It scales to everyone at once at no extra cost per person, holds
-          far more depth than a card can, updates the moment a job market does, and tells us exactly where people
-          stopped.</p></div>
+        <p>One clean path, instrumented end to end. It scales at no extra cost per person, holds more depth than a
+          card, and tells us where people stopped.</p></div>
       <div style="--k:var(--red)"><b>What each one costs you</b>
-        <p>The pack costs money per person, depends on the adult in the room, and is almost unmeasurable beyond what
-          someone writes down. The service is measurable and free to repeat, and it reaches nobody who never arrives.</p></div>
+        <p>The pack costs money per person and depends on the adult in the room. The service is free to repeat, and it
+          reaches the people who arrive.</p></div>
     </div>
-    <p class="sec-lede">So the design question was never which one to build. It was where the handover sits, and what
-      has to survive it.</p>
+    <p class="sec-lede">The design question was where the handover sits, and what has to survive it.</p>
 
     <h3>What the curve showed</h3>
     <p class="sec-lede">Mapping both journeys on one chart made the difference visible. The offline line swings; the
@@ -320,22 +313,6 @@
   </section>
 
   <section>
-    <h2>Where it stands</h2>
-    <div class="next">
-      <p>The decision paper went to the MBacc Programme Board in April 2026 and was approved. The kits were in people's
-        hands at the summit in July, and v1 is in use and under test across schools, colleges, youth settings and
-        community venues.</p>
-      <p>Interim findings go back to the board in December 2026, with a recommendation for year two of both the
-        digital quiz and Unplugged by March 2027. The transition that could not be measured in round one is now a
-        programme measure in its own right, PRG-04, the Unplugged Transition Rate: how many people who met Beeline
-        offline go on to arrive on the digital service. It is counted monthly against the packs handed out that
-        month.</p>
-      <p>The pack is also the vehicle for the co-design micro-actions on <a href="youth-voice.html">Youth Voice</a>:
-        members run a session with their own youth group and bring the answers back.</p>
-    </div>
-  </section>
-
-  <section>
     <h2>Both halves, on one sheet</h2>
     <p class="sec-lede">The blueprint is where that comparison was worked out. Offline touchpoints above the line,
       digital ones below it, with the intended experience curve, what young people said at each phase, who is
@@ -365,19 +342,19 @@ const OFF=[[0,0,.52],[0,.4,.42],[0,.8,.17],[1,.1,.27],[1,.45,.68],[1,.9,.76],[2,
 const ONL=[[0,0,.52],[0,.6,.63],[1,.5,.66],[2,.5,.7],[3,.5,.73],[4,.3,.68],[4,1,.86]];
 const PTS=[
  {p:0,f:.8,v:.17,t:"bad",h:"The dip at the start",
-  d:"Unguided setup causes hesitation when young people are asked to work out the mechanics themselves. Peer groups adapt by trial and error in informal settings; a structured room needs clear onboarding. The online quiz has no equivalent dip, because the order is made for them.",
+  d:"Unguided setup causes hesitation when young people are asked to work out the mechanics themselves. Peer groups adapt by trial and error in informal settings; a structured room needs clear onboarding. The online quiz has no equivalent dip, because the order is made for them, and it is a more linear experience, as digital ones often are.",
   said:"\u201cWe sort of had to make up rules.\u201d \u00b7 \u201cA bit confusing as we all interpreted the instructions differently.\u201d"},
  {p:1,f:.45,v:.68,t:"good",h:"The dip is useful",
-  d:"Uncertainty about doing it wrong works as a learning catalyst some of the time, and the flexible rules let groups adapt the game to themselves, which produced real ownership of the process. It works reliably with a facilitator, and unreliably peer to peer. That is the line between friction worth keeping and friction to remove.",
+  d:"Uncertainty about doing it wrong works as a learning catalyst some of the time, and the flexible rules let groups adapt the game to themselves, which produced real ownership of the process. It works reliably with a facilitator, and unreliably peer to peer. That is the line between friction worth keeping and friction to remove, because we wanted young people to develop confidence using the service.",
   said:"\u201cIt was fun to hear everyone\u2019s different answers in my group.\u201d"},
  {p:2,f:.15,v:.84,t:"good",h:"The spike at the reveal",
   d:"Seeing matched gateways appear, on a tally chart or on screen, is the clearest moment of delight in either journey. A result matching someone\u2019s existing plan reads as affirming.",
   said:"The pack carries no prompt for a result that differs from the plan they arrived with."},
  {p:2,f:.5,v:.45,t:"mixed",h:"Where it can narrow too early",
-  d:"The risk is early narrowing when a sector title clashes with how someone sees themselves: business read as hard maths, construction read as building sites. Skilled youth workers reverse that dip fast by using the unexpected result as a way in.",
-  said:"A result that differs opens reflection where an adult is present."},
+  d:"The risk is early narrowing when a gateway title clashes with how someone sees themselves: business read as hard maths, construction read as building sites. Skilled youth workers reverse that dip fast by using the unexpected result as a way in.",
+  said:"A result that differs opens reflection where an adult is present. There were learning design decisions to figure out here."},
  {p:3,f:.55,v:.44,t:"bad",h:"The drop at the bridge",
-  d:"The sharpest fall on the whole map. Scanning from a tactile, social activity into static gateway pages feels disconnected from the momentum the game just built. This is the one place where the digital half actively loses what the physical half created, and it is where the next round of work sits.",
+  d:"The sharpest fall on the whole map. Scanning from a tactile, social activity into static gateway pages feels disconnected from the momentum the game just built. That was expected: in phase 1 the only changes we made were the landing page, the quiz and the Unplugged game, and phase 2 takes in the rest of the pages. This is the one place where the digital half actively loses what the physical half created, and it is where the next round of work sits.",
   said:"\u201cThe website gets basic and unfun.\u201d"},
  {p:4,f:.3,v:.54,t:"mixed",h:"Who holds it up",
   d:"Peers act as confidence builders while people interpret the cards, and help filter when someone is unsure a skill applies to them. Comparing tally charts reassures people through discussion. Youth workers absorb the friction of setting up the deck, then step back once the group is running. None of that has an equivalent on a screen.",

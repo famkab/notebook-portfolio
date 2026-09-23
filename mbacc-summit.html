@@ -12,9 +12,9 @@
 <link rel="stylesheet" href="assets/journal.css">
 <style>
 .sample-note{font-family:var(--hand);font-size:1.3rem;color:var(--red);margin:0 0 26px}
-.stack{gap:44px}
+.stack{gap:46px}
 .stack>section{display:grid;gap:14px}
-.stack h2{font-size:clamp(22px,2.4vw,28px)}
+.stack h2{font-size:clamp(24px,2.8vw,32px)}
 .sec-lede{margin:0;max-width:74ch;color:var(--pencil);font-size:15.5px}
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
 .cols>div{border-top:3px solid var(--k,var(--rule-strong));padding-top:10px}
@@ -29,12 +29,14 @@
 .took{border-left:3px solid var(--green);padding-left:16px;display:grid;gap:10px}
 .took p{margin:0;max-width:72ch}
 @media (max-width:700px){ .shots{grid-template-columns:1fr} }
+.shots button:focus-visible{outline:2.5px solid var(--blue);outline-offset:3px}
 </style>
 
+<a class="skip" href="#main">Skip to the page</a>
 <div class="layout">
-<main>
+<main id="main" tabindex="-1">
   <div class="pagehead">
-    <div class="mono">Beeline · Greater Manchester Combined Authority · p. 25</div>
+    <div class="mono">Beeline · Greater Manchester Combined Authority · p. 24</div>
     <h1>MBacc Summit</h1>
     <p class="lede">The day the work went public. Beeline was the centrepiece of the 2026 summit, in front of schools,
       employers and organisations from across Greater Manchester, in the same month the MBacc became national policy.</p>

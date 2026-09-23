@@ -41,7 +41,7 @@ h1,h2,h3,h4{font-family:var(--serif)!important;font-weight:600}
   --c-bar:var(--red); --c-bar-soft:var(--red-w);
   --c-per:var(--blue); --c-per-soft:var(--blue-w);
   --c-chl:var(--green); --c-chl-soft:var(--green-w);
-  --c-dec:var(--ink); --c-dec-soft:#ECEDF1;
+  --c-dec:var(--ink); --c-dec-soft:var(--paper-2);
   --c-met:var(--blue); --c-met-soft:var(--blue-w);
   --c-out:var(--amber); --c-out-soft:var(--amber-w);
   --ok:var(--green); --ok-soft:var(--green-w); --part:var(--amber); --part-soft:var(--amber-w); --no:var(--pencil); --no-soft:var(--paper-2);
@@ -214,10 +214,13 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
   .qs li{grid-template-columns:1fr;gap:4px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.sample-note{font-family:var(--hand);font-size:1.25rem;color:var(--red);margin:0 0 22px;max-width:70ch;line-height:1.35}
 </style>
 
+<a class="skip" href="#main">Skip to the page</a>
 <div class="layout">
-<main>
+<main id="main" tabindex="-1">
 <div class="pagehead">
   <div class="mono">Beeline · p. 6–7</div>
   <h1>Decisions and metrics</h1>
@@ -229,6 +232,7 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
   </div>
   <div class="kicker"></div>
 </div>
+<p class="sample-note">A sample: two of the four trails, and the metric ladder behind them ↓</p>
 <nav class="subnav" aria-label="Beeline spreads">
   <a href="beeline.html">Overview</a>
   <a href="youth-voice.html">Youth Voice</a>
@@ -262,10 +266,9 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
         <div class="ladder" id="ladder" role="group" aria-label="Metrics by step reached"></div>
         <aside class="detail" id="detail" aria-live="polite"></aside>
       </div>
-      <section class="checks" aria-labelledby="checks-h">
+      <section class="checks" aria-label="Design assurance">
         <div>
           <div class="panel-h">Design assurance</div>
-          <h3 id="checks-h">The system checks itself</h3>
         </div>
         <div class="checkgrid" id="checkgrid"></div>
       </section>
@@ -406,20 +409,6 @@ const TRAILS=[
   evi:{s:"partly",l:"Partly visible",pts:[`Only ${A("6 of 21")} possible gateway pairings are being explored. Broadening is happening, but narrowly.`,"People come back to decide, but not to act. Returning to follow through is almost non-existent.","The analytics tool can only compare three segments at once, so ‘more than two gateways’ can’t be read yet. I flagged that as a tool limit, not a finding."]},
   next:["Gateway pages restructure (Phase 2, in design): use which gateways get explored together to decide how they cross-link.","Asked for a user-level export and a count of roles per page, so depth isn’t just an artefact of how long a page is."],
   shows:["Synthesising messy data","Telling a tool limit from a finding","Iterating the product"]},
- {id:"prove",q:"I can’t prove myself",bar:"B6",people:[["Dylan","the Overwhelmed Explorer"],["Clare","the Confident, Self-directed"]],
-  chl:["C9","How might we help a young person see what they can now do that they couldn’t before?"],
-  dec:{name:"In-service ‘I can…’ instrument",meta:"Phase 2 · In design",bet:"Asking one ‘I can…’ question at the right moment reads comprehension and confidence without a survey. Three answers (Yes / Not sure / Not yet) replace a 1–5 score, so a young person answers in their own terms.",demo:true},
-  met:["LM-02 Comprehension","LM-04 Confidence"],outs:[15,20,23],
-  evi:{s:"no",l:"Not yet visible",pts:["Designed in September 2026 and not yet fielded, so there’s nothing to claim yet and the page says so.","Four of the six placements are offline (events, decks, sessions). Fielding it is a service design problem, not only a build task."]},
-  next:["Field it in the Phase 2 Learn window, starting with statement 15 at the Next Steps Guide, the keystone reading.","Record the scale change as a deliberate baseline restart, agreed with the product lead."],
-  shows:["Designing the measure itself","Offline and online research","Accessible UI"]},
- {id:"stuck",q:"I’m stuck and left behind",bar:"B5",people:[["Heather","the Supported Sense-maker"],["Dylan","the Overwhelmed Explorer"]],
-  chl:["C7","How might we make the Unplugged offline toolkits and the website hand off to each other properly?"],
-  dec:{name:"Unplugged QR panels & decks",meta:"Phase 1–2 · Live",bet:"Physical activations (events, panels, decks) hand a young person into the digital service instead of ending at the event."},
-  met:["PRG-04 Unplugged Transition Rate","LM-01 Engagement"],outs:[1,16],
-  evi:{s:"partly",l:"Partly visible",pts:["QR codes and tracked links are built and logged for every activation.","Gateway-specific codes aren’t printed yet, so we can’t tell which panel drove a scan, and nothing has been read off them."]},
-  next:["Read one complete month of arrivals to get a first figure for the Unplugged Transition Rate.","Print gateway-specific codes so each panel, and each gateway, can be credited."],
-  shows:["Joining offline and digital","Service design","Being honest about gaps"]}
 ];
 
 /* ---------- render: trail ---------- */
