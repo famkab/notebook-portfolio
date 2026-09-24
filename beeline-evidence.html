@@ -220,12 +220,8 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
 .lm03{width:100%;height:auto;display:block;margin:14px 0 0;overflow:visible}
 .lm03 .track{fill:var(--rule)}
 .lm03 .bar{fill:var(--blue)}
-.lm03 .lead .bar{fill:var(--ink)}
 .lm03 .lbl{font-family:var(--body);font-size:12.5px;fill:var(--pencil)}
-.lm03 .lead .lbl{fill:var(--ink);font-weight:700}
 .lm03 .val{font-family:var(--mono);font-size:12.5px;fill:var(--pencil)}
-.lm03 .lead .val{fill:var(--ink)}
-.lm03 .sep{stroke:var(--rule-strong);stroke-width:1}
 .lm03-wrap{border-top:1px solid var(--rule-strong);padding-top:18px;margin-top:8px}
 .lm03-key{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--pencil);margin-top:12px;align-items:center}
 .lm03-key i{display:inline-block;width:15px;height:9px;border-radius:2px;margin-right:7px;vertical-align:middle}
@@ -376,78 +372,71 @@ table.mx{border-collapse:collapse;width:100%;min-width:980px;font-size:13px}
         </div>
         <div class="checkgrid" id="checkgrid"></div>
       </section>
-    </div>
-  </section>
 
-  <footer>
-    <span>Built from the Beeline problem model, feature map and metrics framework. Barrier-to-feature links are my own mapping.</span>
-    <span>Fatima Abid · portfolio prototype</span>
-  </footer>
-</div>
-
-<section class="rough">
-  <h2>One metric, with a first number</h2>
-  <p class="sec-lede">LM-03 Decision Quality asks whether young people leave with more options than they arrived with.
-    A session counts as broadening when it explores two or more <button class="term" data-term="gateways">gateways</button>.
-    This is the first month it could be read, and it reads badly: most sessions narrow to one gateway, and the ones
-    that broaden cluster in Digital and Engineering.</p>
-  <div class="lm03-wrap">
-<svg class="lm03" viewBox="0 0 888 324" role="img" aria-labelledby="lm03t lm03d">
+      <section class="rough">
+        <h2>One metric, with a first number</h2>
+        <p class="sec-lede">LM-03 Decision Quality asks whether young people leave with more options than they arrived with.
+          A session counts as broadening when it explores two or more <button class="term" data-term="gateways">gateways</button>.
+          This is the first month it could be read, and it reads badly. Between two thirds and four fifths of sessions
+          narrow to one gateway, and the ones that broaden cluster in Digital and Engineering.</p>
+        <div class="lm03-wrap">
+            <svg class="lm03" viewBox="0 0 888 278" role="img" aria-labelledby="lm03t lm03d">
   <title id="lm03t">Share of paired-gateway sessions that explored two or more gateways</title>
-  <desc id="lm03d">All gateways combined 15 per cent. Digital and Technology 35. Engineering and Manufacturing 35. Financial, Business and Professional 30. Creative, Culture and Sport 30. Health and Social Care 30. Construction and the Green Economy 25. Education and Early Years 20.</desc>
-  <g class="lead">
-    <text class="lbl" x="256" y="26.0" text-anchor="end">All gateways combined</text>
-    <rect class="track" x="268" y="10" width="560" height="22" rx="4"/>
-    <rect class="bar" x="268" y="10" width="84.0" height="22" rx="4"/>
-    <text class="val" x="362.0" y="26.0">15%</text>
-  </g>
-  <line class="sep" x1="8" y1="39.0" x2="880" y2="39.0"/>
+  <desc id="lm03d">Digital and Technology 35 per cent. Engineering and Manufacturing 35. Financial, Business and Professional 30. Creative, Culture and Sport 30. Health and Social Care 30. Construction and the Green Economy 25. Education and Early Years 20.</desc>
   <g>
-    <text class="lbl" x="256" y="70.0" text-anchor="end">Digital and Technology</text>
-    <rect class="track" x="268" y="54" width="560" height="22" rx="4"/>
-    <rect class="bar" x="268" y="54" width="196.0" height="22" rx="4"/>
-    <text class="val" x="474.0" y="70.0">35%</text>
+    <text class="lbl" x="256" y="24.0" text-anchor="end">Digital and Technology</text>
+    <rect class="track" x="268" y="8" width="560" height="22" rx="4"/>
+    <rect class="bar" x="268" y="8" width="196.0" height="22" rx="4"/>
+    <text class="val" x="474.0" y="24.0">35%</text>
   </g>
   <g>
-    <text class="lbl" x="256" y="108.0" text-anchor="end">Engineering and Manufacturing</text>
-    <rect class="track" x="268" y="92" width="560" height="22" rx="4"/>
-    <rect class="bar" x="268" y="92" width="196.0" height="22" rx="4"/>
-    <text class="val" x="474.0" y="108.0">35%</text>
+    <text class="lbl" x="256" y="62.0" text-anchor="end">Engineering and Manufacturing</text>
+    <rect class="track" x="268" y="46" width="560" height="22" rx="4"/>
+    <rect class="bar" x="268" y="46" width="196.0" height="22" rx="4"/>
+    <text class="val" x="474.0" y="62.0">35%</text>
   </g>
   <g>
-    <text class="lbl" x="256" y="146.0" text-anchor="end">Financial, Business and Professional</text>
-    <rect class="track" x="268" y="130" width="560" height="22" rx="4"/>
-    <rect class="bar" x="268" y="130" width="168.0" height="22" rx="4"/>
-    <text class="val" x="446.0" y="146.0">30%</text>
+    <text class="lbl" x="256" y="100.0" text-anchor="end">Financial, Business and Professional</text>
+    <rect class="track" x="268" y="84" width="560" height="22" rx="4"/>
+    <rect class="bar" x="268" y="84" width="168.0" height="22" rx="4"/>
+    <text class="val" x="446.0" y="100.0">30%</text>
   </g>
   <g>
-    <text class="lbl" x="256" y="184.0" text-anchor="end">Creative, Culture and Sport</text>
-    <rect class="track" x="268" y="168" width="560" height="22" rx="4"/>
-    <rect class="bar" x="268" y="168" width="168.0" height="22" rx="4"/>
-    <text class="val" x="446.0" y="184.0">30%</text>
+    <text class="lbl" x="256" y="138.0" text-anchor="end">Creative, Culture and Sport</text>
+    <rect class="track" x="268" y="122" width="560" height="22" rx="4"/>
+    <rect class="bar" x="268" y="122" width="168.0" height="22" rx="4"/>
+    <text class="val" x="446.0" y="138.0">30%</text>
   </g>
   <g>
-    <text class="lbl" x="256" y="222.0" text-anchor="end">Health and Social Care</text>
-    <rect class="track" x="268" y="206" width="560" height="22" rx="4"/>
-    <rect class="bar" x="268" y="206" width="168.0" height="22" rx="4"/>
-    <text class="val" x="446.0" y="222.0">30%</text>
+    <text class="lbl" x="256" y="176.0" text-anchor="end">Health and Social Care</text>
+    <rect class="track" x="268" y="160" width="560" height="22" rx="4"/>
+    <rect class="bar" x="268" y="160" width="168.0" height="22" rx="4"/>
+    <text class="val" x="446.0" y="176.0">30%</text>
   </g>
   <g>
-    <text class="lbl" x="256" y="260.0" text-anchor="end">Construction and the Green Economy</text>
-    <rect class="track" x="268" y="244" width="560" height="22" rx="4"/>
-    <rect class="bar" x="268" y="244" width="140.0" height="22" rx="4"/>
-    <text class="val" x="418.0" y="260.0">25%</text>
+    <text class="lbl" x="256" y="214.0" text-anchor="end">Construction and the Green Economy</text>
+    <rect class="track" x="268" y="198" width="560" height="22" rx="4"/>
+    <rect class="bar" x="268" y="198" width="140.0" height="22" rx="4"/>
+    <text class="val" x="418.0" y="214.0">25%</text>
   </g>
   <g>
-    <text class="lbl" x="256" y="298.0" text-anchor="end">Education and Early Years</text>
-    <rect class="track" x="268" y="282" width="560" height="22" rx="4"/>
-    <rect class="bar" x="268" y="282" width="112.0" height="22" rx="4"/>
-    <text class="val" x="390.0" y="298.0">20%</text>
+    <text class="lbl" x="256" y="252.0" text-anchor="end">Education and Early Years</text>
+    <rect class="track" x="268" y="236" width="560" height="22" rx="4"/>
+    <rect class="bar" x="268" y="236" width="112.0" height="22" rx="4"/>
+    <text class="val" x="390.0" y="252.0">20%</text>
   </g>
 </svg>
-    <div class="lm03-key"><span><i style="background:var(--blue)"></i>Explored two or more gateways</span>
-      <span><i style="background:var(--rule)"></i>Narrowed to one</span>
-      <span>Paired-gateway sessions, 6 July to 4 August 2026. Percentages rounded to the nearest five.</span></div>
+          <div class="lm03-key"><span><i style="background:var(--blue)"></i>Explored two or more gateways</span>
+            <span><i style="background:var(--rule)"></i>Narrowed to one</span>
+            <span>Paired-gateway sessions, 6 July to 4 August 2026. Percentages rounded to the nearest five.</span></div>
+
+        </div>
+        <p class="sec-lede" style="margin-top:16px">A metric that comes back with a number you did not want is still the
+          metric working. It named the problem the Discovery Quiz redesign is now aimed at, and it gave the board a baseline
+          to judge the next release against.</p>
+      </section>
+    </div>
+  </section>
 
   <section id="view-problem" role="tabpanel" aria-labelledby="tab-problem" hidden>
 <div class="pm">
@@ -493,11 +482,13 @@ table.mx{border-collapse:collapse;width:100%;min-width:980px;font-size:13px}
   </section>
 </div>
   </section>
-  </div>
-  <p class="sec-lede" style="margin-top:16px">A metric that comes back with a number you did not want is still the
-    metric working. It named the problem the Discovery Quiz redesign is now aimed at, and it gave the board a baseline
-    to judge the next release against.</p>
-</section>
+
+  <footer>
+    <span>Built from the Beeline problem model, feature map and metrics framework. Barrier-to-feature links are my own mapping.</span>
+    <span>Fatima Abid · portfolio prototype</span>
+  </footer>
+</div>
+
 
 <section class="rough">
   <h2>See the rough work</h2>
