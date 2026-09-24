@@ -136,7 +136,7 @@ table.mx{border-collapse:collapse;width:100%;min-width:980px;font-size:13px}
 <div class="pagehead">
   <div class="mono">Beeline · p. 4–5</div>
   <h1>Problem model</h1>
-  <p class="lede">The fears young people told us about, linked to the people who carry them, the questions that open them up, and what “resolved” looks like in their own words. It is what the service is built against.</p>
+  <p class="lede">The fears, pains and barriers young people told us about, linked to the people who carry them, the questions that open them up, and what “resolved” looks like in their own words. It is what the service is built against.</p>
   <div class="rolestrip">
     <span><b>My role</b>I built the problem model from what young people told us, and hold it as the thing the service is designed against</span>
     <span><b>Team</b>A programme team and a digital team, a user researcher, and GMCA governance</span>
@@ -234,7 +234,7 @@ function layers(){
   const shown=(b?b.o:BARRIERS[0].o);
   $("Lout").innerHTML=shown.map(n=>
     `<div class="it"><span class="id">#${n}</span><span>${O[n]}</span></div>`).join("");
-  if(!b){ $("story").innerHTML="Three of the six fears, the people who carry them, the challenges they open and the outcomes they resolve into. Tap a fear to follow it."; return; }
+  if(!b){ $("story").innerHTML="Three of the six fears, pains and barriers, the people who carry them, the challenges they open and the outcomes they resolve into. Tap one to follow it."; return; }
   const lead=b.lead||[...b.o].sort((a,c)=>a-c)[0], names=b.p.map(k=>P[k][0]);
   $("story").innerHTML=`Because a young person tells us \u201c${b.q}\u201d, and ${list(names)} carr${names.length>1?"y":"ies"} that fear, we ask how might we ${C[b.c[0]]}${b.c.length>1?` (and ${b.c.length-1} more)`:""}? It is resolved when they can say \u201c${O[lead]}\u201d`;
 }
