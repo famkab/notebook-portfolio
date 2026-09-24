@@ -230,13 +230,103 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
 .lm03-key{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--pencil);margin-top:12px;align-items:center}
 .lm03-key i{display:inline-block;width:15px;height:9px;border-radius:2px;margin-right:7px;vertical-align:middle}
 @media (max-width:640px){ .lm03 .lbl{font-size:16px} .lm03 .val{font-size:15px} }
+
+/* ---------- problem model ---------- */
+.pm{display:grid;gap:44px}
+.pm section{display:grid;gap:18px}
+.sec-h{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+
+/* 1. how it reads */
+.sentence{background:var(--paper);border:1px solid var(--rule-strong);border-radius:6px;padding:clamp(16px,2.5vw,26px);font-family:var(--serif);font-size:clamp(19px,2vw,24px);line-height:1.6}
+.sentence .w{border-bottom:2px solid var(--k);padding-bottom:1px}
+.layers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--rule-strong);border-radius:6px;overflow:hidden;background:var(--paper)}
+.layer{padding:16px 18px 18px;display:grid;gap:6px;align-content:start;border-top:4px solid var(--k);position:relative}
+.layer+.layer{border-left:1px dashed var(--rule-strong)}
+.layer .n{font-family:var(--serif);font-size:40px;line-height:1;color:var(--k)}
+.layer b{font-family:var(--serif);font-weight:600;font-size:19px}
+.layer .ask{font-family:var(--hand);font-size:21px;color:var(--k);line-height:1.1}
+.layer p{margin:0;font-size:14.5px}
+.layer .src{font-family:var(--mono);font-size:10.5px;color:var(--pencil);letter-spacing:.04em;text-transform:uppercase;margin-top:4px}
+.layer .arrow{position:absolute;right:-13px;top:44px;z-index:1;font-family:var(--hand);font-size:26px;color:var(--pencil);background:var(--paper);line-height:1;padding:0 2px}
+.k-bar{--k:var(--red);--w:var(--red-w)} .k-per{--k:var(--ink);--w:var(--paper-2)} .k-chl{--k:var(--green);--w:var(--green-w)} .k-out{--k:var(--hi-ink);--w:var(--hi-w)}
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.rules div{border-top:2px solid var(--ink);padding-top:10px;display:grid;gap:4px}
+.rules b{font-family:var(--serif);font-weight:600;font-size:17px}
+.rules p{margin:0;font-size:14.5px;color:var(--pencil)}
+
+/* 2. follow one fear */
+.flay{display:grid;gap:0;border:1px solid var(--rule-strong);border-radius:6px;background:var(--paper);overflow:hidden}
+.flay-band{display:grid;grid-template-columns:168px minmax(0,1fr);gap:20px;padding:18px 20px;align-items:start;
+  border-left:5px solid var(--k,var(--rule-strong))}
+.lay+.flay-band{border-top:1px dashed var(--rule-strong)}
+.flay-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--k);padding-top:5px}
+.flay-k small{display:block;font-family:var(--body);font-size:11.5px;letter-spacing:0;text-transform:none;color:var(--pencil);margin-top:3px;line-height:1.35}
+.flay-row{display:flex;flex-wrap:wrap;gap:8px}
+.it{border:1px solid var(--rule-strong);background:var(--paper);border-radius:4px;padding:8px 12px;font-size:14px;
+  line-height:1.35;transition:opacity .18s,border-color .18s,background .18s}
+.it.dim{opacity:.26}
+.it.on{border-color:var(--k);background:var(--w)}
+button.it{cursor:pointer;font-family:var(--serif);font-size:16px;border-radius:999px;padding:7px 14px}
+button.it:hover{border-color:var(--k)}
+.it .id{font-family:var(--mono);font-size:10.5px;color:var(--pencil);margin-right:6px}
+.it b{font-family:var(--serif);font-size:16px;font-weight:600;display:block}
+.it .sub{font-size:12.5px;color:var(--pencil)}
+.outs24{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:8px}
+.outs24 .it{display:grid;grid-template-columns:26px minmax(0,1fr);gap:6px;align-items:start;font-size:13px;padding:9px 11px}
+.outs24 .id{margin:0;padding-top:1px}
+.story{font-family:var(--serif);font-size:18px;line-height:1.55;margin:0;max-width:78ch;background:var(--paper);border-left:3px solid var(--hi-solid);padding:12px 18px}
+@media (max-width:760px){ .flay-band{grid-template-columns:1fr;gap:10px} .flay-k{padding-top:0} }
+
+/* 3. matrix */
+.matrix-wrap{overflow-x:auto;background:var(--paper);border:1px solid var(--rule-strong);border-radius:6px}
+table.mx{border-collapse:collapse;width:100%;min-width:980px;font-size:13px}
+.mx th,.mx td{padding:0;text-align:center;border-bottom:1px solid var(--rule)}
+.mx tbody td,.mx tbody th{height:52px}
+.mx thead th{font-family:var(--mono);font-size:10.5px;color:var(--pencil);font-weight:400;padding:12px 4px 10px;border-bottom:1px solid var(--rule-strong)}
+.mx thead th.grp{font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:10px 4px 2px;border-bottom:0}
+.mx th.row{text-align:left;padding:0}
+.mx th.row button{all:unset;cursor:pointer;display:block;padding:12px 16px;font-family:var(--serif);font-size:15.5px;font-weight:400;white-space:nowrap;width:100%;box-sizing:border-box}
+.mx th.row button small{font-family:var(--mono);font-size:10.5px;color:var(--pencil);margin-right:6px}
+.mx th.row button.mx tr.on th.row button{background:var(--red-w);box-shadow:inset 3px 0 0 var(--red)}
+.mx td.p,.mx td.c{font-family:var(--mono);font-size:11px;white-space:nowrap;padding:0 14px;color:var(--pencil);text-align:left;line-height:1.5}
+.mx td.c{color:var(--green)}
+.mx td.o{width:30px;position:relative;padding:0 2px}
+.pm-dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--hi-solid);border:1.5px solid var(--hi-ink)}
+.mx td.gapcol{background:repeating-linear-gradient(135deg,transparent 0 5px,var(--red-w) 5px 8px)}
+.mx thead th.gaph{color:var(--red);font-weight:500}
+.mx tfoot td{font-family:var(--mono);font-size:10.5px;color:var(--pencil);padding:12px 2px;border-bottom:0}
+.mx .sep{border-left:1px solid var(--rule-strong)}
+.readout{min-height:1.6em;font-size:14.5px}
+.readout b{font-family:var(--mono);color:var(--hi-ink);font-weight:500;margin-right:6px}
+.keys{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--pencil);align-items:center}
+.keys i{display:inline-block;vertical-align:-2px;margin-right:6px}
+.sticky{justify-self:start;background:var(--hi-solid);color:#2a2410;font-family:var(--hand);font-size:21px;line-height:1.15;padding:10px 14px 12px;max-width:340px;transform:rotate(-1.5deg);box-shadow:0 6px 12px -8px rgba(0,0,0,.4)}
+
+@media (max-width:980px){
+  .layers,.trace{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .layer:nth-child(3){border-left:0}
+  .layer:nth-child(n+3){border-top-width:4px}
+  .layer .arrow{display:none}
+  .card:nth-child(3)::before{display:none}
+  .rules{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  .layers,.trace{grid-template-columns:1fr}
+  .layer+.layer{border-left:0}
+  .card+.card::before{content:"↓";left:14px;top:-26px;display:block!important}
+  .trace{gap:30px}
+}
+.more{margin:8px 0 0;font-size:13.5px;color:var(--pencil);font-style:italic}
+
+.sample-note{font-family:var(--hand);font-size:1.25rem;color:var(--red);margin:0 0 22px;max-width:70ch;line-height:1.35}
+.mx th.row button:focus-visible{outline:2.5px solid var(--blue);outline-offset:3px}
 </style>
 
 <a class="skip" href="#main">Skip to the page</a>
 <div class="layout">
 <main id="main" tabindex="-1">
 <div class="pagehead">
-  <div class="mono">Beeline · p. 6–7</div>
+  <div class="mono">Beeline · p. 4–7</div>
   <h1>Decisions and metrics</h1>
   <p class="lede">What the problem model led to: four trails from a fear, pain or barrier young people described to a decision that shipped, and the ladder of metrics that says whether any of it worked.</p>
   <div class="rolestrip">
@@ -246,13 +336,12 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
   </div>
   <div class="kicker"></div>
 </div>
-<p class="sample-note">A sample: two of the four trails, and the metric ladder behind them ↓</p>
+<p class="sample-note">A sample: three of the six fears, pains and barriers, two of the four trails, and the metric ladder behind them ↓</p>
 <nav class="subnav" aria-label="Beeline spreads">
   <a href="beeline.html">Overview</a>
   <a href="youth-voice.html">Youth Voice</a>
   <a href="discovery-game.html">Beeline Unplugged</a>
   <a href="beeline-landscape.html">Service Landscape</a>
-  <a href="beeline-problem.html">Problem Model</a>
   <a href="beeline-evidence.html" aria-current="page">Decisions &amp; Metrics</a>
   <a href="beeline-showtells.html">MVP Experience Curve</a>
 </nav>
@@ -261,7 +350,8 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
 
 
   <div class="tabs" role="tablist" aria-label="Beeline evidence views">
-    <button class="tab" role="tab" id="tab-trail" aria-controls="view-trail" aria-selected="true">Decision Trail <small>4 trails</small></button>
+    <button class="tab" role="tab" id="tab-trail" aria-controls="view-trail" aria-selected="true">Decision Trail <small>2 trails</small></button>
+    <button class="tab" role="tab" id="tab-problem" aria-controls="view-problem" aria-selected="false" tabindex="-1">Problem Model <small>3 of 6</small></button>
     <button class="tab" role="tab" id="tab-ladder" aria-controls="view-ladder" aria-selected="false" tabindex="-1">Metric Ladder <small>14 metrics</small></button>
   </div>
 
@@ -358,6 +448,51 @@ footer{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18p
     <div class="lm03-key"><span><i style="background:var(--blue)"></i>Explored two or more gateways</span>
       <span><i style="background:var(--rule)"></i>Narrowed to one</span>
       <span>Paired-gateway sessions, 6 July to 4 August 2026. Percentages rounded to the nearest five.</span></div>
+
+  <section id="view-problem" role="tabpanel" aria-labelledby="tab-problem" hidden>
+<div class="pm">
+  
+
+  <!-- 1. how to read it -->
+  <section aria-labelledby="read-h">
+    <div class="sec-h"><h2 id="read-h">How to read it</h2><span class="hand">one sentence, four layers</span></div>
+    <p class="sentence">Because a young person tells us <span class="w" style="--k:var(--red)">“I can’t see the link”</span>, and it’s <span class="w" style="--k:var(--ink)">Daniel, the Outcome-Focused</span>, who carries that fear, we ask <span class="w" style="--k:var(--green)">how might we separate exploring jobs from building a pathway?</span> We’ll know it’s resolved when he can say <span class="w" style="--k:var(--hi-ink)">“I can see how my hobbies connect to real jobs.”</span></p>
+    <div class="layers">
+      <div class="layer k-bar"><span class="arrow" aria-hidden="true">→</span><span class="n">6</span><b>Barriers</b><span class="ask">the fear, in their own words</span><p>Written in a young person’s voice, never ours, so we design against what they feel, not what we assume.</p><span class="src">From: landscape mapping</span></div>
+      <div class="layer k-per"><span class="arrow" aria-hidden="true">→</span><span class="n">5</span><b>Personas</b><span class="ask">who carries it</span><p>Different young people carry the same fear differently. One barrier can sit with two personas.</p><span class="src">From: user research</span></div>
+      <div class="layer k-chl"><span class="arrow" aria-hidden="true">→</span><span class="n">10</span><b>Challenges</b><span class="ask">how might we change it</span><p>“How might we…” questions that open a barrier up without jumping to a solution.</p><span class="src">From: design assurance</span></div>
+      <div class="layer k-out"><span class="n">24</span><b>Outcomes</b><span class="ask">what resolved looks like</span><p>“I can…” statements, numbered from first steps (1) to work-ready (24). They become the success measures.</p><span class="src">From: the Equalex framework</span></div>
+    </div>
+    <div class="rules">
+      <div><b>Every phase names a barrier</b><p>Each roadmap phase has to say which fear it moves before it’s planned in.</p></div>
+      <div><b>Every proposal traces to a challenge</b><p>New features have to answer one of the ten “how might we” questions.</p></div>
+      <div><b>Success is an “I can…”</b><p>A change counts as working when a young person can say the outcome, not when a page gets views.</p></div>
+    </div>
+  </section>
+
+  <!-- 2. follow one fear -->
+  <section aria-labelledby="follow-h">
+    <div class="sec-h"><h2 id="follow-h">Follow one fear, pain or barrier</h2><span class="hand">tap one — the layers below dim to what it reaches</span></div>
+    <div class="flay">
+      <div class="flay-band k-bar"><span class="flay-k">The fear<small>in their words</small></span><div class="flay-row" id="Lbar" role="group" aria-label="Choose a barrier"></div></div>
+      <div class="flay-band k-per"><span class="flay-k">Carried by<small>who it lands on</small></span><div class="flay-row" id="Lper"></div></div>
+      <div class="flay-band k-chl"><span class="flay-k">How might we<small>the challenge it opens</small></span><div class="flay-row" id="Lchl"></div></div>
+      <div class="flay-band k-out"><span class="flay-k">Resolved when<small>what they can say</small></span><div class="flay-row outs24" id="Lout"></div></div>
+    </div>
+    <p class="story" id="story" aria-live="polite"></p>
+  </section>
+
+  <!-- 3. whole system -->
+  <section aria-labelledby="sys-h">
+    <div class="sec-h"><h2 id="sys-h">See the whole system</h2><span class="hand">and where it has a gap</span></div>
+    <p class="lede muted" style="font-size:15.5px">Each row is a fear. Dots show which of the 24 “I can…” outcomes it resolves into. Reading down a column shows which fears share an outcome. Reading across shows how much a single fear has to move. Tap a row to follow it above; hover or focus a dot to read the outcome.</p>
+    <div class="keys"><span><i class="pm-dot"></i>links to this outcome</span><span><i style="width:14px;height:12px;background:repeating-linear-gradient(135deg,transparent 0 3px,var(--red-w) 3px 5px);border:1px solid var(--red)"></i>no fear traces here yet</span></div>
+    <div class="matrix-wrap"><table class="mx" id="mx"></table></div>
+    <p class="readout" id="readout" aria-live="polite"></p>
+    <div class="sticky">Outcome 6 has no fear pointing at it. That’s design assurance working: either a barrier is missing, or part of the service we haven’t mapped is doing the job.</div>
+  </section>
+</div>
+  </section>
   </div>
   <p class="sec-lede" style="margin-top:16px">A metric that comes back with a number you did not want is still the
     metric working. It named the problem the Discovery Quiz redesign is now aimed at, and it gave the board a baseline
@@ -597,18 +732,76 @@ function renderChecks(){
 }
 
 /* ---------- tabs ---------- */
+const TABS=["problem","trail","ladder"];
 function setTab(which){
-  const isT=which==="trail";
-  $("tab-trail").setAttribute("aria-selected",isT);$("tab-ladder").setAttribute("aria-selected",!isT);
-  $("tab-trail").tabIndex=isT?0:-1;$("tab-ladder").tabIndex=isT?-1:0;
-  $("view-trail").hidden=!isT;$("view-ladder").hidden=isT;
+  TABS.forEach(k=>{
+    const on=k===which;
+    $("tab-"+k).setAttribute("aria-selected",on);
+    $("tab-"+k).tabIndex=on?0:-1;
+    $("view-"+k).hidden=!on;
+  });
 }
-$("tab-trail").onclick=()=>setTab("trail");
-$("tab-ladder").onclick=()=>setTab("ladder");
+TABS.forEach(k=>{ $("tab-"+k).onclick=()=>setTab(k); });
 document.querySelector(".tabs").addEventListener("keydown",e=>{
-  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){const to=$("tab-trail").getAttribute("aria-selected")==="true"?"ladder":"trail";setTab(to);$("tab-"+to).focus()}
+  if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;
+  const i=TABS.findIndex(k=>$("tab-"+k).getAttribute("aria-selected")==="true");
+  const to=TABS[(i+(e.key==="ArrowRight"?1:TABS.length-1))%TABS.length];
+  setTab(to);$("tab-"+to).focus();
 });
 
 renderPicker();renderTrail();renderSummary();renderLadder();renderChecks();
+</script>
+<script>
+(function(){
+const BARRIERS=[
+ {id:1,q:"It’s not for people like me",p:["clare","sarah"],c:[1,6,10],o:[1,4,5,7,10,16]},
+ {id:2,q:"I can’t see the link",p:["daniel"],c:[2],o:[4,8,10,12,13,14,15],lead:8},
+ {id:5,q:"I’m stuck and left behind",p:["heather","dylan"],c:[4,5,7],o:[1,2,4,12,15,16,17,18,19,20,21,24]}
+];
+const P={sarah:["Sarah","the Uncertain Explorer"],daniel:["Daniel","the Outcome-Focused"],heather:["Heather","the Supported Sense-maker"],dylan:["Dylan","the Overwhelmed Explorer"],clare:["Clare","the Confident, Self-directed"]};
+const C={1:"redirect people through our services without them losing confidence or feeling dismissed",2:"separate exploring jobs from building a pathway, so the gateway pages stop being where the journey collapses",3:"support a journey that’s messy and non-linear, where exploring and deciding happen at the same time",4:"reduce what a young person has to hold in their head at any one point",5:"say what we’re obliged to say in far fewer words, without losing the meaning",6:"make it obvious that what a young person is reading is true and current",7:"make the Unplugged offline toolkits and the website hand off to each other properly",8:"support the adults around a young person, not only the young person",9:"help a young person see what they can now do that they couldn’t before",10:"make encounters with employers feel real and useful"};
+const O={1:"I know that jobs aren’t just for ‘certain types of people’ and my options aren’t limited by stereotypes.",2:"I know what I enjoy doing and what I’m naturally curious about.",3:"I can name a few different roles inside a company and explain what those people actually do every day.",4:"I know how to find out which industries are actually growing right now in Greater Manchester.",5:"I can look back at my experiences, see past the stereotypes, and aim wider for my career.",6:"I can name a few different jobs, even if I don’t know everything about what they do yet.",7:"I can describe the characteristics of the workplaces these jobs might take place in.",8:"I can see how my hobbies and interests might connect to real jobs in the future.",9:"I know which personal skills I need to work on (like communication) and how to start practising them.",10:"I can compare different places I’ve worked or visited to figure out which environment actually suits me best.",11:"I know what activities I actually enjoy doing and what I am curious to try next.",12:"I understand that there are thousands of jobs out there, and some haven’t even been created yet.",13:"I understand there are lots of different ways to work, like apprenticeships, T-Levels, or office vs. remote.",14:"I understand the different technical pathways available to me and how they actually differ.",15:"I can confidently compare different gateways and decide which next step is right for me.",16:"I know that I am just starting to figure out my skills, and that is okay.",17:"I know how to take feedback from an employer or mentor and use it to improve my plans.",18:"I can clearly explain what I learned from my work experiences, and how they changed my mind about what I want to do.",19:"I can clearly explain how my past experiences are helping me choose my next steps with confidence.",20:"I can point to real things I’ve done, inside or outside of school, to show I am building workplace skills.",21:"I can give examples of skills I have that workplaces need, like working well in a team or working online.",22:"I can complete a task set by an employer and easily spot the skills I used to get it done.",23:"I can show employers how I’ve used my skills in the real world.",24:"I can look back at my work experience and see how it helped me get ready for my career."};
+const $=id=>document.getElementById(id);
+let sel=2;
+const cap=s=>s[0].toUpperCase()+s.slice(1);
+const list=a=>a.length<2?a[0]:a.slice(0,-1).join(", ")+" and "+a[a.length-1];
+
+function layers(){
+  const b=sel?BARRIERS.find(x=>x.id===sel):null;
+  const dim=cond=>b&&!cond?" dim":"";
+  $("Lbar").innerHTML=BARRIERS.map(x=>
+    `<button type="button" class="it${x.id===sel?" on":""}" aria-pressed="${x.id===sel}" data-id="${x.id}"><span class="id">B${x.id}</span>\u201c${x.q}\u201d</button>`).join("");
+  $("Lbar").querySelectorAll("button").forEach(x=>x.onclick=()=>{sel=(sel===+x.dataset.id)?null:+x.dataset.id;render()});
+  $("Lper").innerHTML=Object.keys(P).map(k=>
+    `<div class="it${dim(b&&b.p.includes(k))}"><b>${P[k][0]}</b><span class="sub">${P[k][1]}</span></div>`).join("");
+  $("Lchl").innerHTML=Object.keys(C).map(n=>
+    `<div class="it${dim(b&&b.c.includes(+n))}"><span class="id">C${n}</span>${C[n]}?</div>`).join("");
+  const shown=(b?b.o:BARRIERS[0].o);
+  $("Lout").innerHTML=shown.map(n=>
+    `<div class="it"><span class="id">#${n}</span><span>${O[n]}</span></div>`).join("");
+  if(!b){ $("story").innerHTML="Three of the six fears, pains and barriers, the people who carry them, the challenges they open and the outcomes they resolve into. Tap one to follow it."; return; }
+  const lead=b.lead||[...b.o].sort((a,c)=>a-c)[0], names=b.p.map(k=>P[k][0]);
+  $("story").innerHTML=`Because a young person tells us \u201c${b.q}\u201d, and ${list(names)} carr${names.length>1?"y":"ies"} that fear, we ask how might we ${C[b.c[0]]}${b.c.length>1?` (and ${b.c.length-1} more)`:""}? It is resolved when they can say \u201c${O[lead]}\u201d`;
+}
+function renderMatrix(){
+  const linked=n=>BARRIERS.some(b=>b.o.includes(n));
+  const cols=[...Array(24)].map((_,i)=>i+1);
+  let h=`<thead><tr><th class="grp" colspan="3"></th><th class="grp sep" colspan="24" style="text-align:left;padding-left:8px">Outcomes · 1 first steps → 24 work-ready</th></tr>
+  <tr><th scope="col" style="text-align:left;padding-left:12px">Fear</th><th scope="col" style="text-align:left;padding-left:8px">Carried by</th><th scope="col" style="text-align:left;padding-left:8px">Challenges</th>${cols.map(n=>`<th scope="col" class="${n===1?"sep ":""}${linked(n)?"":"gaph"}">${n}</th>`).join("")}</tr></thead><tbody>`;
+  BARRIERS.forEach(b=>{
+    h+=`<tr class="${b.id===sel?"on":""}"><th scope="row" class="row"><button type="button" data-id="${b.id}" aria-label="Follow barrier ${b.id}: ${b.q}"><small>B${b.id}</small>“${b.q}”</button></th>
+      <td class="p">${b.p.map(k=>P[k][0]).join(", ")}</td><td class="c">${b.c.map(n=>"C"+n).join(" ")}</td>
+      ${cols.map(n=>`<td class="o${n===1?" sep":""}${linked(n)?"":" gapcol"}">${b.o.includes(n)?`<span class="pm-dot" tabindex="0" role="img" data-o="${n}" data-b="${b.id}" aria-label="B${b.id} resolves into outcome ${n}: ${O[n]}"></span>`:""}</td>`).join("")}</tr>`;
+  });
+  h+=`</tbody><tfoot><tr><td colspan="3" style="text-align:left;padding-left:12px">Fears per outcome</td>${cols.map(n=>`<td class="${n===1?"sep":""}">${BARRIERS.filter(b=>b.o.includes(n)).length||"–"}</td>`).join("")}</tr></tfoot>`;
+  $("mx").innerHTML=h;
+  $("mx").querySelectorAll("th.row button").forEach(x=>x.onclick=()=>{sel=+x.dataset.id;render();$("follow-h").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})});
+  const show=e=>{const d=e.target.closest(".pm-dot");if(!d)return;const n=+d.dataset.o,shared=BARRIERS.filter(b=>b.o.includes(n)).map(b=>"B"+b.id);$("readout").innerHTML=`<b>#${n}</b>${O[n]} <span class="muted">· shared by ${shared.join(", ")}</span>`};
+  $("mx").onmouseover=show;$("mx").onfocusin=show;
+}
+function render(){layers();renderMatrix()}
+render();
+$("readout").innerHTML=`<b>#6</b>${O[6]} <span class="muted">· no fear points here yet</span>`;
+})();
 </script>
 </html>
