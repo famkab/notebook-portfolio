@@ -84,7 +84,7 @@ h2{font-family:var(--serif);font-weight:500;font-size:clamp(24px,2.8vw,32px);lin
 .step:last-child .rail::before{height:14px;bottom:auto}
 .step .dot{position:relative;z-index:1;margin-top:3px;width:22px;height:22px;border-radius:50%;background:var(--surface);border:2.5px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--muted)}
 .step.on .dot{border-color:var(--k);background:var(--k);color:var(--surface)}
-.step.skip{opacity:.38}
+.step.st-off{opacity:.38}
 .step .b{padding-bottom:16px;display:grid;gap:4px}
 .step .t{font-weight:700;font-size:15px;display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
 .step .t .tag{font-family:var(--mono);font-size:10.5px;font-weight:500;border-radius:999px;padding:1px 8px;background:var(--sunk);color:var(--muted)}
@@ -294,7 +294,7 @@ function renderPipe(){
     const body = cls==="s-out"
       ? `<div class="child" style="--band:${b[1]};--band-soft:${b[2]}">${meterSVG(r.score,b[1])}<div><div class="sc">Learning Meter · ${r.score}/100</div><div class="fb">${r.fb}</div></div></div>`
       : `${d?`<p class="d">${d}</p>`:""}${io?`<div class="io">${io}</div>`:""}`;
-    return `<div class="step ${cls} ${on?"on":"skip"}"><div class="rail"><span class="dot">${n}</span></div><div class="b"><div class="t">${t}${tag?`<span class="tag">${tag}</span>`:""}</div>${body}</div></div>`;
+    return `<div class="step ${cls} ${on?"on":"st-off"}"><div class="rail"><span class="dot">${n}</span></div><div class="b"><div class="t">${t}${tag?`<span class="tag">${tag}</span>`:""}</div>${body}</div></div>`;
   }).join("") + (a.why&&mode==="early"?`<p class="trade" style="margin:4px 0 0">${a.why}</p>`:"");
 }
 function setMode(m){
